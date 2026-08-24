@@ -10,9 +10,70 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_24_125429) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_24_134032) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.string "address"
+    t.string "category"
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.date "end_date"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "name"
+    t.text "notes"
+    t.date "start_date"
+    t.bigint "trip_day_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["trip_day_id"], name: "index_activities_on_trip_day_id"
+  end
+
+  create_table "chats", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "status"
+    t.text "system_prompt"
+    t.string "title"
+    t.bigint "trip_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["trip_id"], name: "index_chats_on_trip_id"
+    t.index ["user_id"], name: "index_chats_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.bigint "chat_id", null: false
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.string "role"
+    t.datetime "updated_at", null: false
+    t.index ["chat_id"], name: "index_messages_on_chat_id"
+  end
+
+  create_table "trip_days", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.date "end_date"
+    t.string "map"
+    t.string "name"
+    t.date "start_date"
+    t.bigint "trip_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["trip_id"], name: "index_trip_days_on_trip_id"
+  end
+
+  create_table "trips", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.string "destination"
+    t.integer "group_size"
+    t.string "name"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.string "vibe"
+    t.index ["user_id"], name: "index_trips_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -25,4 +86,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_24_125429) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
+  add_foreign_key "activities", "trip_days"
+  add_foreign_key "chats", "trips"
+  add_foreign_key "chats", "users"
+  add_foreign_key "messages", "chats"
+  add_foreign_key "trip_days", "trips"
+  add_foreign_key "trips", "users"
 end
