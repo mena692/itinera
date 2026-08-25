@@ -7,3 +7,30 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+User.create!(
+  email:
+  encrypted_password:
+)
+
+Trip.create!(
+  name:
+  description:
+  destination:
+  group_size:
+  vibe:
+  user_id:
+)
+
+Activity.create!(
+  name:
+  description:
+  start_date:
+  end_date:
+  notes:
+  category:
+  latitude:
+  longitude:
+  address:
+  trip_day_id:
+)
