@@ -1,0 +1,9 @@
+<h1><%= @trip.name %></h1>
+<h2><%= @trip.description %></h2>
+<%= @trip_day.name %>
+<ol>
+<% @trip_days.each do |t| %>
+  <li><strong><%= t.name %></strong> - <em><%= t.description %></em></li>
+  <br>
+<% end %>
+</ol>
