@@ -1,30 +1,95 @@
-// Itinera color system
+// ======================================================
+// ITINERA COLOR SYSTEM
+// ======================================================
+
+// Base colors
+
+$dark-blue: #0A1230;
+$navy: #141E42;
+$light-navy: #1E2A58;
+
+$blue: #3155E7;
+$light-blue: #7B8FF5;
+
+$white: #F2F5FF;
+$pure-white: #FFFFFF;
+$gray-blue: #9AA6CA;
+$light-gray-blue: #7E8AA8;
+
+$border: #28345C;
+$strong-border: #3A477A;
+
+$green: #6FD79B;
+$red: #FF6B6B;
+
+
+// COLOR USAGE
+
 
 // Surfaces
-$color-background: #0A1230;
-$color-surface: #141E42;
-$color-surface-elevated: #1E2A58;
+
+// Main dark background used across the application
+$color-background: $dark-blue;
+
+// Background used for cards, forms and navbar
+$color-surface: $navy;
+
+// Background used for selected or highlighted elements
+$color-surface-highlight: $light-navy;
+
 
 // Brand
-$color-primary: #3155E7;
-$color-primary-text: #FFFFFF;
-$color-primary-muted: #7B8FF5;
+
+// Main Itinera blue used for buttons, links and active elements
+$color-primary: $blue;
+
+// Text displayed on primary blue buttons
+$color-primary-text: $pure-white;
+
+// Lighter blue used for disabled elements
+$color-primary-disabled: $light-blue;
+
 
 // Text
-$color-text: #F2F5FF;
-$color-text-secondary: #9AA6CA;
-$color-text-muted: #7E8AA8;
+
+// Main text used for headings and important content
+$color-text: $white;
+
+// Secondary text used for descriptions and supporting information
+$color-text-secondary: $gray-blue;
+
+// Lighter text used for less important information
+$color-text-light: $light-gray-blue;
+
 
 // Borders
-$color-border: #28345C;
-$color-border-strong: #3A477A;
+
+// Standard border used around cards and inputs
+$color-border: $border;
+
+// Stronger border used for selected or highlighted elements
+$color-border-strong: $strong-border;
+
 
 // Inputs
-$color-input-bg: #141E42;
-$color-input-border: #28345C;
-$color-input-focus: #7B8FF5;
-$color-input-placeholder: #7E8AA8;
+
+// Background color of form inputs
+$color-input-bg: $navy;
+
+// Default border around form inputs
+$color-input-border: $border;
+
+// Border color when an input is selected or focused
+$color-input-focus: $light-blue;
+
+// Placeholder text inside empty inputs
+$color-input-placeholder: $light-gray-blue;
+
 
 // Status
-$color-success: #6FD79B;
-$color-error: #FF6B6B;
+
+// Used for successful actions and confirmations
+$color-success: $green;
+
+// Used for errors and validation problems
+$color-error: $red;
