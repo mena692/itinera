@@ -1,0 +1,74 @@
+// Itinera base styling
+
+// Main page
+body {
+  background-color: $color-background;
+  color: $color-text;
+  font-family: $body-font;
+}
+
+// Headings
+// Headings
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $color-text;
+  font-family: $headers-font;
+}
+
+// Main page titles
+// Example: "Your trips", "Japan, 7 nights"
+h1 {
+  font-size: 32px;
+  font-weight: 800;
+}
+
+// Section titles
+// Example: "Where to?", "Let's get you started"
+h2 {
+  font-size: 27px;
+  font-weight: 800;
+}
+
+// Card and content section titles
+// Example: trip day titles or activity sections
+h3 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+// Smaller card titles
+// Example: activity names
+h4 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+// Small section headings
+// Example: form or information group headings
+h5 {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+// Smallest headings
+// Example: secondary labels or minor grouped content
+h6 {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+// Paragraphs
+p {
+  color: $color-text;
+}
+
+// Main application container
+.app-container {
+  width: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+}
