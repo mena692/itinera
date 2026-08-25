@@ -1,10 +1,30 @@
-// Define variables for your color scheme
+// Itinera color system
 
-// For example:
-$red: #FD1015;
-$blue: #0D6EFD;
-$yellow: #FFC65A;
-$orange: #E67E22;
-$green: #1EDD88;
-$gray: #0E0000;
-$light-gray: #F4F4F4;
+// Surfaces
+$color-background: #0A1230;
+$color-surface: #141E42;
+$color-surface-elevated: #1E2A58;
+
+// Brand
+$color-primary: #3155E7;
+$color-primary-text: #FFFFFF;
+$color-primary-muted: #7B8FF5;
+
+// Text
+$color-text: #F2F5FF;
+$color-text-secondary: #9AA6CA;
+$color-text-muted: #7E8AA8;
+
+// Borders
+$color-border: #28345C;
+$color-border-strong: #3A477A;
+
+// Inputs
+$color-input-bg: #141E42;
+$color-input-border: #28345C;
+$color-input-focus: #7B8FF5;
+$color-input-placeholder: #7E8AA8;
+
+// Status
+$color-success: #6FD79B;
+$color-error: #FF6B6B;
