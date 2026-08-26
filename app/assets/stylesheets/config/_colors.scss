@@ -1,10 +1,95 @@
-// Define variables for your color scheme
+// ======================================================
+// ITINERA COLOR SYSTEM
+// ======================================================
 
-// For example:
-$red: #FD1015;
-$blue: #0D6EFD;
-$yellow: #FFC65A;
-$orange: #E67E22;
-$green: #1EDD88;
-$gray: #0E0000;
-$light-gray: #F4F4F4;
+// Base colors
+
+$dark-blue: #0A1230;
+$navy: #141E42;
+$light-navy: #1E2A58;
+
+$blue: #3155E7;
+$light-blue: #7B8FF5;
+
+$white: #F2F5FF;
+$pure-white: #FFFFFF;
+$gray-blue: #9AA6CA;
+$light-gray-blue: #7E8AA8;
+
+$border: #28345C;
+$strong-border: #3A477A;
+
+$green: #6FD79B;
+$red: #FF6B6B;
+
+
+// COLOR USAGE
+
+
+// Surfaces
+
+// Main dark background used across the application
+$color-background: $dark-blue;
+
+// Background used for cards, forms and navbar
+$color-surface: $navy;
+
+// Background used for selected or highlighted elements
+$color-surface-highlight: $light-navy;
+
+
+// Brand
+
+// Main Itinera blue used for buttons, links and active elements
+$color-primary: $blue;
+
+// Text displayed on primary blue buttons
+$color-primary-text: $pure-white;
+
+// Lighter blue used for disabled elements
+$color-primary-disabled: $light-blue;
+
+
+// Text
+
+// Main text used for headings and important content
+$color-text: $white;
+
+// Secondary text used for descriptions and supporting information
+$color-text-secondary: $gray-blue;
+
+// Lighter text used for less important information
+$color-text-light: $light-gray-blue;
+
+
+// Borders
+
+// Standard border used around cards and inputs
+$color-border: $border;
+
+// Stronger border used for selected or highlighted elements
+$color-border-strong: $strong-border;
+
+
+// Inputs
+
+// Background color of form inputs
+$color-input-bg: $navy;
+
+// Default border around form inputs
+$color-input-border: $border;
+
+// Border color when an input is selected or focused
+$color-input-focus: $light-blue;
+
+// Placeholder text inside empty inputs
+$color-input-placeholder: $light-gray-blue;
+
+
+// Status
+
+// Used for successful actions and confirmations
+$color-success: $green;
+
+// Used for errors and validation problems
+$color-error: $red;

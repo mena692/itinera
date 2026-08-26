@@ -1,0 +1,22 @@
+// Itinera cards
+
+.card-itinera {
+  background-color: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: none;
+}
+
+// Card title
+.card-itinera-title {
+  color: $color-text;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+// Card text
+.card-itinera-text {
+  color: $color-text-secondary;
+  margin-bottom: 0;
+}
