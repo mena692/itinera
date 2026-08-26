@@ -1,36 +1,97 @@
-<h2>Let's get you started</h2>
-<p>five fields and you’re ready to go!</p>
+<div
+  class="signup-container"
+  data-controller="reveal-password"
+>
+  <h2>Let's get you started</h2>
+  <h6 class="subtitle">three fields and you’re ready to go!</h6>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= f.error_notification %>
+  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= f.error_notification %>
 
-<div class="form-inputs">
-  <div class="d-flex names">
-    <%= f.input :first_name,
-                required: true,
-                autofocus: true %>
+    <div class="profile-photo" data-controller="photo-preview">
 
-    <%= f.input :last_name,
-                required: true %>
+      <label
+        for="photo-input"
+        class="photo-circle"
+        data-photo-preview-target="preview"
+      >
+        <span class="add-photo">Add a photo</span>
+      </label>
+
+      <%= f.input :photo,
+                  as: :file,
+                  label: false,
+                  input_html: {
+                    id: "photo-input",
+                    class: "d-none",
+                    accept: "image/*",
+                    data: {
+                      photo_preview_target: "input",
+                      action: "change->photo-preview#preview"
+                    }
+                  } %>
+
+    </div>
+
+    <div class="form-inputs">
+
+      <div class="d-flex names gap-3">
+
+        <%= f.input :first_name,
+                    required: true,
+                    autofocus: true,
+                    input_html: {
+                      placeholder: "John"
+                    } %>
+
+        <%= f.input :last_name,
+                    required: true,
+                    input_html: {
+                      placeholder: "Doe"
+                    } %>
+
+      </div>
+
+      <%= f.input :email,
+                  required: true,
+                  input_html: {
+                    autocomplete: "email",
+                    placeholder: "john.doe@example.com"
+                  } %>
+
+      <div class="password-container">
+
+        <%= f.input :password,
+                    required: true,
+                    hint: ("At least #{@minimum_password_length} characters, including 1 number" if @minimum_password_length),
+                    input_html: {
+                      autocomplete: "new-password",
+                      id: "user_password",
+                      placeholder: "••••••",
+                      data: {
+                        "reveal-password-target": "input"
+                      }
+                    } %>
+        <span class="show-password clickable" data-action="click->reveal-password#reveal">
+
+          Show
+        </span>
+
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit,
+                   "Create an account",
+                   class: "btn-itinera-primary w-100" %>
+    </div>
+
+  <% end %>
+
+  <div class="login-link">
+    <span class="before-clickable">Already have an account?</span>
+    <%= link_to "Log in",
+                new_session_path(resource_name),
+                class: "clickable" %>
   </div>
-
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "email" }%>
-  <div class="password-container">
-    <%= f.input :password,
-                required: true,
-                hint: ("At least #{@minimum_password_length} characters, including 1 number" if @minimum_password_length),
-                input_html: {
-                  autocomplete: "new-password",
-                  id: "user_password"
-                } %>
-  <span id="show-password">Show</span>
 </div>
-  <div class="form-actions">
-    <%= f.button :submit, "Create an account" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
