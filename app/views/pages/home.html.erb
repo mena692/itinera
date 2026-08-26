@@ -1,2 +1,185 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="landing-page"
+     data-controller="landing"
+     data-action="touchstart->landing#touchStart touchend->landing#touchEnd">
+
+  <!-- Splash screen -->
+  <section class="splash-screen" data-landing-target="splash">
+    <div class="splash-content">
+      <%= image_tag "itinera-logo.svg", class: "splash-logo", alt: "Itinera" %>
+      <p class="splash-tagline">travel redefined.</p>
+    </div>
+  </section>
+
+
+  <!-- Landing slides -->
+  <div class="landing-slides d-none" data-landing-target="content">
+
+    <!-- Slide 1 -->
+    <section class="landing-slide" data-landing-target="slide">
+
+      <div class="landing-header">
+        <%= image_tag "itinera-logo.svg", class: "landing-logo", alt: "Itinera" %>
+      </div>
+
+      <div class="landing-carousel">
+        <!-- Lisbon carousel content goes here -->
+      </div>
+
+      <div class="landing-content">
+
+        <p class="landing-step">1 / 3</p>
+
+        <h1>
+          say it in a sentence,<br>
+          get a whole trip
+        </h1>
+
+        <p class="landing-description">
+          “four days in lisbon, mostly food and walking” is a complete brief.
+          itinera turns it into timed days you can actually follow.
+        </p>
+
+        <div class="landing-progress">
+          <button class="progress-item active"
+                  data-action="click->landing#goToSlide"
+                  data-slide="0">
+          </button>
+
+          <button class="progress-item"
+                  data-action="click->landing#goToSlide"
+                  data-slide="1">
+          </button>
+
+          <button class="progress-item"
+                  data-action="click->landing#goToSlide"
+                  data-slide="2">
+          </button>
+        </div>
+
+        <div class="landing-actions">
+          <button class="btn-itinera-primary landing-button">
+            create an account →
+          </button>
+
+          <button class="btn-itinera-secondary landing-button">
+            log in
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- Slide 2 -->
+    <section class="landing-slide d-none" data-landing-target="slide">
+
+      <div class="landing-header">
+        <%= image_tag "itinera-logo.svg", class: "landing-logo", alt: "Itinera" %>
+      </div>
+
+      <div class="landing-carousel">
+        <!-- Route and timing carousel content goes here -->
+      </div>
+
+      <div class="landing-content">
+
+        <p class="landing-step">2 / 3</p>
+
+        <h1>
+          every day<br>
+          walks properly
+        </h1>
+
+        <p class="landing-description">
+          stops are ordered by travel time, not by list order.
+          you see the walk, the train and the gap before you commit to a day.
+        </p>
+
+        <div class="landing-progress">
+          <button class="progress-item"
+                  data-action="click->landing#goToSlide"
+                  data-slide="0">
+          </button>
+
+          <button class="progress-item active"
+                  data-action="click->landing#goToSlide"
+                  data-slide="1">
+          </button>
+
+          <button class="progress-item"
+                  data-action="click->landing#goToSlide"
+                  data-slide="2">
+          </button>
+        </div>
+
+        <div class="landing-actions">
+          <button class="btn-itinera-primary landing-button">
+            create an account →
+          </button>
+
+          <button class="btn-itinera-secondary landing-button">
+            log in
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- Slide 3 -->
+    <section class="landing-slide d-none" data-landing-target="slide">
+
+      <div class="landing-header">
+        <%= image_tag "itinera-logo.svg", class: "landing-logo", alt: "Itinera" %>
+      </div>
+
+      <div class="landing-carousel">
+        <!-- Trip editing carousel content goes here -->
+      </div>
+
+      <div class="landing-content">
+
+        <p class="landing-step">3 / 3</p>
+
+        <h1>
+          change your mind<br>
+          mid-trip
+        </h1>
+
+        <p class="landing-description">
+          ask for a lighter morning or a cheaper dinner and the day reflows around it.
+          your edits always win over the draft.
+        </p>
+
+        <div class="landing-progress">
+          <button class="progress-item"
+                  data-action="click->landing#goToSlide"
+                  data-slide="0">
+          </button>
+
+          <button class="progress-item"
+                  data-action="click->landing#goToSlide"
+                  data-slide="1">
+          </button>
+
+          <button class="progress-item active"
+                  data-action="click->landing#goToSlide"
+                  data-slide="2">
+          </button>
+        </div>
+
+        <div class="landing-actions">
+          <button class="btn-itinera-primary landing-button">
+            create an account →
+          </button>
+
+          <button class="btn-itinera-secondary landing-button">
+            log in
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+</div>
