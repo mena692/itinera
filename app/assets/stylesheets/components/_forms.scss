@@ -39,3 +39,11 @@
 .invalid-feedback {
   color: $color-error;
 }
+
+.form-control:-webkit-autofill,
+.form-control:-webkit-autofill:hover,
+.form-control:-webkit-autofill:focus {
+  -webkit-text-fill-color: $color-text;
+  -webkit-box-shadow: 0 0 0px 1000px $color-input-bg inset;
+  box-shadow: 0 0 0px 1000px $color-input-bg inset;
+}

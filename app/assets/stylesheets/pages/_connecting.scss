@@ -1,0 +1,110 @@
+.signup-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  margin-right: 20px;
+  position: relative;
+  padding-top: 60px;
+}
+
+// Profile photo
+
+.profile-photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 24px 0;
+}
+
+.photo-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  margin-bottom: 10px;
+  margin-top: -10px;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.add-photo {
+  cursor: pointer;
+  text-align: center;
+}
+// Login link
+
+.login-link {
+  margin-top: auto;
+  text-align: center;
+  padding: 20px 0;
+}
+
+// Password
+
+.password-container {
+  position: relative;
+}
+
+.password-container .form-control {
+  padding-right: 60px;
+}
+
+.show-password {
+  position: absolute;
+  right: 15px;
+  top: 45px;
+  cursor: pointer;
+}
+
+//subtitle
+
+.subtitle {
+  color: $gray-blue;
+  margin-bottom: 20px;
+}
+
+//links
+
+a {
+  text-decoration: none;
+}
+
+.clickable {
+  color: #9FB0FF;
+}
+
+.before-clickable {
+  color: #9AA6C4;
+}
+
+// Login options
+
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .form-check {
+    margin: 0;
+  }
+
+  .form-check-input {
+    margin-top: 0;
+  }
+
+  .clickable {
+    margin: 0;
+  }
+}
