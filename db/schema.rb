@@ -81,11 +81,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_26_102631) do
 
   create_table "trip_days", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.date "date"
     t.text "description"
-    t.date "end_date"
-    t.string "map"
     t.string "name"
-    t.date "start_date"
     t.bigint "trip_id", null: false
     t.datetime "updated_at", null: false
     t.index ["trip_id"], name: "index_trip_days_on_trip_id"
