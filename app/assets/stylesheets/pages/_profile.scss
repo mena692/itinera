@@ -2,7 +2,7 @@
 
 .profile-page {
   min-height: 100vh;
-  padding: 24px 20px 110px;
+  padding: 24px 30px 110px;
 }
 
 .profile-header {
@@ -137,6 +137,7 @@
   font-weight: 700;
 }
 
+
 // PROFILE - EDIT
 
 .profile-edit-page {
@@ -159,17 +160,8 @@
   font-weight: 700;
 }
 
-.profile-save-top {
-  justify-self: end;
-  background: none;
-  border: none;
-  padding: 0;
-  font: inherit;
-  cursor: pointer;
-  color: $color-link;
-  text-decoration: none;
-  font-weight: 700;
-}
+
+// PHOTO
 
 .profile-edit-photo {
   text-align: center;
@@ -177,9 +169,9 @@
 }
 
 .profile-edit-avatar {
-  width: 120px;
-  height: 120px;
-  margin: 0 auto 16px;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 12px;
   border-radius: 50%;
   border: 2px solid $color-border;
   overflow: hidden;
@@ -197,9 +189,36 @@
   cursor: pointer;
 }
 
+
+// FORM
+
 .profile-edit-form {
   margin-top: 8px;
+
+  .form-label {
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+
+  .form-control {
+    font-size: 14px !important;
+    padding: 10px 12px !important;
+  }
+
+  .form-group {
+    margin-bottom: 14px;
+  }
 }
+
+.profile-first-name-fields,
+.profile-last-name-fields {
+  .form-control {
+    font-size: 14px !important;
+  }
+}
+
+
+// EMAIL
 
 .profile-email-field {
   position: relative;
@@ -207,32 +226,56 @@
   .verified-badge {
     position: absolute;
     right: 14px;
-    bottom: 14px;
+    bottom: 13px;
+  }
+
+  .form-control {
+    padding-right: 80px !important;
   }
 }
+
+
+// PASSWORD
+
+.password-container {
+  position: relative;
+
+  .form-control {
+    padding-right: 60px !important;
+  }
+}
+
+.show-password {
+  font-size: 12px;
+}
+
+
+// SAVE
 
 .profile-save-button {
   width: 100%;
   margin-top: 8px;
 }
 
+
+// DELETE
+
 .profile-delete-button {
   display: block;
   margin-top: 14px;
   padding: 13px 20px;
-
   background-color: $color-error;
   color: white;
-
   border: none;
   border-radius: 12px;
-
   font-weight: 700;
 }
 
+
+// OVERRIDES
+
 .profile-edit-page .form-control {
   background-image: none !important;
-  padding-right: 16px !important;
 }
 
 .profile-edit-page .password-container .form-control {
