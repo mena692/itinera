@@ -1,15 +1,10 @@
 class ChatsController < ApplicationController
-  def new
-    @chat = Chat.new
-  end
+  def show
+    @trip = Trip.find(params[:trip_id])
+    @chat = @trip.chats.find(params[:id])
 
-  def create
-    @chat = Chat.new(title: Chat::DEFAULT_TITLE)
-    @chat.user = current_user
-    if @chat.save
-      redirect_to chat_path(@chat)
-    else
-      render "chats/show"
-    end
+    authorize @chat
+
+    @message = Message.new
   end
 end
