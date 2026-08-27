@@ -6,7 +6,7 @@ class Trip < ApplicationRecord
 
   validates :destination, presence: true
 
-  attr_accessor :start_date, :end_date, :dates_flexible
+  attr_accessor :start_date, :end_date
 
   def first_day
     trip_days.minimum(:date)
