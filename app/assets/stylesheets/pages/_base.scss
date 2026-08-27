@@ -66,6 +66,13 @@ p {
   color: $color-text;
 }
 
+// Muted subtitle shown under a page's h1
+// Example: "ready for your next adventure?"
+.page-subtitle {
+  margin-top: -4px;
+  color: $color-text-secondary;
+}
+
 // Main application container
 .app-container {
   width: 100%;
