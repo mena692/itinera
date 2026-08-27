@@ -1,0 +1,19 @@
+<% if @trips.blank? %>
+
+  <div class="empty-trips">
+    <i class="fa-solid fa-suitcase"></i>
+    <h3>No trips yet</h3>
+    <p>Start planning your first trip.</p>
+
+    <%= link_to "Create a trip", new_trip_path, class: "btn-itinera-primary" %>
+  </div>
+
+<% else %>
+
+  <div class="trips-list">
+    <% @trips.each do |trip| %>
+      <!-- ta carte trip -->
+    <% end %>
+  </div>
+
+<% end %>
