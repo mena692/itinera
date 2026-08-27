@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="60" viewBox="0 0 120 60" fill="none">
+  <title>Itinera wave pattern — seamless tile</title>
+  
+  <g stroke="#1E2A58" stroke-width="5" stroke-linecap="round" fill="none">
+    <path d="M0 16C7.5 9 22.5 9 30 16S52.5 23 60 16S82.5 9 90 16S112.5 23 120 16"></path>
+    <path d="M0 46C7.5 53 22.5 53 30 46S52.5 39 60 46S82.5 53 90 46S112.5 39 120 46"></path>
+  </g>
+</svg>
