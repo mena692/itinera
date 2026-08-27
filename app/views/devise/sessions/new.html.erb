@@ -1,20 +1,78 @@
-<h2>Log in</h2>
+<div
+  class="signup-container"
+  data-controller="reveal-password"
+>
 
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: false,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
-    <%= f.input :password,
-                required: false,
-                input_html: { autocomplete: "current-password" } %>
-    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+  <h2>Welcome back</h2>
+  <h6 class="subtitle">your trips and where you left them.</h6>
+
+  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+    <div class="form-inputs">
+
+      <%= f.input :email,
+                  required: false,
+                  autofocus: true,
+                  placeholder: "john.doe@example.com",
+                  input_html: {
+                    autocomplete: "email"
+                  } %>
+
+      <div class="password-container">
+
+        <%= f.input :password,
+                    required: false,
+                    placeholder: "••••••",
+                    input_html: {
+                      autocomplete: "current-password",
+                      data: {
+                        "reveal-password-target": "input"
+                      }
+                    } %>
+
+        <span
+          class="show-password clickable" data-reveal-password-target="toggle"
+          data-action="click->reveal-password#reveal"
+        >
+          Show
+        </span>
+
+      </div>
+
+      <div class="login-options">
+
+        <% if devise_mapping.rememberable? %>
+          <div class="form-check">
+            <%= f.check_box :remember_me, class: "form-check-input" %>
+
+            <%= f.label :remember_me,
+                        "Keep me signed in",
+                        class: "form-check-label" %>
+          </div>
+        <% end %>
+
+        <%= link_to "forgot?",
+                    new_password_path(resource_name),
+                    class: "clickable" %>
+
+      </div>
+
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit,
+                   "Log in",
+                   class: "btn-itinera-primary w-100" %>
+    </div>
+
+  <% end %>
+
+  <div class="login-link">
+    <span class="before-clickable">New here?</span>
+
+    <%= link_to "Create an account",
+                new_registration_path(resource_name),
+                class: "clickable" %>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Log in" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

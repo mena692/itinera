@@ -5,4 +5,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :trips, dependent: :destroy
   has_many :chats, dependent: :destroy
+  has_one_attached :photo
+
+  validates :password,
+            format: {
+              with: /\A(?=.*\d).+\z/,
+              message: "must contain at least one number"
+            },
+            if: -> { password.present? }
 end
