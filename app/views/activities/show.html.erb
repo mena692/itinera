@@ -1,0 +1,13 @@
+<h1><%= @activity.name %></h1>
+<span class="activity-card__chip"><%= @activity.category %></span>
+
+
+<p><%= @activity.start_date.strftime("%H:%M") %> · <%= @activity.formatted_duration %></p>
+<p><%= @activity.address %></p>
+<p><%= @activity.description %></p>
+
+
+<div class="trip-actions">
+ <%= link_to "edit", edit_activity_path(@activity), class: "btn-itinera-secondary" %>
+ <%= link_to "back", trip_path(@activity.trip_day.trip), class: "btn-itinera-primary" %>
+</div>

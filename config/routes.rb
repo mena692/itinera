@@ -15,5 +15,5 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   resources :trips, only: :show
-
+  resources :activities, only: [:show, :edit, :update, :destroy]
 end

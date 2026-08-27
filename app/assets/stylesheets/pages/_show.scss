@@ -24,3 +24,14 @@
 .map-marker--active {
   color: $color-success;
 }
+
+.trip-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+
+  .btn-itinera-primary,
+  .btn-itinera-secondary {
+    flex: 1;
+  }
+}
