@@ -1,9 +1,62 @@
-<h1><%= @trip.name %></h1>
-<h2><%= @trip.description %></h2>
-<%= @trip_day.name %>
-<ol>
-<% @trip_days.each do |t| %>
-  <li><strong><%= t.name %></strong> - <em><%= t.description %></em></li>
-  <br>
+<% content_for :head do %>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.28.1/mapbox-gl.css" rel="stylesheet">
 <% end %>
-</ol>
+
+<h1><%= @trip.name %></h1>
+<p>20-27 Aug 2026 • <%= @trip_days.count %> days</p>
+
+<div class="day-tabs" data-controller="day-tabs">
+  <ul class="day-tabs__list">
+    <% @trip_days.each_with_index do |t, index| %>
+      <li class="day-tabs__item">
+        <a href="?day=<%= index + 1 %>"
+           class="day-tab <%= 'day-tab--active' if (params[:day] || '1').to_i == index + 1 %>">
+          <span class="day-tab__title">Day <%= index + 1 %> · <%= t.name %></span>
+          <span class="day-tab__subtitle"><%= t.description %></span>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+
+<div id="trip-map"
+     data-controller="map"
+     data-map-access-token-value="<%= ENV["MAPBOX_ACCESS_TOKEN"] %>"
+     data-map-stops-value="<%= @activities.select { |a| a.latitude.present? && a.longitude.present? }
+                                           .map { |a| { lat: a.latitude, lng: a.longitude, name: a.name, address: a.address } }
+                                           .to_json %>">
+</div>
+
+
+
+<h3>daily activities</h3>
+<p><%= @trip_day.date.strftime("%A, %b %d") %></p>
+<p><%= @activities.count %> stops</p>
+<hr width="100%" size="2">
+
+<% @activities.each do |a| %>
+  <div class="activity-row">
+    <div class="activity-time"><%= a.start_date.strftime("%H:%M") %></div>
+
+    <div class="activity-card">
+      <img class="activity-card__thumb" src="" alt="<%= a.name %>" />
+
+      <div class="activity-card__content">
+        <div class="activity-card__header">
+          <h3 class="activity-card__title"><%= a.name %></h3>
+          <button class="activity-card__menu" aria-label="More options">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+
+        <p class="activity-card__duration"><%= a.formatted_duration %></p>
+
+        <span class="activity-card__chip"><%= a.category %></span>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<a href="" class="btn-itinera-secondary">+ add activity</a>
+<a href="" class="btn-itinera-primary">ask itinera</a>
