@@ -1,0 +1,283 @@
+// PROFILE - SHOW
+
+.profile-page {
+  min-height: 100vh;
+  padding: 24px 30px 110px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+
+  h3 {
+    margin: 0;
+  }
+}
+
+.profile-edit-link {
+  color: $color-link;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.profile-identity {
+  text-align: center;
+  margin-bottom: 32px;
+
+  h1 {
+    margin: 16px 0 4px;
+    font-size: 28px;
+  }
+
+  p {
+    margin: 0;
+    color: $color-text-secondary;
+  }
+}
+
+.profile-avatar {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto;
+  border-radius: 50%;
+  border: 2px solid $color-border;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-account {
+  margin-bottom: 20px;
+
+  h3 {
+    color: $color-text;
+    font-size: 14px;
+    text-transform: lowercase;
+    margin: 0 0 8px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid $color-primary;
+  }
+}
+
+.profile-info {
+  padding: 0;
+  overflow: hidden;
+}
+
+.profile-info-row {
+  padding: 12px 14px;
+  border-bottom: 1px solid $color-border;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  span:first-child {
+    display: block;
+    color: $color-text-light;
+    font-size: 12px;
+    margin-bottom: 3px;
+  }
+
+  strong {
+    color: $color-text;
+  }
+}
+
+.profile-email-row > div,
+.profile-password-row > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.profile-password-change {
+  color: $color-link;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.verified-badge {
+  display: inline-block;
+  flex-shrink: 0;
+  padding: 3px 8px;
+  border-radius: 7px;
+  background-color: $color-success;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.profile-edit-button {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.profile-logout {
+  display: block;
+  margin: 20px auto 0;
+  padding: 0;
+  border: none;
+  background: none;
+  color: $color-error;
+  font-weight: 700;
+}
+
+
+// PROFILE - EDIT
+
+.profile-edit-page {
+  min-height: 100vh;
+  padding: 20px 20px 110px;
+}
+
+.profile-edit-header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  margin: -20px -20px 28px;
+  padding: 28px 20px 10px;
+  background-color: $color-surface;
+}
+
+.profile-cancel {
+  color: $color-link;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+
+// PHOTO
+
+.profile-edit-photo {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.profile-edit-avatar {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  border: 2px solid $color-border;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+}
+
+.change-photo {
+  color: $color-text;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+
+// FORM
+
+.profile-edit-form {
+  margin-top: 8px;
+
+  .form-label {
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+
+  .form-control {
+    font-size: 14px !important;
+    padding: 10px 12px !important;
+  }
+
+  .form-group {
+    margin-bottom: 14px;
+  }
+}
+
+.profile-first-name-fields,
+.profile-last-name-fields {
+  .form-control {
+    font-size: 14px !important;
+  }
+}
+
+
+// EMAIL
+
+.profile-email-field {
+  position: relative;
+
+  .verified-badge {
+    position: absolute;
+    right: 14px;
+    bottom: 13px;
+  }
+
+  .form-control {
+    padding-right: 80px !important;
+  }
+}
+
+
+// PASSWORD
+
+.password-container {
+  position: relative;
+
+  .form-control {
+    padding-right: 60px !important;
+  }
+}
+
+.show-password {
+  font-size: 12px;
+}
+
+
+// SAVE
+
+.profile-save-button {
+  width: 100%;
+  margin-top: 8px;
+}
+
+
+// DELETE
+
+.profile-delete-button {
+  display: block;
+  margin-top: 14px;
+  padding: 13px 20px;
+  background-color: $color-error;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+
+// OVERRIDES
+
+.profile-edit-page .form-control {
+  background-image: none !important;
+}
+
+.profile-edit-page .password-container .form-control {
+  padding-right: 60px !important;
+}

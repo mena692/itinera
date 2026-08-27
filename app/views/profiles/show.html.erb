@@ -1,0 +1,72 @@
+<div class="profile-page">
+
+  <div class="profile-header">
+    <h3>Profile</h3>
+
+    <%= link_to edit_profile_path, class: "profile-edit-link" do %>
+     <i class="fa-regular fa-pen-to-square"></i> edit
+    <% end %>
+  </div>
+
+  <div class="profile-identity">
+
+    <div class="profile-avatar">
+      <% if @user.photo.attached? %>
+        <%= image_tag @user.photo, class: "profile-avatar-image" %>
+      <% end %>
+    </div>
+
+    <h1><%= @user.first_name %> <%= @user.last_name %></h1>
+    <p><%= @user.email %></p>
+
+  </div>
+
+  <div class="profile-account">
+
+    <h3>account</h3>
+
+    <div class="profile-info card-itinera">
+
+      <div class="profile-info-row">
+        <span>first name</span>
+        <strong><%= @user.first_name %></strong>
+      </div>
+
+      <div class="profile-info-row">
+        <span>last name</span>
+        <strong><%= @user.last_name %></strong>
+      </div>
+
+      <div class="profile-info-row profile-email-row">
+        <span>email</span>
+
+        <div>
+          <strong><%= @user.email %></strong>
+          <span class="verified-badge">verified</span>
+        </div>
+      </div>
+
+      <div class="profile-info-row profile-password-row">
+        <span>password</span>
+
+        <div>
+          <strong>••••••••••</strong>
+          <%= link_to "change", edit_profile_path, class: "profile-password-change" %>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <%= link_to edit_profile_path, class: "btn-itinera-secondary profile-edit-button" do %>
+    <i class="fa-regular fa-pen-to-square"></i> edit profile
+  <% end %>
+
+  <%= button_to "Log out",
+                destroy_user_session_path,
+                method: :delete,
+                class: "profile-logout",
+                data: { turbo: false } %>
+
+</div>
