@@ -1,13 +1,46 @@
-<h1><%= @activity.name %></h1>
+<%= image_tag @activity.image_url, alt: @activity.name, class: "activity-show__image" %>
+
 <span class="activity-card__chip"><%= @activity.category %></span>
+<h1><%= @activity.name %></h1>
 
 
-<p><%= @activity.start_date.strftime("%H:%M") %> · <%= @activity.formatted_duration %></p>
-<p><%= @activity.address %></p>
 <p><%= @activity.description %></p>
 
+<div class="activity-info">
+  <div class="activity-info__row">
+    <i class="fa-regular fa-calendar activity-info__icon"></i>
+    <div class="activity-info__content">
+      <span class="activity-info__label">date</span>
+      <p class="activity-info__value"><%= @activity.start_date.strftime("%A, %-d %b %Y") %> · day <%= @day_number %></p>
+    </div>
+  </div>
+
+  <div class="activity-info__row">
+    <i class="fa-regular fa-clock activity-info__icon"></i>
+    <div class="activity-info__content">
+      <span class="activity-info__label">time</span>
+      <p class="activity-info__value"><%= @activity.start_date.strftime("%H:%M") %> — <%= @activity.end_date.strftime("%H:%M") %></p>
+    </div>
+    <span class="activity-info__duration"><%= @activity.formatted_duration %></span>
+  </div>
+
+  <div class="activity-info__row">
+    <i class="fa-solid fa-location-dot activity-info__icon"></i>
+    <div class="activity-info__content">
+      <span class="activity-info__label">address</span>
+      <p class="activity-info__value"><%= @activity.address %></p>
+      <%= link_to "open in maps",
+            "https://www.google.com/maps/search/?api=1&query=#{ERB::Util.url_encode(@activity.address.to_s)}",
+            class: "activity-info__link", target: "_blank", rel: "noopener" %>
+    </div>
+  </div>
+</div>
+
+<h2>notes</h2>
+<hr width="100%" size="2">
+<p><%= @activity.notes %></p>
 
 <div class="trip-actions">
- <%= link_to "edit", edit_activity_path(@activity), class: "btn-itinera-secondary" %>
- <%= link_to "back", trip_path(@activity.trip_day.trip), class: "btn-itinera-primary" %>
+ <%= link_to "back", trip_path(@activity.trip_day.trip), class: "btn-itinera-secondary" %>
+ <%= link_to "edit", edit_activity_path(@activity), class: "btn-itinera-primary" %>
 </div>

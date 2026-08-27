@@ -1,6 +1,8 @@
 class Activity < ApplicationRecord
   belongs_to :trip_day
 
+  CATEGORIES = %w[accommodation beach entertainment food hiking leisure sightseeing transportation].freeze
+
   def formatted_duration
     total_minutes = ((end_date - start_date) / 60).round
 
