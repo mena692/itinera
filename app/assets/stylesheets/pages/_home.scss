@@ -1,1 +1,131 @@
-// Specific CSS for your home-page
+// Splash screen
+
+.splash-screen {
+  min-height: 100vh;
+
+  background-color: $color-background;
+  background-image: asset-url("itinera-waves.svg");
+  background-repeat: repeat;
+  background-size: 240px 120px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+}
+
+.splash-content {
+  text-align: center;
+}
+
+.splash-logo {
+  width: 180px;
+  max-width: 80%;
+}
+
+.splash-tagline {
+  margin-top: 12px;
+  margin-bottom: 0;
+
+  color: $color-text-secondary;
+  font-size: 14px;
+}
+
+
+// Landing slide
+
+.landing-slide {
+  min-height: 100vh;
+  background-color: $color-background;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 24px 20px 32px;
+}
+
+
+// Header
+
+.landing-header {
+  display: flex;
+  align-items: center;
+}
+
+.landing-logo {
+  width: 95px;
+}
+
+
+// Carousel
+
+.landing-carousel {
+  flex: 1;
+}
+
+
+// Content
+
+.landing-content {
+  width: 100%;
+  margin-top: auto;
+}
+
+.landing-step {
+  color: $color-primary;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.landing-content h1 {
+  margin-bottom: 16px;
+}
+
+.landing-description {
+  color: $color-text-secondary;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+
+// Progress
+
+.landing-progress {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.progress-item {
+  width: 7px;
+  height: 7px;
+
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+
+  background-color: $color-border-strong;
+  cursor: pointer;
+}
+
+.progress-item.active {
+  width: 22px;
+  border-radius: 8px;
+  background-color: $color-primary;
+}
+
+
+// Actions
+
+.landing-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.landing-button {
+  width: 100%;
+  text-align: center;
+}
