@@ -1,0 +1,129 @@
+<div class="profile-edit-page">
+
+  <div class="profile-edit-header">
+    <%= link_to "Cancel", profile_path, class: "profile-cancel" %>
+
+    <h5>Edit profile</h5>
+
+    <%= button_tag "Save",
+                   type: "submit",
+                   form: "edit_profile_form",
+                   class: "profile-save-top" %>
+  </div>
+
+  <%= simple_form_for @user,
+                      url: profile_path,
+                      method: :patch,
+                      html: { multipart: true, id: "edit_profile_form" } do |f| %>
+
+    <div class="profile-edit-photo"
+         data-controller="photo-preview">
+
+      <label
+        for="profile-photo-input"
+        class="profile-edit-avatar"
+        data-photo-preview-target="preview"
+        <% if @user.photo.attached? %>
+          style="background-image: url(<%= url_for(@user.photo) %>);"
+        <% end %>
+      >
+      </label>
+
+      <%= f.input :photo,
+                  as: :file,
+                  label: false,
+                  input_html: {
+                    id: "profile-photo-input",
+                    class: "d-none",
+                    accept: "image/*",
+                    data: {
+                      photo_preview_target: "input",
+                      action: "change->photo-preview#preview"
+                    }
+                  } %>
+
+      <label for="profile-photo-input" class="change-photo">
+        Change photo
+      </label>
+
+    </div>
+
+    <div class="profile-edit-form">
+
+      <div class="profile-first-name-fields">
+
+        <%= f.input :first_name,
+                    label: "First name",
+                    required: true,
+                    input_html: {
+                      autocomplete: "given-name"
+                    } %>
+      </div>
+
+      <div class="profile-last-name-fields">
+
+        <%= f.input :last_name,
+                    label: "Last name",
+                    required: true,
+                    input_html: {
+                      autocomplete: "family-name"
+                    } %>
+
+      </div>
+
+      <div class="profile-email-field">
+
+        <%= f.input :email,
+                    label: "Email",
+                    required: true,
+                    input_html: {
+                      autocomplete: "email"
+                    } %>
+
+        <span class="verified-badge">verified</span>
+
+      </div>
+
+      <div class="password-container" data-controller="reveal-password">
+
+        <%= f.input :password,
+                    required: false,
+                    placeholder: "••••••",
+                    input_html: {
+                      autocomplete: "current-password",
+                      data: {
+                        "reveal-password-target": "input"
+                      }
+                    } %>
+
+        <span class="show-password clickable" data-reveal-password-target="toggle"
+          data-action="click->reveal-password#reveal">
+          Show
+        </span>
+
+      </div>
+
+      <%= f.input :password_confirmation,
+                  label: "Confirm new password",
+                  required: false,
+                  input_html: {
+                    autocomplete: "new-password"
+                  } %>
+
+    </div>
+
+    <%= f.button :submit,
+                 "Save changes",
+                 class: "btn-itinera-primary profile-save-button" %>
+
+  <% end %>
+
+  <%= button_to "Delete account",
+                registration_path(@user),
+                method: :delete,
+                class: "profile-delete-button",
+                data: {
+                  turbo_confirm: "Are you sure you want to delete your account?"
+                } %>
+
+</div>

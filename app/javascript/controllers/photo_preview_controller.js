@@ -11,6 +11,6 @@ export default class extends Controller {
     this.previewTarget.style.backgroundImage =
       `url(${URL.createObjectURL(file)})`
 
-    this.previewTarget.querySelector(".add-photo").style.display = "none"
+    this.previewTarget.querySelector(".add-photo")?.style.setProperty("display", "none")
   }
 }
