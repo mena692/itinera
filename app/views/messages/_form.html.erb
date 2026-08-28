@@ -1,0 +1,23 @@
+<%= simple_form_for [trip, chat, message],
+                    html: { class: "message-form" } do |f| %>
+
+  <div class="message-input-wrapper">
+    <%= f.input :content,
+                label: false,
+                required: true,
+                wrapper: false,
+                input_html: {
+                  class: "message-input",
+                  autocomplete: "off"
+                },
+                placeholder: "Tell itinera..." %>
+
+    <%= f.button :button,
+                 type: "submit",
+                 class: "message-send-button",
+                 aria: { label: "Send message" } do %>
+      <i class="fa-solid fa-arrow-up"></i>
+    <% end %>
+  </div>
+
+<% end %>

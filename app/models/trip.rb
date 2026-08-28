@@ -1,9 +1,27 @@
 class Trip < ApplicationRecord
   belongs_to :user
+
   has_many :trip_days, dependent: :destroy
   has_many :chats, dependent: :destroy
 
+  validates :destination, presence: true
+
+  attr_accessor :start_date, :end_date
+
+  def first_day
+    trip_days.minimum(:date)
+  end
+
+  def last_day
+    trip_days.maximum(:date)
+  end
+
+  def number_of_nights
+    return 0 unless first_day && last_day
+
+    (last_day - first_day).to_i
   # :past, :current (today falls within the trip), or :future
+  end
   def status
     dates = trip_days.map(&:date)
     return :future if dates.empty?
@@ -18,4 +36,5 @@ class Trip < ApplicationRecord
   def activities_count
     trip_days.sum { |trip_day| trip_day.activities.size }
   end
+
 end

@@ -1,0 +1,44 @@
+<div class="itinera-page trip-new">
+  <div class="trip-form-header">
+    <h1>where to?</h1>
+    <p>three answers and a sentence. that's the whole setup.</p>
+  </div>
+
+  <%= simple_form_for @trip do |f| %>
+  <%= f.input :destination,
+  label: "destination",
+  placeholder: "city or country",
+  required: true %>
+  <div class="row g-2">
+    <div class="col-6">
+      <label for="trip_start_date">start date</label>
+      <input
+      type="date"
+      id="trip_start_date"
+      name="trip[start_date]"
+      class="form-control"
+      required>
+    </div>
+  <div class="col-6">
+    <label for="trip_end_date">end date</label>
+    <input
+    type="date"
+    id="trip_end_date"
+    name="trip[end_date]"
+    class="form-control"
+    required>
+  </div>
+</div>
+
+<%= f.input :description,
+as: :text,
+label: "anything else? tell itinera in your words",
+placeholder: "describe your trip...",
+input_html: { rows: 5, maxlength: 500 } %>
+
+<%= f.button :submit,
+"draft my itinerary",
+class: "btn-itinera-primary w-100" %>
+
+<% end %>
+</div>
