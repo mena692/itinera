@@ -1,0 +1,123 @@
+<h1>your trips</h1>
+<p class="page-subtitle">ready for your next adventure?</p>
+
+<% if @trips.empty? %>
+  <div class="trips-empty-state">
+    <h2 class="trips-empty-state__title">nothing on the calendar</h2>
+    <p class="trips-empty-state__description">
+      tell itinera where you're going — it drafts the days, you edit them.
+    </p>
+    <a href="" class="btn-itinera-primary">
+      <span class="btn-icon">+</span> create a new trip
+    </a>
+  </div>
+<% else %>
+  <section class="trips-section">
+    <h2 class="trips-section__title">
+      <%= @upcoming_trip&.status == :current ? "ongoing trip" : "upcoming trip" %>
+    </h2>
+
+    <% if @upcoming_trip %>
+      <%= link_to trip_path(@upcoming_trip), class: "trip-hero" do %>
+        <div class="trip-hero__image-wrap">
+          <%= image_tag @upcoming_trip.image_url, alt: @upcoming_trip.destination, class: "trip-hero__image" %>
+
+          <span class="trip-hero__badge trip-hero__badge--destination">
+            <i class="fa-solid fa-location-dot"></i> <%= @upcoming_trip.destination.to_s.upcase %>
+          </span>
+
+          <% if (countdown = trip_countdown_label(@upcoming_trip)) %>
+            <span class="trip-hero__badge trip-hero__badge--countdown"><%= countdown %></span>
+          <% end %>
+        </div>
+
+        <div class="trip-hero__body">
+          <h3 class="trip-hero__name"><%= @upcoming_trip.name %></h3>
+          <p class="trip-hero__meta">
+            <%= trip_date_range_label(@upcoming_trip) %> ·
+            <%= pluralize(@upcoming_trip.trip_days.size, "day") %> ·
+            <%= pluralize(@upcoming_trip.activities_count, "activity") %>
+          </p>
+          <span class="btn-itinera-primary trip-hero__cta">
+            view itinerary <i class="fa-solid fa-arrow-right"></i>
+          </span>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="trips-empty-state trips-empty-state--compact">
+        <h2 class="trips-empty-state__title">nothing on the calendar</h2>
+        <p class="trips-empty-state__description">
+          tell itinera where you're going — it drafts the days, you edit them.
+        </p>
+        <a href="" class="btn-itinera-primary">
+          <span class="btn-icon">+</span> create a new trip
+        </a>
+      </div>
+    <% end %>
+  </section>
+
+  <section class="trips-section">
+    <h2 class="trips-section__title">other trips</h2>
+
+    <% if @other_trips.empty? %>
+      <div class="trips-empty-state trips-empty-state--compact">
+        <h2 class="trips-empty-state__title">
+          <%= @upcoming_trip ? "#{@upcoming_trip.destination} is your only trip" : "no other trips yet" %>
+        </h2>
+        <p class="trips-empty-state__description">
+          start a second one and itinera keeps them side by side.
+        </p>
+        <a href="" class="btn-itinera-primary">
+          <span class="btn-icon">+</span> plan another trip
+        </a>
+      </div>
+    <% else %>
+      <div data-controller="trip-filter">
+        <div class="trip-filter__chips">
+          <% %w[past future].each do |status| %>
+            <button type="button" class="trip-filter-chip" data-trip-filter-target="chip"
+                    data-status="<%= status %>" data-action="trip-filter#select">
+              <%= status %>
+            </button>
+          <% end %>
+        </div>
+
+        <% %w[past future].each do |status| %>
+          <% trips_for_status = @other_trips.select { |trip| trip.status.to_s == status } %>
+          <div class="trip-filter__group" data-trip-filter-target="group" data-status="<%= status %>" hidden>
+            <% if trips_for_status.any? %>
+              <div class="trip-cards">
+                <% trips_for_status.each do |trip| %>
+                  <%= link_to trip_path(trip), class: "trip-card" do %>
+                    <%= image_tag trip.image_url, alt: trip.destination, class: "trip-card__image" %>
+                    <div class="trip-card__body">
+                      <h4 class="trip-card__name"><%= trip.destination %></h4>
+                      <p class="trip-card__meta">
+                        <%= trip.trip_days.map(&:date).min&.strftime("%b %Y") %> ·
+                        <%= pluralize(trip.trip_days.size, "day") %>
+                      </p>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            <% elsif status == "future" && @upcoming_trip %>
+              <div class="trips-empty-state trips-empty-state--compact">
+                <h2 class="trips-empty-state__title">no future trips planned</h2>
+                <p class="trips-empty-state__description">
+                  start planning your next adventure.
+                </p>
+                <a href="" class="btn-itinera-primary">
+                  <span class="btn-icon">+</span> create a new trip
+                </a>
+              </div>
+            <%# <% elsif status == "future" %>
+              <%# <p class="trip-filter__empty">no other trips yet</p> %>
+            <% else %>
+              <p class="trip-filter__empty">no <%= status %> trips yet.</p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </section>
+<% end %>
