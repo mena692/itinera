@@ -1,17 +1,21 @@
 <nav class="bottom-navbar">
 
-  <%= link_to "#", class: "bottom-navbar-item" do %>
+  <%= link_to '#',
+      class: "bottom-navbar-item" do %>
     <i class="fa-solid fa-suitcase"></i>
     <span>My trips</span>
   <% end %>
 
-  <%= link_to "#", class: "bottom-navbar-item" do %>
+  <%= link_to '#',
+      class: "bottom-navbar-item" do %>
     <i class="fa-regular fa-square-plus"></i>
     <span>New trip</span>
   <% end %>
 
-  <%= link_to profile_path, class: "bottom-navbar-item" do %>
+  <%= link_to profile_path,
+      class: "bottom-navbar-item #{'active' if current_page?(profile_path)}" do %>
     <i class="fa-regular fa-user"></i>
     <span>Profile</span>
   <% end %>
+
 </nav>
