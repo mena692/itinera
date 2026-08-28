@@ -1,7 +1,6 @@
 // PROFILE - SHOW
 
 .profile-page {
-  min-height: 100vh;
   padding: 24px 30px 110px;
 }
 
@@ -140,18 +139,14 @@
 
 // PROFILE - EDIT
 
-.profile-edit-page {
-  min-height: 100vh;
-  padding: 20px 20px 110px;
-}
-
 .profile-edit-header {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  margin: -20px -20px 28px;
   padding: 28px 20px 10px;
   background-color: $color-surface;
+  border-bottom: 1px solid #FAF9F5;
+  margin: 0 -10px 24px -10px;
 }
 
 .profile-cancel {
@@ -165,7 +160,7 @@
 
 .profile-edit-photo {
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 10px;
 }
 
 .profile-edit-avatar {
@@ -280,4 +275,11 @@
 
 .profile-edit-page .password-container .form-control {
   padding-right: 60px !important;
+}
+
+
+.profile-app-container {
+  width: 100%;
+  padding: 0 5px 0px;
+  margin: 0 auto 70px auto;
 }

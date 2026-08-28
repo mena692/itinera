@@ -2,7 +2,7 @@
 <html>
   <head>
     <title><%= content_for(:title) || "Itinera" %></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, interactive-widget=resizes-content">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Itinera">
     <meta name="mobile-web-app-capable" content="yes">
@@ -24,10 +24,13 @@
   </head>
 
   <body>
-    <%#= render "shared/navbar" unless current_page?(root_path) %>
+    <%= render "shared/bottom_navbar" unless current_page?(root_path) ||
+                                             current_page?(new_user_registration_path) ||
+                                             current_page?(new_user_session_path)
+    %>
     <%= render "shared/flashes" %>
 
-    <div class="app-container">
+    <div class="<%= content_for(:container_class) || "app-container" %>">
       <%= yield %>
     </div>
   </body>

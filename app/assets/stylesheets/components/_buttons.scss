@@ -41,3 +41,61 @@
     color: $color-primary-disabled;
   }
 }
+
+
+// Outline button
+.btn-itinera-outline {
+  @extend %btn-itinera;
+  background-color: $color-surface;
+  color: $color-text;
+  border: 1px solid $color-border;
+
+  &:hover {
+    background-color: $color-surface-highlight;
+    color: $color-text;
+  }
+}
+
+
+// Go Back Button
+
+
+.back-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: $color-primary-text;
+  border: none;
+  cursor: pointer;
+
+  i {
+    color: $color-primary-text;
+    font-size: 16px;
+  }
+
+  &--circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: $color-surface;
+  }
+
+  &--plain {
+    width: auto;
+    height: auto;
+    padding: 0;
+    background: transparent;
+  }
+}
+
+// to do with circle
+//<button class="back-button back-button--circle">
+//  <i class="fa-solid fa-chevron-left"></i>
+// </button>
+
+
+// to do without circle
+//<button class="back-button back-button--plain">
+//  <i class="fa-solid fa-chevron-left"></i>
+// </button>

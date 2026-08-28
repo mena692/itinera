@@ -1,0 +1,40 @@
+.bottom-navbar {
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  height: 70px;
+
+  background-color: $color-surface;
+  border-top: 1px solid $color-border;
+}
+
+.bottom-navbar-item {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 4px;
+
+  color: $light-gray-blue;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 600;
+
+  i {
+    font-size: 20px;
+  }
+
+  &.active {
+    color: $light-blue;
+  }
+}
