@@ -13,7 +13,9 @@
   </div>
 <% else %>
   <section class="trips-section">
-    <h2 class="trips-section__title">upcoming trip</h2>
+    <h2 class="trips-section__title">
+      <%= @upcoming_trip&.status == :current ? "ongoing trip" : "upcoming trip" %>
+    </h2>
 
     <% if @upcoming_trip %>
       <%= link_to trip_path(@upcoming_trip), class: "trip-hero" do %>
@@ -98,6 +100,18 @@
                   <% end %>
                 <% end %>
               </div>
+            <% elsif status == "future" && @upcoming_trip %>
+              <div class="trips-empty-state trips-empty-state--compact">
+                <h2 class="trips-empty-state__title">no future trips planned</h2>
+                <p class="trips-empty-state__description">
+                  start planning your next adventure.
+                </p>
+                <a href="" class="btn-itinera-primary">
+                  <span class="btn-icon">+</span> create a new trip
+                </a>
+              </div>
+            <%# <% elsif status == "future" %>
+              <%# <p class="trip-filter__empty">no other trips yet</p> %>
             <% else %>
               <p class="trip-filter__empty">no <%= status %> trips yet.</p>
             <% end %>
