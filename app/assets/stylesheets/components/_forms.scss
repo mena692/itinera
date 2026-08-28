@@ -40,6 +40,120 @@
   color: $color-error;
 }
 
+// Form action buttons (e.g. save/cancel)
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+
+  > * {
+    flex: 1;
+  }
+}
+
+// Start/end time inputs
+
+.time-fields {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.time-field {
+  flex: 1;
+}
+
+.time-field__box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  padding: 12px 16px;
+  border: 1.5px solid $color-border;
+  border-radius: 14px;
+  background-color: $color-input-bg;
+
+  &:focus-within {
+    border-color: $color-input-focus;
+  }
+}
+
+.time-field__icon {
+  color: $color-text-secondary;
+  font-size: 15px;
+}
+
+.time-field__input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  color: $color-text;
+  font-size: 17px;
+  font-weight: 700;
+  padding: 0;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+}
+
+// Category chip select
+
+.category-select {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.category-chip {
+  position: relative;
+  display: inline-flex;
+  padding: 10px 18px;
+  border: 1.5px solid $color-border;
+  border-radius: 12px;
+  background-color: $color-surface;
+  color: $color-text-secondary;
+  // font-weight: 700;
+  cursor: pointer;
+}
+
+.category-chip__input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.category-chip:has(.category-chip__input:checked) {
+  border-color: $color-primary-disabled;
+  background-color: rgba($color-primary-disabled, 0.1);
+  color: $color-primary-disabled;
+}
+
+// Notes field
+
+.notes-field__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.notes-field__optional {
+  color: $color-text-secondary;
+  font-size: 13px;
+}
+
+.notes-field__textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
 .form-control:-webkit-autofill,
 .form-control:-webkit-autofill:hover,
 .form-control:-webkit-autofill:focus {

@@ -1,13 +1,27 @@
 // Itinera buttons
 
+%btn-itinera {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 16px;
+  padding: 14px 28px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 // Primary button
 .btn-itinera-primary {
+  @extend %btn-itinera;
   background-color: $color-primary;
   color: $color-primary-text;
   border: none;
-  border-radius: 12px;
-  padding: 12px 16px;
-  font-weight: 700;
 
   &:hover {
     background-color: $color-primary-disabled;
@@ -17,16 +31,14 @@
 
 // Secondary button
 .btn-itinera-secondary {
-  background-color: $color-surface;
-  color: $color-text;
-  border: 1px solid $color-border;
-  border-radius: 12px;
-  padding: 12px 16px;
-  font-weight: 700;
+  @extend %btn-itinera;
+  background-color: transparent;
+  color: $color-primary-disabled;
+  border: 2px dashed $color-primary-disabled;
 
   &:hover {
-    background-color: $color-surface-highlight;
-    color: $color-text;
+    background-color: rgba($color-primary-disabled, 0.1);
+    color: $color-primary-disabled;
   }
 }
 
