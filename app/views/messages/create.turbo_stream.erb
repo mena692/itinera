@@ -3,5 +3,8 @@
 <% end %>
 
 <%= turbo_stream.update "new_message_container" do %>
-  <%= render "messages/form", chat: @chat, message: Message.new %>
+  <%= render "messages/form",
+    trip: @trip,
+    chat: @chat,
+    message: Message.new %>
 <% end %>
