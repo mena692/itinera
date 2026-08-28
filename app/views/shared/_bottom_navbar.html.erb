@@ -1,7 +1,7 @@
 <nav class="bottom-navbar">
 
-  <%= link_to '#',
-      class: "bottom-navbar-item" do %>
+  <%= link_to trips_path,
+      class: "bottom-navbar-item #{'active' if current_page?(trips_path)}" do %>
     <i class="fa-solid fa-suitcase"></i>
     <span>My trips</span>
   <% end %>

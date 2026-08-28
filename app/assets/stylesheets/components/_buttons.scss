@@ -43,6 +43,20 @@
 }
 
 
+// Outline button
+.btn-itinera-outline {
+  @extend %btn-itinera;
+  background-color: $color-surface;
+  color: $color-text;
+  border: 1px solid $color-border;
+
+  &:hover {
+    background-color: $color-surface-highlight;
+    color: $color-text;
+  }
+}
+
+
 // Go Back Button
 
 
