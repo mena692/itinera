@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_26_120020) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_27_151028) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -47,12 +47,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_26_120020) do
     t.string "category"
     t.datetime "created_at", null: false
     t.text "description"
-    t.date "end_date"
+    t.datetime "end_date"
+    t.string "image_url"
     t.float "latitude"
     t.float "longitude"
     t.string "name"
     t.text "notes"
-    t.date "start_date"
+    t.datetime "start_date"
     t.bigint "trip_day_id", null: false
     t.datetime "updated_at", null: false
     t.index ["trip_day_id"], name: "index_activities_on_trip_day_id"
@@ -265,6 +266,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_26_120020) do
     t.text "description"
     t.string "destination"
     t.integer "group_size"
+    t.string "image_url"
     t.string "name"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false

@@ -1,0 +1,120 @@
+// Activity show page — date / time / address summary card
+
+.activity-show__image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin-bottom: 16px;
+  background-color: $color-surface-highlight;
+}
+
+// Edit page header — thumbnail + name + day/date
+
+.activity-edit-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 20px;
+  margin-bottom: 24px;
+}
+
+.activity-edit-header__thumb {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  background-color: $color-surface-highlight;
+  color: $color-text-secondary;
+  font-size: 24px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.activity-edit-header__name {
+  margin: 0;
+}
+
+.activity-edit-header__subtitle {
+  margin: 4px 0 0;
+  color: $color-text-secondary;
+}
+
+.activity-info {
+  display: flex;
+  flex-direction: column;
+  background-color: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 16px 0;
+}
+
+.activity-info__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 20px;
+  border-bottom: 1px solid $color-border;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.activity-info__icon {
+  flex-shrink: 0;
+  width: 20px;
+  margin-top: 3px;
+  font-size: 18px;
+  text-align: center;
+  color: $color-primary-disabled;
+}
+
+.activity-info__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.activity-info__duration {
+  flex-shrink: 0;
+  align-self: center;
+  font-size: 14px;
+  color: $color-text-secondary;
+}
+
+.activity-info__label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 13px;
+  color: $color-text-secondary;
+}
+
+.activity-info__value {
+  margin: 0;
+  font-weight: 700;
+  font-size: 17px;
+  color: $color-text;
+}
+
+.activity-info__link {
+  display: inline-block;
+  margin-top: 6px;
+  font-weight: 700;
+  font-size: 14px;
+  color: $color-primary-disabled;
+  text-decoration: none;
+
+  &:hover {
+    color: $color-primary-disabled;
+    text-decoration: underline;
+  }
+}

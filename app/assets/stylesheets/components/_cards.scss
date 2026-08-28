@@ -20,3 +20,144 @@
   color: $color-text-secondary;
   margin-bottom: 0;
 }
+
+// Activity card
+
+.activity-row {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.activity-time {
+  padding-top: 10px;
+  font-weight: 700;
+  font-size: 12.5px;
+  color: $color-text;
+}
+
+.activity-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 10px;
+  background-color: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+.activity-card__thumb {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  object-fit: cover;
+  background-color: $color-surface-highlight;
+}
+
+.activity-card__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.activity-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.activity-card__title {
+  margin: 0;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.25;
+  color: $color-text;
+}
+
+.activity-card__menu {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  gap: 3px;
+  padding: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  span {
+    width: 3.5px;
+    height: 3.5px;
+    border-radius: 50%;
+    background-color: $color-text-secondary;
+  }
+}
+
+.activity-card__duration {
+  margin: 2px 0 0;
+  font-weight: 400;
+  font-size: 12.5px;
+  color: $color-text-secondary;
+}
+
+.activity-card__chip {
+  display: inline-block;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background-color: $color-surface-highlight;
+  color: $color-text-secondary;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+// Edit/delete actions revealed by the "..." menu
+
+.activity-card__actions {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 8px;
+
+  form {
+    display: contents;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.activity-card__action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 72px;
+  padding: 10px 6px;
+  border: none;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 12px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.activity-card__action-icon {
+  font-size: 15px;
+  line-height: 1;
+}
+
+.activity-card__action--edit {
+  background-color: $color-surface-highlight;
+  color: $color-primary-disabled;
+}
+
+.activity-card__action--delete {
+  background-color: rgba($color-error, 0.15);
+  color: $color-error;
+}
