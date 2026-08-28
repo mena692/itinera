@@ -21,8 +21,8 @@
   cursor: pointer;
 }
 
-.map-marker--active {
-  color: $color-success;
+.mapboxgl-popup-content {
+  color: $dark-blue;
 }
 
 .trip-actions {
