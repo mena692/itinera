@@ -7,9 +7,9 @@
     <p class="trips-empty-state__description">
       tell itinera where you're going — it drafts the days, you edit them.
     </p>
-    <a href="" class="btn-itinera-primary">
+    <%= link_to new_trip_path, class: "btn-itinera-primary" do %>
       <span class="btn-icon">+</span> create a new trip
-    </a>
+    <% end %>
   </div>
 <% else %>
   <section class="trips-section">
@@ -49,9 +49,9 @@
         <p class="trips-empty-state__description">
           tell itinera where you're going — it drafts the days, you edit them.
         </p>
-        <a href="" class="btn-itinera-primary">
+        <%= link_to new_trip_path, class: "btn-itinera-primary" do %>
           <span class="btn-icon">+</span> create a new trip
-        </a>
+        <% end %>
       </div>
     <% end %>
   </section>
@@ -67,9 +67,9 @@
         <p class="trips-empty-state__description">
           start a second one and itinera keeps them side by side.
         </p>
-        <a href="" class="btn-itinera-primary">
+        <%= link_to new_trip_path, class: "btn-itinera-primary" do %>
           <span class="btn-icon">+</span> plan another trip
-        </a>
+        <% end %>
       </div>
     <% else %>
       <div data-controller="trip-filter">
@@ -106,9 +106,9 @@
                 <p class="trips-empty-state__description">
                   start planning your next adventure.
                 </p>
-                <a href="" class="btn-itinera-primary">
+                <%= link_to new_trip_path, class: "btn-itinera-primary" do %>
                   <span class="btn-icon">+</span> create a new trip
-                </a>
+                <% end %>
               </div>
             <%# <% elsif status == "future" %>
               <%# <p class="trip-filter__empty">no other trips yet</p> %>
