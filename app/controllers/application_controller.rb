@@ -15,6 +15,14 @@ class ApplicationController < ActionController::Base
   #   redirect_to(root_path)
   # end
 
+  def after_sign_in_path_for(_resource)
+    trips_index_path
+  end
+
+  def after_sign_up_path_for(_resource)
+    trips_index_path
+  end
+
   private
 
   def configure_permitted_parameters

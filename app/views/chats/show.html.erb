@@ -1,0 +1,32 @@
+<div class="chat-page">
+
+  <div class="chat-header">
+    <div>
+      <h1><%= @trip.destination %></h1>
+
+      <p>
+        <% if @trip.first_day && @trip.last_day %>
+          <%= @trip.first_day.strftime("%b %-d") %>–<%= @trip.last_day.strftime("%-d") %>
+        <% end %>
+      </p>
+    </div>
+
+    <span class="chat-status">
+      drafting with itinera
+    </span>
+  </div>
+
+  <%= turbo_stream_from @chat %>
+
+  <div id="messages" class="chat-messages">
+    <%= render "messages/messages", messages: @chat.messages %>
+  </div>
+
+  <div id="new_message_container" class="chat-composer">
+    <%= render "messages/form",
+               trip: @trip,
+               chat: @chat,
+               message: @message %>
+  </div>
+
+</div>
