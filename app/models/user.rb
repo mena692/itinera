@@ -13,4 +13,12 @@ class User < ApplicationRecord
               message: "must contain at least one number"
             },
             if: -> { password.present? }
+
+  after_commit :process_profile_image, on: %i[create update]
+
+  private
+
+  def process_profile_image
+    ProcessProfileImageJob.perform_later(self) if photo.attached?
+  end
 end

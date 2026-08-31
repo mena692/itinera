@@ -20,7 +20,7 @@
         class="profile-edit-avatar"
         data-photo-preview-target="preview"
         <% if @user.photo.attached? %>
-          style="background-image: url(<%= url_for(@user.photo) %>);"
+          style="background-image: url(<%= url_for(@user.photo.variant(resize_to_limit: [500, 500])) %>);"
         <% end %>
       >
       </label>
@@ -32,6 +32,7 @@
                     id: "profile-photo-input",
                     class: "d-none",
                     accept: "image/*",
+                    direct_upload: true,
                     data: {
                       photo_preview_target: "input",
                       action: "change->photo-preview#preview"
