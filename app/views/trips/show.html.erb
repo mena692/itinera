@@ -47,7 +47,7 @@
 
     <div class="activity-card"
          data-controller="activity-card"
-         data-activity-card-url-value="<%= activity_path(a) %>"
+         data-activity-card-url-value="<%= trip_trip_day_activity_path(@trip, @trip_day, a) %>"
          data-action="click->activity-card#visit click@window->activity-card#closeMenu">
       <img class="activity-card__thumb" src="<%= a.image_url %>" alt="<%= a.name %>" />
 
@@ -65,11 +65,11 @@
       </div>
 
       <div class="activity-card__actions" data-activity-card-target="menu" hidden>
-        <%= link_to edit_activity_path(a), class: "activity-card__action activity-card__action--edit" do %>
+        <%= link_to edit_trip_trip_day_activity_path(@trip, @trip_day, a), class: "activity-card__action activity-card__action--edit" do %>
           <i class="fa-solid fa-pen activity-card__action-icon"></i>
           <span>edit</span>
         <% end %>
-        <%= button_to activity_path(a), method: :delete,
+        <%= button_to trip_trip_day_activity_path(@trip, @trip_day, a), method: :delete,
               class: "activity-card__action activity-card__action--delete",
               form: { data: { turbo_confirm: "Delete #{a.name}?" } } do %>
           <i class="fa-solid fa-trash activity-card__action-icon"></i>
@@ -81,6 +81,8 @@
 <% end %>
 
 <div class="trip-actions">
-  <a href="" class="btn-itinera-secondary"><span class="btn-icon">+</span> add activity</a>
+  <%= link_to new_trip_trip_day_activity_path(@trip, @trip_day, day: (params[:day] || 1)), class: "btn-itinera-secondary" do %>
+    <span class="btn-icon">+</span> add activity
+  <% end %>
   <a href="" class="btn-itinera-primary"><span class="btn-icon">&#10022;</span> ask itinera</a>
 </div>
