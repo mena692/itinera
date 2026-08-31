@@ -5,10 +5,32 @@
   </div>
 
   <%= simple_form_for @trip do |f| %>
-  <%= f.input :destination,
-  label: "destination",
-  placeholder: "city or country",
-  required: true %>
+  <div
+    class="destination-autocomplete"
+    data-controller="destination-autocomplete"
+    data-destination-autocomplete-access-token-value="<%= ENV["MAPBOX_ACCESS_TOKEN"] %>"
+  >
+    <%= f.input :destination,
+      label: "destination",
+      placeholder: "city or country",
+      required: true,
+      input_html: {
+        data: {
+          destination_autocomplete_target: "input",
+          action: "input->destination-autocomplete#search"
+        }
+      } %>
+
+    <input
+      type="hidden"
+      data-destination-autocomplete-target="selection"
+    >
+
+    <div
+      class="destination-autocomplete-results"
+      data-destination-autocomplete-target="results">
+    </div>
+  </div>
   <div class="row g-2">
     <div class="col-6">
       <label for="trip_start_date">start date</label>
