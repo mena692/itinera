@@ -154,6 +154,44 @@
   resize: vertical;
 }
 
+// Address search (Mapbox geocoding)
+
+.address-search__results {
+  position: relative;
+  margin-top: 6px;
+  border: 1px solid $color-border;
+  border-radius: 12px;
+  background-color: $color-surface;
+  overflow: hidden;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.address-search__result {
+  display: block;
+  width: 100%;
+  padding: 10px 16px;
+  border: none;
+  border-top: 1px solid $color-border;
+  background: none;
+  color: $color-text;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+
+  &:first-child {
+    border-top: none;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: $color-surface-highlight;
+    outline: none;
+  }
+}
+
 .form-control:-webkit-autofill,
 .form-control:-webkit-autofill:hover,
 .form-control:-webkit-autofill:focus {
