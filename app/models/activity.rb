@@ -3,6 +3,8 @@ class Activity < ApplicationRecord
 
   CATEGORIES = %w[accommodation beach entertainment food hiking leisure sightseeing transportation].freeze
 
+  geocoded_by :address
+  after_validation :geocode, if: :will_save_change_to_address?
   def formatted_duration
     total_minutes = ((end_date - start_date) / 60).round
 
