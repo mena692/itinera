@@ -2,7 +2,6 @@ class TripsController < ApplicationController
   before_action :authenticate_user!
   NO_ACTIVITIES_SENTINEL = Time.new(9999, 12, 31).freeze
 
-
   TOPICS = %w[
     group_size
     vibe
@@ -78,6 +77,18 @@ class TripsController < ApplicationController
     @trip_day = @trip_days[params[:day].to_i - 1]
     # @activity = Activity.find(params[:id])
     @activities = @trip_day.activities.order(start_date: :asc)
+  end
+
+  def destroy
+    @trip = current_user.trips.find(params[:id])
+    authorize @trip
+    @trip.destroy
+
+    if current_user.trips.exists?
+      redirect_to trips_path
+    else
+      redirect_to new_trip_path
+    end
   end
 
   private
@@ -159,6 +170,7 @@ class TripsController < ApplicationController
       and allow the user to generate their itinerary.
     PROMPT
   end
+
   # The start time of the earliest activity on a trip's first (earliest-dated) day.
   def earliest_activity_start_for(trip)
     first_day = trip.trip_days.min_by(&:date)

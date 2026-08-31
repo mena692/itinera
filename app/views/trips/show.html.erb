@@ -2,8 +2,14 @@
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.28.1/mapbox-gl.css" rel="stylesheet">
 <% end %>
 
-<h1><%= @trip.name %></h1>
-<p>20-27 Aug 2026 • <%= @trip_days.count %> days</p>
+<div class="trip-header">
+  <div>
+    <h1><%= @trip.name %></h1>
+    <p>20-27 Aug 2026 • <%= @trip_days.count %> days</p>
+  </div>
+
+  <%= render "trip_actions", trip: @trip %>
+</div>
 
 <div class="day-tabs" data-controller="day-tabs">
   <ul class="day-tabs__list">

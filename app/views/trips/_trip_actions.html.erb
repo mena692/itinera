@@ -1,0 +1,29 @@
+<div class="trip-actions-menu"
+     data-controller="activity-card"
+     data-action="click@window->activity-card#closeMenu">
+
+  <button type="button"
+          class="trip-menu-button"
+          aria-label="More options"
+          data-action="activity-card#toggleMenu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <div class="trip-menu-dropdown"
+       data-activity-card-target="menu"
+       hidden>
+
+    <%= button_to trip_path(trip),
+          method: :delete,
+          class: "trip-menu-dropdown__action",
+          form: { data: { turbo_confirm: "Delete #{trip.name}?" } } do %>
+
+      <i class="fa-solid fa-trash"></i>
+      <span>delete trip</span>
+
+    <% end %>
+
+  </div>
+</div>
