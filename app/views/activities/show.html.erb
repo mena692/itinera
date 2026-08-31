@@ -1,4 +1,4 @@
-<%= image_tag @activity.image_url, alt: @activity.name, class: "activity-show__image" %>
+<%= image_tag @activity.image_url.presence || "activity-placeholder.svg", alt: @activity.name, class: "activity-show__image" %>
 
 <span class="activity-card__chip"><%= @activity.category %></span>
 <h1><%= @activity.name %></h1>
@@ -41,6 +41,6 @@
 <p><%= @activity.notes %></p>
 
 <div class="trip-actions">
- <%= link_to "back", trip_path(@activity.trip_day.trip), class: "btn-itinera-secondary" %>
- <%= link_to "edit", edit_activity_path(@activity), class: "btn-itinera-primary" %>
+ <%= link_to "back", trip_path(@trip, day: @day_number), class: "btn-itinera-secondary" %>
+ <%= link_to "edit", edit_trip_activity_path(@trip, @activity), class: "btn-itinera-primary" %>
 </div>
