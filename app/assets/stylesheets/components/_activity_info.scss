@@ -39,6 +39,12 @@
   }
 }
 
+.activity-edit-header__thumb--dashed {
+  background-color: transparent;
+  border: 2px dashed $color-border-strong;
+  color: $color-text-secondary;
+}
+
 .activity-edit-header__name {
   margin: 0;
 }

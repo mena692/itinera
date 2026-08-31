@@ -17,6 +17,14 @@ class ActivityPolicy < ApplicationPolicy
     owner?
   end
 
+  def new?
+    owner?
+  end
+
+  def create?
+    owner?
+  end
+
   class Scope < ApplicationPolicy::Scope
   end
 
