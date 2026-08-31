@@ -1,52 +1,80 @@
 class MessagesController < ApplicationController
-  TOPICS = %w[
-    group_size
-    vibe
-    budget
-    pace
-    interests
-    must_sees
-    transportation
+  QUESTIONS = [
+    {
+      key: :group_size,
+      instruction: "Ask how many people are traveling. Give simple examples like 1, 2, 3, or 4+."
+    },
+    {
+      key: :vibe,
+      instruction: "Ask what vibe they want. Give options like relaxed, adventurous, lively, or a mix."
+    },
+    {
+      key: :budget,
+      instruction: "Ask for their approximate budget per day. They can give an amount or say budget, moderate, or luxury."
+    },
+    {
+      key: :pace,
+      instruction: "Ask what pace they prefer. Give options like chill, balanced, or packed."
+    },
+    {
+      key: :interests,
+      instruction: "Ask about their main interests. Give options like nature, food, culture, nightlife, adventure, or a mix."
+    },
+    {
+      key: :must_see,
+      instruction: "Ask if there is anything they definitely want to see or do. Make it clear that 'nothing specific' is completely fine."
+    },
+    {
+      key: :transportation,
+      instruction: "Ask how they prefer to get around. Give options like walking, public transport, car rental, rideshare, or a mix."
+    }
   ].freeze
 
-  QUESTIONS = {
-    "group_size" => "How many people are in your travel group?",
-    "vibe" => "What vibe are you looking for: relaxed, adventurous, cultural, or a mix?",
-    "budget" => "What is your approximate total budget for the trip?",
-    "pace" => "What pace do you prefer: relaxed, balanced, or packed?",
-    "interests" => "What activities or interests would you most like to include?",
-    "must_sees" => "Is there anything you absolutely want to see or do?",
-    "transportation" => "Will you have a rental car, use public transportation, or prefer tours and transfers?"
-  }.freeze
+  CONVERSATION_PROMPT = <<~PROMPT
+    You are Itinera, a friendly travel itinerary planner.
 
-  CLARIFICATIONS = {
-    "group_size" => "I mean the total number of people traveling. How many people are in your group?",
-    "vibe" => "By vibe I mean the overall feel of the trip — relaxed, adventurous, cultural, or a mix. Which fits best?",
-    "budget" => "I mean roughly how much you want to spend on the whole trip. What is your approximate total budget?",
-    "pace" => "By pace I mean how busy you want each day to be — relaxed, balanced, or packed. Which fits best?",
-    "interests" => "I mean activities you would enjoy, such as hiking, museums, beaches, nightlife, or adventure activities. What interests you most?",
-    "must_sees" => "I mean anything you definitely don't want to miss. If you don't have anything specific, you can say no.",
-    "transportation" => "I mean how you would prefer to get around — rental car, public transportation, or tours and transfers."
-  }.freeze
+    You are helping the user quickly set up their trip.
+
+    Rails will tell you the ONE preference you should ask about next.
+
+    Ask one short, natural question about that preference.
+
+    Include a few useful options or examples so the question is easy to answer.
+
+    Keep it concise.
+
+    Do not ask about any other trip preference.
+    Do not ask follow-up questions about preferences already answered.
+    Do not turn one preference into multiple questions.
+    Do not generate or summarize the itinerary yet.
+
+    If the user asks for a recommendation instead of directly answering,
+    give one short recommendation for the CURRENT preference and ask
+    whether that works for them.
+
+    Do not interpret, summarize, or comment on the user's previous answer.
+
+    Simply ask the next question naturally and concisely.
+
+    Keep the entire response to one short sentence whenever possible.
+
+    Do not explain the options unless the user asks for clarification.
+
+    The goal is to finish setup quickly.
+  PROMPT
 
   SUMMARY_PROMPT = <<~PROMPT
     You are Itinera, a travel itinerary planner.
 
-    The user has finished providing the information needed for their trip.
+    Create a short recap of the user's trip preferences.
 
-    Create a short recap using ALL known trip information.
+    Use the original trip information and questionnaire answers.
 
-    Do not create an itinerary.
-    Do not suggest activities.
-    Do not break the trip down by day.
-    Do not add an introduction or conclusion.
+    Do not create the itinerary yet.
+    Do not invent information.
+    Keep each value short.
 
-    Extract the user's actual preferences from the original trip description
-    and the conversation.
-
-    Keep answers short and natural.
-
-    Use EXACTLY these fields and EXACTLY this format:
+    Use exactly this format:
 
     Travelers: value
     Vibe: value
@@ -57,13 +85,11 @@ class MessagesController < ApplicationController
     Transportation: value
 
     Do not use Markdown.
-    Do not add any other fields.
+    Do not add any other text.
   PROMPT
 
   ITINERARY_PROMPT = <<~PROMPT
     You are Itinera, a travel itinerary planner.
-
-    You now have enough context to create the user's detailed itinerary.
 
     Create a realistic day-by-day itinerary using ALL known trip information.
 
@@ -75,14 +101,50 @@ class MessagesController < ApplicationController
     - preferred pace
     - interests
     - must-see requests
-    - transportation constraints
-    - timing preferences
+    - transportation preferences
+
+    Use ONLY the exact trip dates listed in TRIP INFORMATION.
+
+    DAY 1 must use the first exact trip date.
+    Each following day must use the next exact trip date in order.
+    Never invent, shift, or infer different dates.
+
+    Assume the user is arriving at the destination on the first trip date
+    and leaving on the last trip date.
+
+    Keep the first and last days lighter and more flexible.
+
+    Do not invent exact arrival times, departure times, flight details,
+    airport details, hotel check-in/check-out times, or transportation bookings
+    unless the user explicitly provided them.
 
     Do not ask any more questions.
     Do not add an introduction or conclusion.
     Do not recommend accommodation unless requested.
     Do not include a separate budget breakdown.
-    Do not repeat attractions.
+
+    NEVER repeat the same attraction, landmark, neighborhood, museum,
+    garden, beach, or venue on different days.
+
+    Before choosing an activity, check all previous days and select
+    a different place if it has already been used.
+
+    Every day, including DAY 1 and the FINAL DAY,
+    must contain at least one properly formatted activity block.
+
+    The FINAL DAY must NEVER contain free text such as
+    "flexible morning", "departure preparations", or similar.
+
+    If the first or last day should be lighter,
+    use only 1 or 2 real activities,
+    but still use the exact activity format.
+
+    Do not output vague or free-form suggestions such as:
+    "flexible morning options",
+    "nearby temple",
+    "local eateries",
+    "if time permits",
+    or similar wording.
 
     The itinerary will later be displayed as activity cards.
 
@@ -109,7 +171,7 @@ class MessagesController < ApplicationController
     Use EXACTLY this format:
 
     DAY 1 — Short theme
-    Date: Thursday, August 28
+    Date: exact trip date
 
     10:00 — Activity name
     Category: culture
@@ -200,103 +262,77 @@ class MessagesController < ApplicationController
   end
 
   def continue_conversation
-    topic = last_question_topic
-
-    if topic == "transportation" && recommendation_request?(@message.content)
-      set_assistant_message(
-        "For this trip, I recommend organized shuttles or tours between regions, then walking or public transportation locally. Does that work for you?"
-      )
+    if full_itinerary_request?
+      generate_itinerary
       return
     end
 
-    if transportation_confirmation?
+    if questionnaire_complete?
       generate_summary
       return
     end
 
-    if clarification_complete?
-      if full_itinerary_request?
-        generate_itinerary
-      else
-        generate_summary
-      end
-
-      return
-    end
-
-    if topic.present? && clarification_request?(@message.content, topic)
-      set_assistant_message(CLARIFICATIONS[topic])
-      return
-    end
-
-    next_topic = TOPICS.find do |item|
-      !completed_topics.include?(item)
-    end
-
-    if next_topic.present?
-      set_assistant_message(QUESTIONS[next_topic])
-    else
-      generate_summary
-    end
+    ask_next_question
   end
 
-  def clarification_complete?
-    TOPICS.all? do |topic|
-      completed_topics.include?(topic)
+  def questionnaire_complete?
+    questionnaire_answers.count >= QUESTIONS.length
+  end
+
+  def ask_next_question
+    question = QUESTIONS[questionnaire_answers.count]
+
+    ruby_llm_chat = build_chat_history
+
+    response = ruby_llm_chat
+               .with_instructions(
+                 [
+                   CONVERSATION_PROMPT,
+                   trip_context,
+                   "NEXT PREFERENCE: #{question[:key]}",
+                   "INSTRUCTION: #{question[:instruction]}"
+                 ].join("\n\n")
+               )
+               .ask(@message.content)
+
+    set_assistant_message(response.content)
+  end
+
+  def questionnaire_answers
+    @chat.messages
+         .where(role: "user")
+         .order(:created_at)
+         .limit(QUESTIONS.length)
+  end
+
+  def questionnaire_context
+    answers = questionnaire_answers
+
+    lines = QUESTIONS.each_with_index.map do |question, index|
+      answer = answers[index]&.content || "Not provided"
+      "#{question[:key]}: #{answer}"
     end
+
+    <<~CONTEXT
+      QUESTIONNAIRE ANSWERS
+
+      #{lines.join("\n")}
+    CONTEXT
   end
 
-  def recommendation_request?(content)
-    text = content.to_s.downcase.strip
+  def build_chat_history
+    ruby_llm_chat = RubyLLM.chat
 
-    recommendation_phrases = [
-      "not sure",
-      "i'm not sure",
-      "im not sure",
-      "unsure",
-      "i don't know",
-      "i dont know",
-      "idk",
-      "what do you recommend",
-      "what would you recommend",
-      "what do you suggest",
-      "what would you suggest",
-      "recommend"
-    ]
+    @chat.messages.order(:created_at).each do |message|
+      next if message.content.blank?
+      next if message == @assistant_message
+      next if message == @message
+      next if message.content.start_with?("SUMMARY_READY")
 
-    recommendation_phrases.include?(text)
-  end
+      ruby_llm_chat.add_message(message)
+    end
 
-  def transportation_confirmation?
-    return false unless last_question_topic == "transportation"
-
-    previous_assistant = @chat.messages
-                              .where(role: "assistant")
-                              .where.not(id: @assistant_message.id)
-                              .order(created_at: :desc)
-                              .first
-
-    return false unless previous_assistant&.content&.include?(
-      "I recommend organized shuttles or tours"
-    )
-
-    confirmation?(@message.content)
-  end
-
-  def confirmation?(content)
-    text = content.to_s.downcase.strip
-
-    [
-      "yes",
-      "yeah",
-      "yep",
-      "sure",
-      "sounds good",
-      "that works",
-      "works for me",
-      "ok",
-      "okay"
-    ].include?(text)
+    ruby_llm_chat
   end
 
   def full_itinerary_request?
@@ -311,210 +347,19 @@ class MessagesController < ApplicationController
   def generate_summary
     summary_chat = RubyLLM.chat
 
-    @chat.messages.order(:created_at).each do |message|
-      next if message.content.blank?
-      next if message == @assistant_message
-      next if message.content.start_with?("SUMMARY_READY")
-
-      summary_chat.add_message(message)
-    end
-
     response = summary_chat
-                 .with_instructions(
-                   [SUMMARY_PROMPT, trip_context].join("\n\n")
-                 )
-                 .ask("Create the trip recap.")
+               .with_instructions(
+                 [
+                   SUMMARY_PROMPT,
+                   trip_context,
+                   questionnaire_context
+                 ].join("\n\n")
+               )
+               .ask("Create the trip recap.")
 
     set_assistant_message(
       "SUMMARY_READY\n#{response.content}"
     )
-  end
-
-  def generate_itinerary
-    ruby_llm_chat = RubyLLM.chat
-
-    @chat.messages.order(:created_at).each do |message|
-      next if message.content.blank?
-      next if message.content.start_with?("SUMMARY_READY")
-      next if message == @assistant_message
-      next if message == @message
-
-      ruby_llm_chat.add_message(message)
-    end
-
-    response = ruby_llm_chat
-                 .with_instructions(
-                   [ITINERARY_PROMPT, trip_context].join("\n\n")
-                 )
-                 .ask(@message.content)
-
-    @assistant_message.destroy!
-
-    @redirect_to_trip = true
-  end
-
-  def completed_topics
-    completed = []
-
-    messages = @chat.messages
-                    .where.not(id: @assistant_message.id)
-                    .order(:created_at)
-
-    pending_topic = nil
-
-    messages.each do |message|
-      if message.role == "assistant"
-        detected_topic = topic_from_question(message.content)
-        pending_topic = detected_topic if detected_topic.present?
-
-      elsif message.role == "user" && pending_topic.present?
-        unless clarification_request?(message.content, pending_topic) ||
-               recommendation_request?(message.content)
-
-          completed << pending_topic
-          pending_topic = nil
-        end
-      end
-    end
-
-    if transportation_recommendation_confirmed?
-      completed << "transportation"
-    end
-
-    (completed + inferred_topics_from_trip_description).uniq
-  end
-
-  def transportation_recommendation_confirmed?
-    messages = @chat.messages.order(:created_at)
-
-    recommendation_seen = false
-
-    messages.each do |message|
-      if message.role == "assistant" &&
-         message.content.to_s.include?("I recommend organized shuttles or tours")
-
-        recommendation_seen = true
-
-      elsif recommendation_seen &&
-            message.role == "user" &&
-            confirmation?(message.content)
-
-        return true
-      end
-    end
-
-    false
-  end
-
-  def inferred_topics_from_trip_description
-    text = @trip.description.to_s.downcase
-    inferred = []
-
-    inferred << "group_size" if text.match?(
-      /\b(?:we are|we're|group of|party of)?\s*\d+\s*(?:people|person|travelers|travellers)\b/
-    )
-
-    inferred << "vibe" if text.match?(
-      /relaxed activities|adventurous trip|cultural trip|romantic trip|party trip|nightlife-focused/
-    )
-
-    inferred << "budget" if text.match?(
-      /[$€£]\s?\d+|\d+\s?(?:usd|eur|gbp|dollars|euros)/
-    )
-
-    inferred << "pace" if text.match?(
-      /relaxed|slow pace|slow-paced|slow paced|fast pace|packed|balanced/
-    )
-
-    inferred << "interests" if text.match?(
-      /food|museum|museums|nature|coffee|hiking|beach|beaches|nightlife|culture|adventure|adventurous/
-    )
-
-    inferred << "must_sees" if text.match?(
-      /must-do|must do|must-see|must see|absolutely want|definitely want|don't want to miss/
-    )
-
-    inferred << "transportation" if text.match?(
-      /no rental car|without a rental car|will not have a rental car|won't have a rental car|public transport|public transportation|rental car|tours|transfers/
-    )
-
-    inferred
-  end
-
-  def last_question_topic
-    assistant_messages = @chat.messages
-                              .where(role: "assistant")
-                              .where.not(id: @assistant_message.id)
-                              .order(created_at: :desc)
-
-    assistant_messages.each do |message|
-      topic = topic_from_question(message.content)
-      return topic if topic.present?
-    end
-
-    nil
-  end
-
-  def topic_from_question(content)
-    text = content.to_s.downcase
-
-    return "group_size" if text.match?(
-      /how many people|group size|people.*group/
-    )
-
-    return "vibe" if text.match?(
-      /vibe|overall feel/
-    )
-
-    return "budget" if text.match?(
-      /budget|how much.*spend/
-    )
-
-    return "pace" if text.match?(
-      /pace|relaxed.*balanced|balanced.*packed/
-    )
-
-    return "interests" if text.match?(
-      /interests|activities.*interest|activities would you/
-    )
-
-    return "must_sees" if text.match?(
-      /must-see|must see|absolutely want|don't want to miss/
-    )
-
-    return "transportation" if text.match?(
-      /transport|rental car|public transportation|tours.*transfers|organized shuttles/
-    )
-
-    nil
-  end
-
-  def clarification_request?(content, topic)
-    text = content.to_s.downcase.strip
-
-    generic_clarifications = [
-      "what?",
-      "what",
-      "huh",
-      "what do you mean",
-      "what does that mean",
-      "i don't understand",
-      "explain"
-    ]
-
-    return true if generic_clarifications.include?(text)
-
-    topic_words = {
-      "group_size" => ["group size", "people?"],
-      "vibe" => ["vibe", "vibe?"],
-      "budget" => ["budget", "budget?"],
-      "pace" => ["pace", "pace?"],
-      "interests" => ["interests?", "activities?"],
-      "must_sees" => ["must see?", "must-see?"],
-      "transportation" => ["transportation?", "transport?"]
-    }
-
-    topic_words.fetch(topic, []).include?(text)
   end
 
   def trip_context
@@ -534,13 +379,13 @@ class MessagesController < ApplicationController
       #{dates}
 
       Original trip description:
-      #{@trip.description.presence || "None provided"}
+      #{@trip.description.presence || 'None provided'}
 
       Group size:
-      #{@trip.group_size.presence || "Infer from the original description or conversation"}
+      #{@trip.group_size.presence || 'Not provided'}
 
       Vibe:
-      #{@trip.vibe.presence || "Infer from the original description or conversation"}
+      #{@trip.vibe.presence || 'Not provided'}
 
       IMPORTANT:
       Treat the original trip description as authoritative user context.
@@ -573,5 +418,39 @@ class MessagesController < ApplicationController
         message: message
       }
     )
+  end
+
+  def generate_itinerary
+    ruby_llm_chat = RubyLLM.chat
+
+    Rails.logger.info "=" * 80
+    Rails.logger.info "TRIP CONTEXT SENT TO LLM"
+    Rails.logger.info trip_context
+    Rails.logger.info "=" * 80
+
+    response = ruby_llm_chat
+              .with_instructions(
+                [
+                  ITINERARY_PROMPT,
+                  trip_context,
+                  questionnaire_context
+                ].join("\n\n")
+              )
+              .ask("Generate the detailed itinerary using the trip information provided.")
+
+    print_generated_itinerary(response.content)
+
+    @assistant_message.destroy!
+    @redirect_to_trip = true
+  end
+
+  def print_generated_itinerary(content)
+    Rails.logger.info "\n\n"
+    Rails.logger.info "=" * 80
+    Rails.logger.info "GENERATED ITINERARY"
+    Rails.logger.info "=" * 80
+    Rails.logger.info content
+    Rails.logger.info "=" * 80
+    Rails.logger.info "\n\n"
   end
 end
