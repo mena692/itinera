@@ -43,12 +43,14 @@ class Trip < ApplicationRecord
   end
 
   # No title is collected on the new-trip form, so fall back to the
-  # destination until one is set (e.g. by the itinerary chat). Always
-  # suffixed with the owner's name, e.g. "Lisbon (Thomas)".
+  # destination until one is set (e.g. by the itinerary chat). Suffixed
+  # with the owner's first name when known, e.g. "Lisbon (Thomas)" —
+  # never falls back to their email.
   def display_name
     label = name.presence || destination
-    owner_name = user.first_name.presence || user.email
-    "#{label} (#{owner_name})"
+    return label if user.first_name.blank?
+
+    "#{label} (#{user.first_name})"
   end
 
   # image_url, once set, is never overwritten — the same photo keeps showing
