@@ -4,6 +4,7 @@ Create a realistic day-by-day itinerary using ALL known trip information.
 
 Respect:
 - exact trip dates
+- destination
 - group size
 - budget
 - vibe
@@ -33,20 +34,19 @@ Do not recommend accommodation unless requested.
 Do not include a separate budget breakdown.
 
 NEVER repeat the same attraction, landmark, neighborhood, museum,
-garden, beach, or venue on different days.
+garden, cultural venue, or other venue on different days.
 
 Before choosing an activity, check all previous days and select
 a different place if it has already been used.
 
 Every day, including DAY 1 and the FINAL DAY,
-must contain at least one properly formatted activity block.
+must contain at least one real activity.
 
 The FINAL DAY must NEVER contain free text such as
 "flexible morning", "departure preparations", or similar.
 
 If the first or last day should be lighter,
-use only 1 or 2 real activities,
-but still use the exact activity format.
+use only 1 or 2 real activities.
 
 Do not output vague or free-form suggestions such as:
 "flexible morning options",
@@ -58,9 +58,8 @@ or similar wording.
 The itinerary will later be displayed as activity cards.
 
 For each day include:
-- day number
-- short day theme
 - exact date
+- short day theme
 - approximately 3 to 5 activities when realistic
 
 For each activity include:
@@ -68,42 +67,71 @@ For each activity include:
 - activity name
 - category
 - duration
-- useful address or area
+- useful address
 - one short description
 - one short note only when useful
 
-End each day with:
-- number of stops
-- approximate active time
-- main transportation method
+Category MUST be exactly one of:
+- accommodation
+- cultural
+- entertainment
+- food
+- hiking
+- leisure
+- sightseeing
+- transportation
 
-Use EXACTLY this format:
+Never use any other category.
 
-DAY 1 — Short theme
-Date: exact trip date
+Use:
+- cultural for cultural experiences, traditions, performances, workshops, festivals, and similar cultural activities
+- sightseeing for museums, landmarks, neighborhoods, gardens, monuments, and general attractions
+- food for restaurants, cafes, food markets, and food experiences
+- leisure for spas, beaches, hot springs, relaxing parks, and similar relaxed activities
+- hiking for hikes, trails, and trekking
+- transportation for arrivals, departures, transfers, trains, buses, and similar transportation activities
+- entertainment for shows, nightlife, amusement, ziplining, and similar activities
+- accommodation for hotels and lodging
 
-10:00 — Activity name
-Category: culture
-Duration: 1.5 hr
-Address: useful location or area
-Description: One short sentence.
-Notes: Short useful note.
+Addresses must be specific and useful for geocoding.
+Use the trip destination as geographic context for every address.
+Include city and country when useful to avoid ambiguity.
 
-13:00 — Activity name
-Category: food
-Duration: 1 hr
-Address: useful location or area
-Description: One short sentence.
+TIME RULES:
+- start_time must use 24-hour HH:MM format
+- duration_minutes must be a positive integer
+- do not output end_time
+- Rails will calculate the end time from start_time and duration_minutes
 
-Day summary: 2 stops · ~2.5 hr · walking
+OUTPUT RULES:
+- Return ONLY valid JSON.
+- Do not use Markdown.
+- Do not use code fences.
+- Do not output any text before or after the JSON.
+- Do not output latitude or longitude.
+- Do not output image URLs.
+- Do not output end times.
+- Every required key must be present.
+- notes must be a string and may be empty when there is no useful note.
 
-Keep it TL;DR:
-- no paragraphs
-- no filler
-- descriptions are one short sentence
-- notes are optional and very short
-- categories should normally be one word
-- keep each field on its own line
-- put a blank line between activities
-- put two blank lines between days
-- do not use Markdown headings, bold text, tables, or bullet symbols
+Use EXACTLY this JSON structure:
+
+{
+  "days": [
+    {
+      "date": "YYYY-MM-DD",
+      "name": "Short day theme",
+      "activities": [
+        {
+          "start_time": "09:30",
+          "duration_minutes": 90,
+          "name": "Specific activity name",
+          "category": "sightseeing",
+          "address": "Specific useful address, city, country",
+          "description": "One short sentence.",
+          "notes": ""
+        }
+      ]
+    }
+  ]
+}
