@@ -95,6 +95,7 @@ class MessagesController < ApplicationController
 
     Respect:
     - exact trip dates
+    - destination
     - group size
     - budget
     - vibe
@@ -146,58 +147,53 @@ class MessagesController < ApplicationController
     "if time permits",
     or similar wording.
 
-    The itinerary will later be displayed as activity cards.
+    Use specific addresses whenever possible.
+    Include the city and country in addresses when useful for accurate geocoding.
 
-    For each day include:
-    - day number
-    - short day theme
-    - exact date
-    - approximately 3 to 5 activities when realistic
+    Do NOT generate latitude or longitude.
+    Rails will geocode each activity address separately.
 
-    For each activity include:
-    - start time
-    - activity name
-    - category
-    - duration
-    - useful address or area
-    - one short description
-    - one short note only when useful
+    Return ONLY valid JSON.
 
-    End each day with:
-    - number of stops
-    - approximate active time
-    - main transportation method
+    Do not wrap the JSON in Markdown.
+    Do not use ```json.
+    Do not add text before or after the JSON.
 
-    Use EXACTLY this format:
+    Use EXACTLY this structure:
 
-    DAY 1 — Short theme
-    Date: exact trip date
+    {
+      "days": [
+        {
+          "date": "YYYY-MM-DD",
+          "name": "Short day theme",
+          "activities": [
+            {
+              "start_time": "HH:MM",
+              "duration_minutes": 90,
+              "name": "Specific activity name",
+              "category": "sightseeing",
+              "address": "Specific address, city, country",
+              "description": "One short sentence.",
+              "notes": "One short useful note."
+            }
+          ]
+        }
+      ]
+    }
 
-    10:00 — Activity name
-    Category: culture
-    Duration: 1.5 hr
-    Address: useful location or area
-    Description: One short sentence.
-    Notes: Short useful note.
-
-    13:00 — Activity name
-    Category: food
-    Duration: 1 hr
-    Address: useful location or area
-    Description: One short sentence.
-
-    Day summary: 2 stops · ~2.5 hr · walking
-
-    Keep it TL;DR:
-    - no paragraphs
-    - no filler
-    - descriptions are one short sentence
-    - notes are optional and very short
-    - categories should normally be one word
-    - keep each field on its own line
-    - put a blank line between activities
-    - put two blank lines between days
-    - do not use Markdown headings, bold text, tables, or bullet symbols
+    Rules:
+    - include every exact trip date once
+    - keep days in chronological order
+    - use 3 to 5 activities per full day when realistic
+    - first and last days may contain only 1 or 2 activities
+    - start_time must use 24-hour HH:MM format
+    - duration_minutes must be an integer
+    - name must identify a specific activity or place
+    - address must be useful for geocoding
+    - description must be one short sentence
+    - notes may be an empty string when unnecessary
+    - category should normally be one word
+    - output must be valid JSON
   PROMPT
 
   def create
@@ -439,6 +435,7 @@ class MessagesController < ApplicationController
               .ask("Generate the detailed itinerary using the trip information provided.")
 
     print_generated_itinerary(response.content)
+    save_generated_itinerary(response.content)
 
     @assistant_message.destroy!
     @redirect_to_trip = true
@@ -452,5 +449,31 @@ class MessagesController < ApplicationController
     Rails.logger.info content
     Rails.logger.info "=" * 80
     Rails.logger.info "\n\n"
+  end
+
+  def save_generated_itinerary(content)
+    data = JSON.parse(content)
+
+    data.fetch("days").each do |day_data|
+      trip_day = @trip.trip_days.find_by!(
+        date: Date.parse(day_data.fetch("date"))
+      )
+
+      day_data.fetch("activities").each do |activity_data|
+        start_date = Time.zone.parse(
+          "#{trip_day.date} #{activity_data.fetch("start_time")}"
+        )
+
+        trip_day.activities.create!(
+          name: activity_data.fetch("name"),
+          category: activity_data.fetch("category"),
+          address: activity_data.fetch("address"),
+          description: activity_data.fetch("description"),
+          notes: activity_data["notes"],
+          start_date: start_date,
+          end_date: start_date + activity_data.fetch("duration_minutes").minutes
+        )
+      end
+    end
   end
 end
