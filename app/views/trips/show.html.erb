@@ -2,8 +2,14 @@
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.28.1/mapbox-gl.css" rel="stylesheet">
 <% end %>
 
-<h1><%= @trip.name %></h1>
-<p>20-27 Aug 2026 • <%= @trip_days.count %> days</p>
+<div class="trip-header">
+  <div>
+    <h1><%= @trip.name %></h1>
+    <p>20-27 Aug 2026 • <%= @trip_days.count %> days</p>
+  </div>
+
+  <%= render "trip_actions", trip: @trip %>
+</div>
 
 <div class="day-tabs" data-controller="day-tabs">
   <ul class="day-tabs__list">
@@ -41,7 +47,7 @@
 
     <div class="activity-card"
          data-controller="activity-card"
-         data-activity-card-url-value="<%= trip_activity_path(@trip, a) %>"
+         data-activity-card-url-value="<%= trip_trip_day_activity_path(@trip, @trip_day, a) %>"
          data-action="click->activity-card#visit click@window->activity-card#closeMenu">
       <img class="activity-card__thumb" src="<%= a.image_url %>" alt="<%= a.name %>" />
 
@@ -59,11 +65,11 @@
       </div>
 
       <div class="activity-card__actions" data-activity-card-target="menu" hidden>
-        <%= link_to edit_trip_activity_path(@trip, a), class: "activity-card__action activity-card__action--edit" do %>
+        <%= link_to edit_trip_trip_day_activity_path(@trip, @trip_day, a), class: "activity-card__action activity-card__action--edit" do %>
           <i class="fa-solid fa-pen activity-card__action-icon"></i>
           <span>edit</span>
         <% end %>
-        <%= button_to trip_activity_path(@trip, a), method: :delete,
+        <%= button_to trip_trip_day_activity_path(@trip, @trip_day, a), method: :delete,
               class: "activity-card__action activity-card__action--delete",
               form: { data: { turbo_confirm: "Delete #{a.name}?" } } do %>
           <i class="fa-solid fa-trash activity-card__action-icon"></i>
@@ -75,7 +81,7 @@
 <% end %>
 
 <div class="trip-actions">
-  <%= link_to new_trip_activity_path(@trip, day: (params[:day] || 1)), class: "btn-itinera-secondary" do %>
+  <%= link_to new_trip_trip_day_activity_path(@trip, @trip_day, day: (params[:day] || 1)), class: "btn-itinera-secondary" do %>
     <span class="btn-icon">+</span> add activity
   <% end %>
   <a href="" class="btn-itinera-primary"><span class="btn-icon">&#10022;</span> ask itinera</a>

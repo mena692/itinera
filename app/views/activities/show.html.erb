@@ -42,5 +42,5 @@
 
 <div class="trip-actions">
  <%= link_to "back", trip_path(@trip, day: @day_number), class: "btn-itinera-secondary" %>
- <%= link_to "edit", edit_trip_activity_path(@trip, @activity), class: "btn-itinera-primary" %>
+ <%= link_to "edit", edit_trip_trip_day_activity_path(@trip, @trip_day, @activity), class: "btn-itinera-primary" %>
 </div>

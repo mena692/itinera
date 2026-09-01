@@ -104,20 +104,20 @@ class MessagesController < ApplicationController
     - must-see requests
     - transportation preferences
 
-    The destination in TRIP INFORMATION is authoritative.
-    Every activity must be a real, specific place or experience appropriate
-    for that destination.
-
     Use ONLY the exact trip dates listed in TRIP INFORMATION.
 
     DAY 1 must use the first exact trip date.
     Each following day must use the next exact trip date in order.
     Never invent, shift, or infer different dates.
 
-    Assume the user arrives on the first trip date
-    and leaves on the last trip date.
+    Assume the user is arriving at the destination on the first trip date
+    and leaving on the last trip date.
 
-    Keep the first and last days lighter.
+    Keep the first and last days lighter and more flexible.
+
+    Do not invent exact arrival times, departure times, flight details,
+    airport details, hotel check-in/check-out times, or transportation bookings
+    unless the user explicitly provided them.
 
     Do not ask any more questions.
     Do not add an introduction or conclusion.
@@ -126,6 +126,26 @@ class MessagesController < ApplicationController
 
     NEVER repeat the same attraction, landmark, neighborhood, museum,
     garden, beach, or venue on different days.
+
+    Before choosing an activity, check all previous days and select
+    a different place if it has already been used.
+
+    Every day, including DAY 1 and the FINAL DAY,
+    must contain at least one properly formatted activity block.
+
+    The FINAL DAY must NEVER contain free text such as
+    "flexible morning", "departure preparations", or similar.
+
+    If the first or last day should be lighter,
+    use only 1 or 2 real activities,
+    but still use the exact activity format.
+
+    Do not output vague or free-form suggestions such as:
+    "flexible morning options",
+    "nearby temple",
+    "local eateries",
+    "if time permits",
+    or similar wording.
 
     Use specific addresses whenever possible.
     Include the city and country in addresses when useful for accurate geocoding.

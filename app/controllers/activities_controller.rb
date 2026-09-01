@@ -21,51 +21,50 @@ class ActivitiesController < ApplicationController
 
   def show
     authorize @activity
-    @day_number = day_number_for(@activity)
+    @day_number = day_number_for(@trip_day)
   end
 
   def edit
     authorize @activity
-    @day_number = day_number_for(@activity)
+    @day_number = day_number_for(@trip_day)
   end
 
   def update
     authorize @activity
 
     if @activity.update(update_params)
-      redirect_to [@trip, @activity], notice: "Activity updated."
+      redirect_to [@trip, @trip_day, @activity], notice: "Activity updated."
     else
-      @day_number = day_number_for(@activity)
+      @day_number = day_number_for(@trip_day)
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     authorize @activity
-    trip = @activity.trip_day.trip
-    day_number = day_number_for(@activity)
+    day_number = day_number_for(@trip_day)
     @activity.destroy
-    redirect_to trip_path(trip, day: day_number), notice: "Activity deleted."
+    redirect_to trip_path(@trip, day: day_number), notice: "Activity deleted."
   end
 
   private
 
   def set_activity
     @activity = Activity.find(params[:id])
-    @trip = @activity.trip_day.trip
+    @trip_day = @activity.trip_day
+    @trip = @trip_day.trip
   end
 
   def set_trip_and_day
     @trip = current_user.trips.find(params[:trip_id])
     authorize @trip
 
-    @day_number = (params[:day] || 1).to_i
-    @trip_day = @trip.trip_days.order(:date)[@day_number - 1]
+    @trip_day = @trip.trip_days.find(params[:trip_day_id])
+    @day_number = day_number_for(@trip_day)
   end
 
-  def day_number_for(activity)
-    trip = activity.trip_day.trip
-    trip.trip_days.order(:date).pluck(:id).index(activity.trip_day_id) + 1
+  def day_number_for(trip_day)
+    trip_day.trip.trip_days.order(:date).pluck(:id).index(trip_day.id) + 1
   end
 
   def activity_params
