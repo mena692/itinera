@@ -17,7 +17,7 @@ resources :trips, only: [:index, :new, :create, :show] do
   resources :trip_days, only: [:create] do
     resources :activities, only: [:show, :new, :create, :edit, :update, :destroy]
   end
-  resources :chats, only: [:show] do
+  resources :chats, only: [:show, :create] do
     resources :messages, only: [:create]
     end
   end

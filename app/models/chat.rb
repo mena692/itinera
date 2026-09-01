@@ -5,9 +5,7 @@ class Chat < ApplicationRecord
   DEFAULT_TITLE = "Drafting Itinerary"
   validates :title, presence: true
 
-  TITLE_PROMPT = <<~PROMPT
-    Generate a short, descriptive, 3-to-6-word title that summarizes the user question for a chat conversation.
-  PROMPT
+  TITLE_PROMPT = PromptTemplate.read("chats/title")
 
   def generate_title_from_first_message
     return unless title == DEFAULT_TITLE
