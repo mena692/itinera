@@ -4,13 +4,8 @@ class Chat < ApplicationRecord
   has_many :messages, dependent: :destroy
   DEFAULT_TITLE = "Drafting Itinerary"
   validates :title, presence: true
-  # Only one code path ever creates a Chat (TripsController#create), but
-  # nothing at the DB level enforced that — this documents and guards it.
-  validates :trip_id, uniqueness: true
 
-  TITLE_PROMPT = <<~PROMPT
-    Generate a short, descriptive, 3-to-6-word title that summarizes the user question for a chat conversation.
-  PROMPT
+  TITLE_PROMPT = PromptTemplate.read("chats/title")
 
   def generate_title_from_first_message
     return unless title == DEFAULT_TITLE

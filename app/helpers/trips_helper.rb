@@ -13,20 +13,6 @@ module TripsHelper
     "#{first_date.strftime(start_format)} – #{last_date.strftime('%-d %b %Y')}"
   end
 
-  # Where the trip card/hero link should go: back into the resumable
-  # chat while it's unfinished, or to the itinerary once it's done.
-  # Falls back to the itinerary path if there's no chat to resume (e.g.
-  # a trip created outside the normal flow, with no chat at all).
-  def trip_resume_path(trip)
-    return trip_path(trip) if trip.itinerary_generated? || trip.primary_chat.nil?
-
-    trip_chat_path(trip, trip.primary_chat)
-  end
-
-  def trip_resume_cta_label(trip)
-    trip.itinerary_generated? ? "view itinerary" : "continue planning"
-  end
-
   def trip_countdown_label(trip)
     dates = trip.trip_days.map(&:date)
     return nil if dates.empty?

@@ -42,20 +42,6 @@ class Trip < ApplicationRecord
     trip_days.sum { |trip_day| trip_day.activities.size }
   end
 
-  # True only once every day has at least one activity — resilient to a
-  # generation run that raised partway through and left some days empty
-  # (activities_count.positive? would wrongly say "done" in that case).
-  def itinerary_generated?
-    trip_days.any? && trip_days.all? { |trip_day| trip_day.activities.any? }
-  end
-
-  # The chat that started this trip. In practice there's only ever one
-  # (see Chat's trip_id uniqueness validation) — pick the earliest rather
-  # than trusting association order, in case that's ever violated.
-  def primary_chat
-    chats.min_by(&:created_at)
-  end
-
   # No title is collected on the new-trip form, so fall back to the
   # destination until one is set (e.g. by the itinerary chat).
   def display_name
