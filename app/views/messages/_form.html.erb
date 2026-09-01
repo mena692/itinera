@@ -1,5 +1,8 @@
 <%= simple_form_for [trip, chat, message],
-                    html: { class: "message-form" } do |f| %>
+                    html: {
+                      class: "message-form",
+                      data: { action: "submit->chat#preventBlank" }
+                    } do |f| %>
 
   <div class="message-input-wrapper">
     <%= f.input :content,
@@ -8,7 +11,8 @@
                 wrapper: false,
                 input_html: {
                   class: "message-input",
-                  autocomplete: "off"
+                  autocomplete: "off",
+                  autofocus: true
                 },
                 placeholder: "Tell itinera..." %>
 
