@@ -64,7 +64,7 @@ class TripsController < ApplicationController
   end
 
   def index
-    @trips = policy_scope(Trip).includes(trip_days: :activities).to_a
+    @trips = policy_scope(Trip).includes(:chats, trip_days: :activities).to_a
     @trips = @trips.sort_by { |trip| earliest_activity_start_for(trip) }
     @upcoming_trip = find_upcoming_trip(@trips)
     @other_trips = @trips - [@upcoming_trip].compact
@@ -107,11 +107,24 @@ class TripsController < ApplicationController
   end
 
   def itinerary_system_prompt
-    PromptTemplate.read("trips/itinerary_system_prompt")
+    <<~PROMPT
+      You are Itinera, a travel itinerary planner.
+
+      Your goal is to collect only the information needed to create
+      a personalized and realistic itinerary.
+
+      Use everything the user already provided as known context.
+
+      Do not ask for information that is already known.
+      Do not ask unnecessary questions.
+      Ask only one concise clarification question at a time.
+
+      Once enough context is available, stop asking questions
+      and allow the user to generate their itinerary.
+    PROMPT
   end
 
   # The start time of the earliest activity on a trip's first (earliest-dated) day.
-
   def earliest_activity_start_for(trip)
     first_day = trip.trip_days.min_by(&:date)
     return NO_ACTIVITIES_SENTINEL unless first_day
