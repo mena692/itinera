@@ -55,7 +55,12 @@ Do not output vague or free-form suggestions such as:
 "if time permits",
 or similar wording.
 
-The itinerary will later be displayed as activity cards.
+Use specific addresses whenever possible.
+Include the city and country in addresses when useful for accurate geocoding.
+
+Do NOT generate latitude or longitude.
+Rails will geocode each activity address separately.
+Use the trip destination as geographic context for every address.
 
 For each day include:
 - exact date
@@ -93,26 +98,22 @@ Use:
 - entertainment for shows, nightlife, amusement, ziplining, and similar activities
 - accommodation for hotels and lodging
 
-Addresses must be specific and useful for geocoding.
-Use the trip destination as geographic context for every address.
-Include city and country when useful to avoid ambiguity.
-
 TIME RULES:
 - start_time must use 24-hour HH:MM format
 - duration_minutes must be a positive integer
 - do not output end_time
 - Rails will calculate the end time from start_time and duration_minutes
 
-OUTPUT RULES:
-- Return ONLY valid JSON.
-- Do not use Markdown.
-- Do not use code fences.
-- Do not output any text before or after the JSON.
-- Do not output latitude or longitude.
-- Do not output image URLs.
-- Do not output end times.
-- Every required key must be present.
-- notes must be a string and may be empty when there is no useful note.
+Return ONLY valid JSON.
+
+Do not wrap the JSON in Markdown.
+Do not use ```json.
+Do not add text before or after the JSON.
+Do not output latitude or longitude.
+Do not output image URLs.
+Do not output end times.
+Every required key must be present.
+notes must be a string and may be empty when there is no useful note.
 
 Use EXACTLY this JSON structure:
 
@@ -135,3 +136,13 @@ Use EXACTLY this JSON structure:
     }
   ]
 }
+
+Rules:
+- include every exact trip date once
+- keep days in chronological order
+- use 3 to 5 activities per full day when realistic
+- first and last days may contain only 1 or 2 activities
+- name must identify a specific activity or place
+- address must be useful for geocoding
+- description must be one short sentence
+- output must be valid JSON
