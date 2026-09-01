@@ -33,6 +33,7 @@ class MessagesController < ApplicationController
   CONVERSATION_PROMPT = PromptTemplate.read("messages/conversation")
   SUMMARY_PROMPT = PromptTemplate.read("messages/summary")
   ITINERARY_PROMPT = PromptTemplate.read("messages/itinerary")
+  MODIFY_PROMPT = PromptTemplate.read("messages/modify_itinerary")
 
   def create
     @trip = current_user.trips.find(params[:trip_id])
@@ -98,6 +99,11 @@ class MessagesController < ApplicationController
   def continue_conversation
     if full_itinerary_request?
       generate_itinerary
+      return
+    end
+
+    if trip_has_itinerary?
+      handle_modification_request
       return
     end
 
@@ -196,6 +202,57 @@ class MessagesController < ApplicationController
     )
   end
 
+  def trip_has_itinerary?
+    @trip.activities_count.positive?
+  end
+
+  def handle_modification_request
+    tools = [
+      CreateActivityTool.new(trip: @trip),
+      UpdateActivityTool.new(trip: @trip),
+      DeleteActivityTool.new(trip: @trip),
+      CreateTripDayTool.new(trip: @trip),
+      UpdateTripDayTool.new(trip: @trip),
+      DeleteTripDayTool.new(trip: @trip),
+      UpdateTripTool.new(trip: @trip)
+    ]
+
+    modify_chat = RubyLLM.chat
+
+    response = modify_chat
+               .with_tools(*tools)
+               .with_instructions(
+                 [
+                   MODIFY_PROMPT,
+                   trip_context,
+                   modification_context
+                 ].join("\n\n")
+               )
+               .ask(@message.content)
+
+    set_assistant_message(response.content)
+  end
+
+  def modification_context
+    trip_days = @trip.trip_days.order(:date).includes(:activities)
+
+    lines = ["CURRENT ITINERARY", ""]
+
+    trip_days.each_with_index do |trip_day, index|
+      lines << "Day #{index + 1} (trip_day_id: #{trip_day.id}) — #{trip_day.date} — #{trip_day.name}"
+
+      trip_day.activities.order(:start_date).each do |activity|
+        times = "#{activity.start_date&.strftime('%H:%M')}–#{activity.end_date&.strftime('%H:%M')}"
+        lines << "  - activity_id #{activity.id}: #{activity.name} (#{activity.category}) " \
+                 "#{times} at #{activity.address}"
+      end
+
+      lines << ""
+    end
+
+    lines.join("\n")
+  end
+
   def trip_context
     dates = @trip.trip_days
                  .order(:date)
@@ -263,14 +320,14 @@ class MessagesController < ApplicationController
     Rails.logger.info "=" * 80
 
     response = ruby_llm_chat
-              .with_instructions(
-                [
-                  ITINERARY_PROMPT,
-                  trip_context,
-                  questionnaire_context
-                ].join("\n\n")
-              )
-              .ask("Generate the detailed itinerary using the trip information provided.")
+               .with_instructions(
+                 [
+                   ITINERARY_PROMPT,
+                   trip_context,
+                   questionnaire_context
+                 ].join("\n\n")
+               )
+               .ask("Generate the detailed itinerary using the trip information provided.")
 
     print_generated_itinerary(response.content)
     save_generated_itinerary(response.content)
@@ -303,7 +360,7 @@ class MessagesController < ApplicationController
 
       day_data.fetch("activities").each do |activity_data|
         start_date = Time.zone.parse(
-          "#{trip_day.date} #{activity_data.fetch("start_time")}"
+          "#{trip_day.date} #{activity_data.fetch('start_time')}"
         )
 
         category = activity_data.fetch("category")
