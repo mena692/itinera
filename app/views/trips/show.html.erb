@@ -4,8 +4,12 @@
 
 <div class="trip-header">
   <div>
-    <h1><%= @trip.name %></h1>
-    <p>20-27 Aug 2026 • <%= @trip_days.count %> days</p>
+    <h1><%= @trip.name.presence || @trip.destination %></h1>
+    <p>
+      <%= @trip_days.first.date.strftime("%d %b") %> -
+      <%= @trip_days.last.date.strftime("%d %b %Y") %>
+      • <%= @trip_days.count %> days
+  </p>
   </div>
 
   <%= render "trip_actions", trip: @trip %>

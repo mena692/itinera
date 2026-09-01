@@ -73,9 +73,12 @@ class TripsController < ApplicationController
   def show
     @trip = Trip.find(params[:id])
     authorize @trip
+
     @trip_days = @trip.trip_days.order(date: :asc)
-    @trip_day = @trip_days[params[:day].to_i - 1]
-    # @activity = Activity.find(params[:id])
+
+    day_number = (params[:day] || 1).to_i
+    @trip_day = @trip_days[day_number - 1]
+
     @activities = @trip_day.activities.order(start_date: :asc)
   end
 

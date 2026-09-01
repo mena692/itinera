@@ -297,17 +297,27 @@ class MessagesController < ApplicationController
         date: Date.parse(day_data.fetch("date"))
       )
 
+      trip_day.update!(
+        name: day_data.fetch("name")
+      )
+
       day_data.fetch("activities").each do |activity_data|
         start_date = Time.zone.parse(
           "#{trip_day.date} #{activity_data.fetch("start_time")}"
         )
 
+        category = activity_data.fetch("category")
+
+        unless Activity::CATEGORIES.include?(category)
+          category = "sightseeing"
+        end
+
         trip_day.activities.create!(
           name: activity_data.fetch("name"),
-          category: activity_data.fetch("category"),
+          category: category,
           address: activity_data.fetch("address"),
           description: activity_data.fetch("description"),
-          notes: activity_data["notes"],
+          notes: activity_data.fetch("notes"),
           start_date: start_date,
           end_date: start_date + activity_data.fetch("duration_minutes").minutes
         )
