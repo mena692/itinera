@@ -196,6 +196,35 @@ class MessagesController < ApplicationController
     - output must be valid JSON
   PROMPT
 
+  MODIFY_PROMPT = <<~PROMPT
+    You are Itinera, a travel itinerary planner.
+
+    The trip already has an itinerary. The user is asking for a change to it.
+
+    You will be given the current itinerary, with the real database ID of
+    every day and activity, plus the user's request.
+
+    Use the available tools to make the change directly. Only touch what the
+    request implies — do not restructure or rewrite days or activities the
+    user didn't ask about.
+
+    Respect the trip's known budget, vibe, pace, interests, must-see
+    requests, and transportation preferences when adding or changing
+    activities. Consider realistic travel time, opening hours, and sensible
+    sequencing.
+
+    If the request is ambiguous or conflicts with a known trip constraint,
+    make the most reasonable choice and say so in your reply rather than
+    guessing silently or refusing.
+
+    Do not invent specific venues, restaurants, or attractions you are not
+    confident exist. Prefer a general description over a fabricated name
+    when unsure.
+
+    After using the tools, reply with a short (1-3 sentence) confirmation of
+    what changed. Do not restate the full itinerary.
+  PROMPT
+
   def create
     @trip = current_user.trips.find(params[:trip_id])
     authorize @trip
@@ -260,6 +289,11 @@ class MessagesController < ApplicationController
   def continue_conversation
     if full_itinerary_request?
       generate_itinerary
+      return
+    end
+
+    if trip_has_itinerary?
+      handle_modification_request
       return
     end
 
@@ -356,6 +390,57 @@ class MessagesController < ApplicationController
     set_assistant_message(
       "SUMMARY_READY\n#{response.content}"
     )
+  end
+
+  def trip_has_itinerary?
+    @trip.activities_count.positive?
+  end
+
+  def handle_modification_request
+    tools = [
+      CreateActivityTool.new(trip: @trip),
+      UpdateActivityTool.new(trip: @trip),
+      DeleteActivityTool.new(trip: @trip),
+      CreateTripDayTool.new(trip: @trip),
+      UpdateTripDayTool.new(trip: @trip),
+      DeleteTripDayTool.new(trip: @trip),
+      UpdateTripTool.new(trip: @trip)
+    ]
+
+    modify_chat = RubyLLM.chat
+
+    response = modify_chat
+               .with_tools(*tools)
+               .with_instructions(
+                 [
+                   MODIFY_PROMPT,
+                   trip_context,
+                   modification_context
+                 ].join("\n\n")
+               )
+               .ask(@message.content)
+
+    set_assistant_message(response.content)
+  end
+
+  def modification_context
+    trip_days = @trip.trip_days.order(:date).includes(:activities)
+
+    lines = ["CURRENT ITINERARY", ""]
+
+    trip_days.each_with_index do |trip_day, index|
+      lines << "Day #{index + 1} (trip_day_id: #{trip_day.id}) — #{trip_day.date} — #{trip_day.name}"
+
+      trip_day.activities.order(:start_date).each do |activity|
+        times = "#{activity.start_date&.strftime('%H:%M')}–#{activity.end_date&.strftime('%H:%M')}"
+        lines << "  - activity_id #{activity.id}: #{activity.name} (#{activity.category}) " \
+                 "#{times} at #{activity.address}"
+      end
+
+      lines << ""
+    end
+
+    lines.join("\n")
   end
 
   def trip_context
