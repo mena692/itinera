@@ -84,5 +84,7 @@
   <%= link_to new_trip_trip_day_activity_path(@trip, @trip_day, day: (params[:day] || 1)), class: "btn-itinera-secondary" do %>
     <span class="btn-icon">+</span> add activity
   <% end %>
-  <a href="" class="btn-itinera-primary"><span class="btn-icon">&#10022;</span> ask itinera</a>
+  <%= button_to trip_chats_path(@trip), method: :post, class: "btn-itinera-primary" do %>
+    ask itinera <span class="btn-icon">&#10022;</span>
+  <% end %>
 </div>

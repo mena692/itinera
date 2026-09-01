@@ -107,24 +107,11 @@ class TripsController < ApplicationController
   end
 
   def itinerary_system_prompt
-    <<~PROMPT
-      You are Itinera, a travel itinerary planner.
-
-      Your goal is to collect only the information needed to create
-      a personalized and realistic itinerary.
-
-      Use everything the user already provided as known context.
-
-      Do not ask for information that is already known.
-      Do not ask unnecessary questions.
-      Ask only one concise clarification question at a time.
-
-      Once enough context is available, stop asking questions
-      and allow the user to generate their itinerary.
-    PROMPT
+    PromptTemplate.read("trips/itinerary_system_prompt")
   end
 
   # The start time of the earliest activity on a trip's first (earliest-dated) day.
+
   def earliest_activity_start_for(trip)
     first_day = trip.trip_days.min_by(&:date)
     return NO_ACTIVITIES_SENTINEL unless first_day
