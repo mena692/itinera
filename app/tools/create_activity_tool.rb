@@ -5,11 +5,11 @@ class CreateActivityTool < ApplicationTool
   param :category, desc: "One of: #{Activity::CATEGORIES.join(', ')}"
   param :start_time, desc: "Start time in HH:MM (24-hour) format"
   param :duration_minutes, type: :integer, desc: "Duration of the activity in minutes"
-  param :address, desc: "Address or area useful for the activity", required: false
+  param :address, desc: "Address or area useful for the activity"
   param :description, desc: "One short sentence describing the activity", required: false
   param :notes, desc: "Optional short note", required: false
 
-  def execute(trip_day_id:, name:, category:, start_time:, duration_minutes:, **optional)
+  def execute(trip_day_id:, name:, category:, start_time:, duration_minutes:, address:, **optional)
     error = invalid_category_error(category)
     return { error: error } if error
 
@@ -17,11 +17,12 @@ class CreateActivityTool < ApplicationTool
     start_date = compute_start_date(trip_day, start_time)
 
     activity = trip_day.activities.create!(
-      optional.slice(:address, :description, :notes).merge(
+      optional.slice(:description, :notes).merge(
         name: name,
         category: category,
         start_date: start_date,
-        end_date: start_date + duration_minutes.minutes
+        end_date: start_date + duration_minutes.minutes,
+        address: address
       )
     )
 

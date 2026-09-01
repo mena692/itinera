@@ -33,35 +33,7 @@ class MessagesController < ApplicationController
   CONVERSATION_PROMPT = PromptTemplate.read("messages/conversation")
   SUMMARY_PROMPT = PromptTemplate.read("messages/summary")
   ITINERARY_PROMPT = PromptTemplate.read("messages/itinerary")
-
-  MODIFY_PROMPT = <<~PROMPT
-    You are Itinera, a travel itinerary planner.
-
-    The trip already has an itinerary. The user is asking for a change to it.
-
-    You will be given the current itinerary, with the real database ID of
-    every day and activity, plus the user's request.
-
-    Use the available tools to make the change directly. Only touch what the
-    request implies — do not restructure or rewrite days or activities the
-    user didn't ask about.
-
-    Respect the trip's known budget, vibe, pace, interests, must-see
-    requests, and transportation preferences when adding or changing
-    activities. Consider realistic travel time, opening hours, and sensible
-    sequencing.
-
-    If the request is ambiguous or conflicts with a known trip constraint,
-    make the most reasonable choice and say so in your reply rather than
-    guessing silently or refusing.
-
-    Do not invent specific venues, restaurants, or attractions you are not
-    confident exist. Prefer a general description over a fabricated name
-    when unsure.
-
-    After using the tools, reply with a short (1-3 sentence) confirmation of
-    what changed. Do not restate the full itinerary.
-  PROMPT
+  MODIFY_PROMPT = PromptTemplate.read("messages/modify_itinerary")
 
   def create
     @trip = current_user.trips.find(params[:trip_id])
@@ -348,14 +320,14 @@ class MessagesController < ApplicationController
     Rails.logger.info "=" * 80
 
     response = ruby_llm_chat
-              .with_instructions(
-                [
-                  ITINERARY_PROMPT,
-                  trip_context,
-                  questionnaire_context
-                ].join("\n\n")
-              )
-              .ask("Generate the detailed itinerary using the trip information provided.")
+               .with_instructions(
+                 [
+                   ITINERARY_PROMPT,
+                   trip_context,
+                   questionnaire_context
+                 ].join("\n\n")
+               )
+               .ask("Generate the detailed itinerary using the trip information provided.")
 
     print_generated_itinerary(response.content)
     save_generated_itinerary(response.content)
@@ -384,7 +356,7 @@ class MessagesController < ApplicationController
 
       day_data.fetch("activities").each do |activity_data|
         start_date = Time.zone.parse(
-          "#{trip_day.date} #{activity_data.fetch("start_time")}"
+          "#{trip_day.date} #{activity_data.fetch('start_time')}"
         )
 
         trip_day.activities.create!(

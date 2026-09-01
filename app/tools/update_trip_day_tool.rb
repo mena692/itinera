@@ -1,8 +1,8 @@
 class UpdateTripDayTool < ApplicationTool
   description "Updates a trip day's name or description. Does not change its date."
   param :trip_day_id, type: :integer, desc: "ID of the trip day to update, from the current itinerary context"
-  param :name, desc: "New short theme for the day", required: false
-  param :description, desc: "New description of the day", required: false
+  param :name, desc: "New short theme for the day"
+  param :description, desc: "New description of the day"
 
   def execute(trip_day_id:, **changes)
     trip_day = find_trip_day(trip_day_id)

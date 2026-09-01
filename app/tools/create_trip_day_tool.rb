@@ -1,8 +1,8 @@
 class CreateTripDayTool < ApplicationTool
   description "Adds a new day to the trip, e.g. when the user extends their trip."
   param :date, desc: "Date of the new day, in YYYY-MM-DD format"
-  param :name, desc: "Short theme for the day", required: false
-  param :description, desc: "Short description of the day", required: false
+  param :name, desc: "Short theme for the day"
+  param :description, desc: "Short description of the day"
 
   def execute(date:, name: nil, description: nil)
     trip_day = @trip.trip_days.create!(

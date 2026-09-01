@@ -5,7 +5,7 @@ class UpdateActivityTool < ApplicationTool
   param :category, desc: "One of: #{Activity::CATEGORIES.join(', ')}", required: false
   param :start_time, desc: "New start time in HH:MM (24-hour) format", required: false
   param :duration_minutes, type: :integer, desc: "New duration in minutes", required: false
-  param :address, desc: "New address or area", required: false
+  param :address, desc: "New address or area"
   param :description, desc: "New one-sentence description", required: false
   param :notes, desc: "New short note", required: false
 
