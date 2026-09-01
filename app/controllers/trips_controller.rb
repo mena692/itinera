@@ -64,7 +64,7 @@ class TripsController < ApplicationController
   end
 
   def index
-    @trips = policy_scope(Trip).includes(:user, trip_days: :activities).to_a
+    @trips = policy_scope(Trip).includes(:chats, trip_days: :activities).to_a
     @trips = @trips.sort_by { |trip| earliest_activity_start_for(trip) }
     @upcoming_trip = find_upcoming_trip(@trips)
     @other_trips = @trips - [@upcoming_trip].compact

@@ -18,7 +18,7 @@
     </h2>
 
     <% if @upcoming_trip %>
-      <%= link_to trip_path(@upcoming_trip), class: "trip-hero" do %>
+      <%= link_to trip_resume_path(@upcoming_trip), class: "trip-hero" do %>
         <div class="trip-hero__image-wrap">
       <%= image_tag(
             @upcoming_trip.display_image_url,
@@ -42,7 +42,7 @@
             <%= pluralize(@upcoming_trip.activities_count, "activity") %>
           </p>
           <span class="btn-itinera-primary trip-hero__cta">
-            view itinerary <i class="fa-solid fa-arrow-right"></i>
+            <%= trip_resume_cta_label(@upcoming_trip) %> <i class="fa-solid fa-arrow-right"></i>
           </span>
         </div>
       <% end %>
@@ -91,7 +91,7 @@
             <% if trips_for_status.any? %>
               <div class="trip-cards">
                 <% trips_for_status.each do |trip| %>
-                  <%= link_to trip_path(trip), class: "trip-card" do %>
+                  <%= link_to trip_resume_path(trip), class: "trip-card" do %>
                     <%= image_tag(
                           trip.display_image_url,
                           alt: trip.destination,
