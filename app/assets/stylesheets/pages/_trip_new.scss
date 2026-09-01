@@ -98,3 +98,46 @@
   font-size: 15px;
   font-weight: 700;
 }
+
+.destination-autocomplete {
+  position: relative;
+}
+
+.destination-autocomplete-results {
+  display: none;
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+
+  background: #141e42;
+  border: 1px solid #2c3966;
+  border-radius: 12px;
+  overflow: hidden;
+
+  margin-top: 6px;
+}
+
+.destination-autocomplete-results.show {
+  display: block;
+}
+
+.destination-autocomplete-option {
+  width: 100%;
+  display: block;
+
+  background: transparent;
+  border: 0;
+
+  color: #f2f5ff;
+  text-align: left;
+
+  padding: 12px 16px;
+
+  cursor: pointer;
+}
+
+.destination-autocomplete-option:hover {
+  background: #1e2a58;
+}

@@ -273,6 +273,7 @@ class MessagesController < ApplicationController
               .ask("Generate the detailed itinerary using the trip information provided.")
 
     print_generated_itinerary(response.content)
+    save_generated_itinerary(response.content)
 
     @assistant_message.destroy!
     @redirect_to_trip = true
@@ -286,5 +287,31 @@ class MessagesController < ApplicationController
     Rails.logger.info content
     Rails.logger.info "=" * 80
     Rails.logger.info "\n\n"
+  end
+
+  def save_generated_itinerary(content)
+    data = JSON.parse(content)
+
+    data.fetch("days").each do |day_data|
+      trip_day = @trip.trip_days.find_by!(
+        date: Date.parse(day_data.fetch("date"))
+      )
+
+      day_data.fetch("activities").each do |activity_data|
+        start_date = Time.zone.parse(
+          "#{trip_day.date} #{activity_data.fetch("start_time")}"
+        )
+
+        trip_day.activities.create!(
+          name: activity_data.fetch("name"),
+          category: activity_data.fetch("category"),
+          address: activity_data.fetch("address"),
+          description: activity_data.fetch("description"),
+          notes: activity_data["notes"],
+          start_date: start_date,
+          end_date: start_date + activity_data.fetch("duration_minutes").minutes
+        )
+      end
+    end
   end
 end

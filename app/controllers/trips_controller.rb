@@ -2,6 +2,26 @@ class TripsController < ApplicationController
   before_action :authenticate_user!
   NO_ACTIVITIES_SENTINEL = Time.new(9999, 12, 31).freeze
 
+  TOPICS = %w[
+    group_size
+    vibe
+    budget
+    pace
+    interests
+    must_sees
+    transportation
+  ].freeze
+
+  QUESTIONS = {
+    "group_size" => "How many people are in your travel group?",
+    "vibe" => "What vibe are you looking for: relaxed, adventurous, cultural, or a mix?",
+    "budget" => "What is your approximate total budget for the trip?",
+    "pace" => "What pace do you prefer: relaxed, balanced, or packed?",
+    "interests" => "What activities or interests would you most like to include?",
+    "must_sees" => "Is there anything you absolutely want to see or do?",
+    "transportation" => "Will you have a rental car, use public transportation, or prefer tours and transfers?"
+  }.freeze
+
   def new
     @trip = Trip.new
     authorize @trip
@@ -59,6 +79,18 @@ class TripsController < ApplicationController
     @activities = @trip_day.activities.order(start_date: :asc)
   end
 
+  def destroy
+    @trip = current_user.trips.find(params[:id])
+    authorize @trip
+    @trip.destroy
+
+    if current_user.trips.exists?
+      redirect_to trips_path
+    else
+      redirect_to new_trip_path
+    end
+  end
+
   private
 
   def trip_params
@@ -77,6 +109,7 @@ class TripsController < ApplicationController
   def itinerary_system_prompt
     PromptTemplate.read("trips/itinerary_system_prompt")
   end
+
   # The start time of the earliest activity on a trip's first (earliest-dated) day.
 
   def earliest_activity_start_for(trip)
