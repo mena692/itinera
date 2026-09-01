@@ -20,8 +20,11 @@
     <% if @upcoming_trip %>
       <%= link_to trip_path(@upcoming_trip), class: "trip-hero" do %>
         <div class="trip-hero__image-wrap">
-          <%= image_tag @upcoming_trip.image_url, alt: @upcoming_trip.destination, class: "trip-hero__image" %>
-
+      <%= image_tag(
+            @upcoming_trip.display_image_url,
+            alt: @upcoming_trip.destination,
+            class: "trip-hero__image"
+          ) %>
           <span class="trip-hero__badge trip-hero__badge--destination">
             <i class="fa-solid fa-location-dot"></i> <%= @upcoming_trip.destination.to_s.upcase %>
           </span>
@@ -32,7 +35,7 @@
         </div>
 
         <div class="trip-hero__body">
-          <h3 class="trip-hero__name"><%= @upcoming_trip.name %></h3>
+          <h3 class="trip-hero__name"><%= @upcoming_trip.display_name %></h3>
           <p class="trip-hero__meta">
             <%= trip_date_range_label(@upcoming_trip) %> ·
             <%= pluralize(@upcoming_trip.trip_days.size, "day") %> ·
@@ -89,8 +92,12 @@
               <div class="trip-cards">
                 <% trips_for_status.each do |trip| %>
                   <%= link_to trip_path(trip), class: "trip-card" do %>
-                    <%= image_tag trip.image_url, alt: trip.destination, class: "trip-card__image" %>
-                    <div class="trip-card__body">
+                    <%= image_tag(
+                          trip.display_image_url,
+                          alt: trip.destination,
+                          class: "trip-card__image"
+                        ) %>
+                        <div class="trip-card__body">
                       <h4 class="trip-card__name"><%= trip.destination %></h4>
                       <p class="trip-card__meta">
                         <%= trip.trip_days.map(&:date).min&.strftime("%b %Y") %> ·

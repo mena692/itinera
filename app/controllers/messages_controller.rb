@@ -458,6 +458,7 @@ class MessagesController < ApplicationController
       trip_day = @trip.trip_days.find_by!(
         date: Date.parse(day_data.fetch("date"))
       )
+      trip_day.update!(name: day_data.fetch("name"))
 
       day_data.fetch("activities").each do |activity_data|
         start_date = Time.zone.parse(
