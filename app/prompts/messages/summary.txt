@@ -4,6 +4,13 @@ Create a short recap of the user's trip preferences.
 
 Use the original trip information and questionnaire answers.
 
+The questionnaire answers are provided in this exact order:
+1. Travelers
+2. Budget
+3. Travel style
+4. Trip focus
+5. Transportation
+
 Do not create the itinerary yet.
 Do not invent information.
 Keep each value short.
@@ -11,11 +18,9 @@ Keep each value short.
 Use exactly this format:
 
 Travelers: value
-Vibe: value
 Budget: value
-Pace: value
-Interests: value
-Must-see: value
+Travel style: value
+Trip focus: value
 Transportation: value
 
 Do not use Markdown.

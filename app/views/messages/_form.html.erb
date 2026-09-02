@@ -16,12 +16,10 @@
                 },
                 placeholder: "Tell itinera..." %>
 
-    <%= f.button :button,
-                 type: "submit",
-                 class: "message-send-button",
-                 aria: { label: "Send message" } do %>
+    <button type="submit"
+            class="message-send-button"
+            aria-label="Send message">
       <i class="fa-solid fa-arrow-up"></i>
-    <% end %>
+    </button>
   </div>
-
 <% end %>

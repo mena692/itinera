@@ -85,6 +85,178 @@
         <% end %>
       </div>
 
+      <% question_index = message.chat.messages
+                                  .where(role: "user")
+                                  .where("created_at < ?", message.created_at)
+                                  .count %>
+
+      <% if message.content.present? && question_index < 5 %>
+        <div class="chat-options" data-controller="chat-options">
+          <% if question_index == 0 %>
+
+            <div class="chat-options-header">
+              choose one
+            </div>
+
+            <div class="chat-option-list">
+              <% [1, 2, 3].each do |number| %>
+                <button
+                  type="button"
+                  class="chat-option"
+                  data-action="chat-options#selectTraveler"
+                  data-value="<%= number %>"
+                >
+                  <%= number %>
+                </button>
+              <% end %>
+
+              <button
+                type="button"
+                class="chat-option"
+                data-action="chat-options#selectTraveler"
+                data-value="4"
+              >
+                4+
+              </button>
+            </div>
+
+            <div
+              class="chat-traveler-counter"
+              data-chat-options-target="travelerCounter"
+              hidden
+            >
+              <button
+                type="button"
+                data-action="chat-options#decreaseTraveler"
+              >
+                −
+              </button>
+
+              <span data-chat-options-target="travelerCount">
+                4
+              </span>
+
+              <button
+                type="button"
+                data-action="chat-options#increaseTraveler"
+              >
+                +
+              </button>
+
+              <button
+                type="button"
+                class="chat-options-continue"
+                data-action="chat-options#submitTraveler"
+              >
+                continue
+              </button>
+            </div>
+
+          <% elsif question_index == 1 %>
+
+            <div class="chat-options-header">
+              choose one
+            </div>
+
+            <div class="chat-option-list">
+              <% ["under $50", "$50–$150", "$150–$300", "$300+"].each do |option| %>
+                <button
+                  type="button"
+                  class="chat-option"
+                  data-action="chat-options#selectSingle"
+                  data-value="<%= option %>"
+                >
+                  <%= option %>
+                </button>
+              <% end %>
+            </div>
+
+          <% elsif question_index == 2 %>
+
+            <div class="chat-options-header">
+              select all that apply
+            </div>
+
+            <div class="chat-option-list">
+              <% ["relaxed", "social", "adventurous", "spontaneous", "packed"].each do |option| %>
+                <button
+                  type="button"
+                  class="chat-option"
+                  data-action="chat-options#toggleMulti"
+                  data-value="<%= option %>"
+                >
+                  <%= option.humanize %>
+                </button>
+              <% end %>
+            </div>
+
+            <button
+              type="button"
+              class="chat-options-continue"
+              data-action="chat-options#submitMulti"
+            >
+              continue
+            </button>
+
+          <% elsif question_index == 3 %>
+
+            <div class="chat-options-header">
+              select all that apply
+            </div>
+
+            <div class="chat-option-list">
+              <% ["nightlife", "shopping", "culture", "food", "nature", "adventure"].each do |option| %>
+                <button
+                  type="button"
+                  class="chat-option"
+                  data-action="chat-options#toggleMulti"
+                  data-value="<%= option %>"
+                >
+                  <%= option.humanize %>
+                </button>
+              <% end %>
+            </div>
+
+            <button
+              type="button"
+              class="chat-options-continue"
+              data-action="chat-options#submitMulti"
+            >
+              continue
+            </button>
+
+          <% elsif question_index == 4 %>
+
+            <div class="chat-options-header">
+              select all that apply
+            </div>
+
+            <div class="chat-option-list">
+              <% ["walking", "public transport", "car"].each do |option| %>
+                <button
+                  type="button"
+                  class="chat-option"
+                  data-action="chat-options#toggleMulti"
+                  data-value="<%= option %>"
+                >
+                  <%= option.humanize %>
+                </button>
+              <% end %>
+            </div>
+
+            <button
+              type="button"
+              class="chat-options-continue"
+              data-action="chat-options#submitMulti"
+            >
+              continue
+            </button>
+
+          <% end %>
+
+        </div>
+      <% end %>
+
     <% end %>
 
   </div>

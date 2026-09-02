@@ -5,6 +5,8 @@ class ChatsController < ApplicationController
 
     @chat = @trip.chats.find(params[:id])
     @message = Message.new
+
+    @question_index = @chat.messages.where(role: "user").count
   end
 
   def create
