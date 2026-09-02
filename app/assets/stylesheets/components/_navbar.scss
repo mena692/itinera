@@ -10,13 +10,15 @@
   justify-content: space-around;
   align-items: center;
 
-  height: 70px;
+  height: calc(70px + env(safe-area-inset-bottom, 0px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 
   background-color: $color-surface;
   border-top: 1px solid $color-border;
 }
 
 .bottom-navbar-item {
+  @extend %tap-feedback;
 
   display: flex;
   flex-direction: column;
@@ -24,11 +26,13 @@
   justify-content: center;
 
   gap: 4px;
+  min-width: 44px;
+  min-height: 44px;
 
   color: $light-gray-blue;
   text-decoration: none;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
 
   i {
     font-size: 20px;

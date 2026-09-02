@@ -39,7 +39,8 @@ class GenerateItineraryJob < ApplicationJob
       )
 
       trip_day.update!(
-        name: day_data.fetch("name")
+        name: day_data.fetch("name"),
+        description: day_data.fetch("description")
       )
 
       day_data.fetch("activities").each do |activity_data|

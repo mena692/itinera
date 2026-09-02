@@ -35,15 +35,13 @@
 }
 
 .trips-section__title {
-  margin: 0 0 8px;
-  padding-bottom: 12px;
-  border-bottom: 2px solid $color-primary;
-  font-size: 20px;
+  @extend %section-heading;
 }
 
 // Trips index — upcoming trip hero card
 
 .trip-hero {
+  @extend %tap-feedback;
   display: block;
   margin-top: 16px;
   border: 1px solid $color-border;
@@ -120,6 +118,8 @@
 }
 
 .trip-filter-chip {
+  @extend %tap-feedback;
+  min-height: 44px;
   padding: 10px 20px;
   border: 1.5px solid $color-border;
   border-radius: 999px;
@@ -156,6 +156,7 @@
 }
 
 .trip-card {
+  @extend %tap-feedback;
   flex: 0 0 auto;
   width: 160px;
   border: 1px solid $color-border;

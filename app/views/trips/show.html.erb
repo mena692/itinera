@@ -5,7 +5,7 @@
 <div class="trip-header">
   <div>
     <h1><%= @trip.name.presence || @trip.destination %></h1>
-    <p>
+    <p class="section-meta">
       <%= @trip_days.first.date.strftime("%d %b") %> -
       <%= @trip_days.last.date.strftime("%d %b %Y") %>
       • <%= @trip_days.count %> days
@@ -40,10 +40,12 @@
 
 
 
-<h2>daily activities</h2>
-<p><%= @trip_day.date.strftime("%A, %b %d") %></p>
-<p><%= @activities.count %> stops</p>
-<hr width="100%" size="2">
+<h2><%= @trip_day.name %></h2>
+<p class="section-meta"><%= @trip_day.description %></p>
+<br>
+<h2 class="section-heading">daily activities</h2>
+<p class="section-meta"><%= @trip_day.date.strftime("%A, %b %d") %></p>
+<p class="section-meta"><%= @activities.count %> stops</p>
 
 <% @activities.each do |a| %>
   <div class="activity-row">
@@ -68,7 +70,7 @@
 
         <p class="activity-card__duration"><%= a.formatted_duration %></p>
 
-        <span class="activity-card__chip"><%= a.category %></span>
+        <span class="activity-card__chip activity-card__chip--<%= a.category %>"><%= a.category %></span>
       </div>
 
       <div class="activity-card__actions" data-activity-card-target="menu" hidden>

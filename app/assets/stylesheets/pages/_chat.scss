@@ -19,6 +19,13 @@
   justify-content: space-between;
   gap: 16px;
 
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+  }
+
   h1 {
     margin: 0;
     font-size: 18px;
@@ -88,7 +95,7 @@
 }
 
 .message-content {
-  white-space: normal;
+  white-space: pre-line;
 }
 
 .chat-options {
@@ -114,7 +121,8 @@
 }
 
 .chat-option {
-  min-height: 38px;
+  @extend %tap-feedback;
+  min-height: 44px;
   padding: 8px 14px;
 
   background: $color-surface;
@@ -123,7 +131,7 @@
 
   color: $color-text;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
 
   cursor: pointer;
 }
@@ -139,8 +147,9 @@
 }
 
 .chat-options-continue {
+  @extend %tap-feedback;
   width: 100%;
-  height: 40px;
+  height: 44px;
 
   border: 0;
   border-radius: 10px;
@@ -165,8 +174,9 @@
 }
 
 .chat-traveler-counter > button:not(.chat-options-continue) {
-  width: 38px;
-  height: 38px;
+  @extend %tap-feedback;
+  width: 44px;
+  height: 44px;
   padding: 0;
 
   border: 1px solid $color-border;
@@ -196,7 +206,7 @@
 
 .chat-composer {
   flex-shrink: 0;
-  padding: 12px 0 90px;
+  padding: 12px 0 calc(90px + env(safe-area-inset-bottom, 0px));
   background: $color-background;
 }
 
@@ -238,8 +248,9 @@
 }
 
 .message-send-button {
-  width: 38px;
-  height: 38px;
+  @extend %tap-feedback;
+  width: 44px;
+  height: 44px;
   flex-shrink: 0;
 
   display: flex;

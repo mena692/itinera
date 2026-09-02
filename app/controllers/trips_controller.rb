@@ -45,7 +45,7 @@ class TripsController < ApplicationController
       @chat = @trip.chats.create!(
         user: current_user,
         title: Chat::DEFAULT_TITLE,
-        status: "Draft",
+        kind: :onboarding,
         system_prompt: itinerary_system_prompt
       )
 

@@ -17,6 +17,7 @@ h5,
 h6 {
   color: $color-text;
   font-family: $headers-font;
+  overflow-wrap: break-word;
 }
 
 // Main page titles
@@ -73,9 +74,45 @@ p {
   color: $color-text-secondary;
 }
 
+// Small secondary meta line under a heading
+// Example: trip dates, day description, activity counts
+.section-meta {
+  margin: 4px 0;
+  color: $color-text-secondary;
+  font-size: 14px;
+}
+
+// Section heading with the Itinera blue underline
+// Example: "upcoming trip", "other trips", "daily activities"
+%section-heading {
+  margin: 0 0 8px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid $color-primary;
+  font-size: 20px;
+}
+
+.section-heading {
+  @extend %section-heading;
+}
+
 // Main application container
 .app-container {
   width: 100%;
-  padding: 0 10px 32px;
-  margin: 0 auto 70px auto;
+  padding: 0 16px 32px;
+  margin: 0 auto calc(70px + env(safe-area-inset-bottom, 0px)) auto;
+}
+
+// Shared tap feedback for interactive elements (buttons, chips, cards).
+// Prioritizes :active (touch) over :hover, since this app targets mobile.
+%tap-feedback {
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-input-focus;
+    outline-offset: 2px;
+  }
 }

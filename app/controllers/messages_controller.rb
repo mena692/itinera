@@ -41,7 +41,7 @@ class MessagesController < ApplicationController
 
       @assistant_message = @chat.messages.create!(
         role: "assistant",
-        content: ""
+        content: @chat.modification? ? "THINKING" : ""
       )
 
       broadcast_append(@assistant_message)
@@ -102,13 +102,13 @@ class MessagesController < ApplicationController
   end
 
   def continue_conversation
-    if full_itinerary_request?
-      generate_itinerary
+    if @chat.modification?
+      handle_modification_request
       return
     end
 
-    if trip_has_itinerary?
-      handle_modification_request
+    if full_itinerary_request?
+      generate_itinerary
       return
     end
 
@@ -176,12 +176,7 @@ class MessagesController < ApplicationController
   end
 
   def full_itinerary_request?
-    text = @message.content.to_s.downcase.strip
-
-    text.include?("generate itinerary") ||
-      text.include?("generate full itinerary") ||
-      text.include?("create itinerary") ||
-      text.include?("create full itinerary")
+    @message.content.to_s.downcase.strip == "generate full itinerary"
   end
 
   def generate_summary
@@ -200,10 +195,6 @@ class MessagesController < ApplicationController
     set_assistant_message(
       "SUMMARY_READY\n#{response.content}"
     )
-  end
-
-  def trip_has_itinerary?
-    @trip.activities_count.positive?
   end
 
   def handle_modification_request
@@ -231,6 +222,10 @@ class MessagesController < ApplicationController
                .ask(@message.content)
 
     set_assistant_message(response.content)
+  rescue StandardError => e
+    Rails.logger.error("handle_modification_request failed for trip #{@trip.id}: #{e.class} #{e.message}")
+
+    set_assistant_message("Something went wrong with that request. Please try again.")
   end
 
   def modification_context

@@ -1,18 +1,26 @@
 <div class="chat-page" data-controller="chat">
 
   <div class="chat-header">
-    <div>
-      <h1><%= @trip.destination %></h1>
-
-      <p>
-        <% if @trip.first_day && @trip.last_day %>
-          <%= @trip.first_day.strftime("%b %-d") %>–<%= @trip.last_day.strftime("%-d") %>
+    <div class="chat-header__left">
+      <% if @chat.modification? %>
+        <%= link_to trip_path(@trip), class: "back-button back-button--circle" do %>
+          <i class="fa-solid fa-chevron-left"></i>
         <% end %>
-      </p>
+      <% end %>
+
+      <div>
+        <h1><%= @trip.destination %></h1>
+
+        <p>
+          <% if @trip.first_day && @trip.last_day %>
+            <%= @trip.first_day.strftime("%b %-d") %>–<%= @trip.last_day.strftime("%-d") %>
+          <% end %>
+        </p>
+      </div>
     </div>
 
     <span class="chat-status">
-      drafting with itinera
+      asking itinera
     </span>
   </div>
 
