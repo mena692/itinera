@@ -1,4 +1,7 @@
-<%= image_tag @activity.image_url.presence || "activity-placeholder.svg", alt: @activity.name, class: "activity-show__image" %>
+<%= image_tag @activity.image_url.presence || Activity::DEFAULT_IMAGE_URL,
+              alt: @activity.name,
+              class: "activity-show__image",
+              onerror: "this.onerror=null;this.src='#{image_path(Activity::DEFAULT_IMAGE_URL)}'" %>
 
 <span class="activity-card__chip"><%= @activity.category %></span>
 <h1><%= @activity.name %></h1>

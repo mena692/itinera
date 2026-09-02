@@ -20,7 +20,10 @@
     <% if @upcoming_trip %>
       <%= link_to trip_path(@upcoming_trip), class: "trip-hero" do %>
         <div class="trip-hero__image-wrap">
-          <%= image_tag @upcoming_trip.image_url, alt: @upcoming_trip.destination, class: "trip-hero__image" %>
+          <%= image_tag @upcoming_trip.image_url.presence || Trip::DEFAULT_IMAGE_URL,
+                        alt: @upcoming_trip.destination,
+                        class: "trip-hero__image",
+                        onerror: "this.onerror=null;this.src='#{image_path(Trip::DEFAULT_IMAGE_URL)}'" %>
 
           <span class="trip-hero__badge trip-hero__badge--destination">
             <i class="fa-solid fa-location-dot"></i> <%= @upcoming_trip.destination.to_s.upcase %>
@@ -89,7 +92,10 @@
               <div class="trip-cards">
                 <% trips_for_status.each do |trip| %>
                   <%= link_to trip_path(trip), class: "trip-card" do %>
-                    <%= image_tag trip.image_url, alt: trip.destination, class: "trip-card__image" %>
+                    <%= image_tag trip.image_url.presence || Trip::DEFAULT_IMAGE_URL,
+                                  alt: trip.destination,
+                                  class: "trip-card__image",
+                                  onerror: "this.onerror=null;this.src='#{image_path(Trip::DEFAULT_IMAGE_URL)}'" %>
                     <div class="trip-card__body">
                       <h4 class="trip-card__name"><%= trip.destination %></h4>
                       <p class="trip-card__meta">
