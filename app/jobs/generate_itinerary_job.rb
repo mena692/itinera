@@ -9,8 +9,9 @@ class GenerateItineraryJob < ApplicationJob
                         [
                           ITINERARY_PROMPT,
                           trip_context,
-                          questionnaire_context
-                        ].join("\n\n")
+                          questionnaire_context,
+                          curated_activities_context(trip)
+                        ].reject(&:blank?).join("\n\n")
                       )
                       .ask("Generate the detailed itinerary using the trip information provided.")
 
@@ -29,6 +30,40 @@ class GenerateItineraryJob < ApplicationJob
   end
 
   private
+
+  def curated_activities_context(trip)
+    return unless paris_trip?(trip)
+
+    activities = CuratedActivities::PARIS.map do |activity|
+      <<~ACTIVITY
+        Name: #{activity[:name]}
+        Category: #{activity[:category]}
+        Address: #{activity[:address]}
+        Description: #{activity[:description]}
+      ACTIVITY
+    end.join("\n")
+
+    <<~PROMPT
+      CURATED ACTIVITIES FOR PARIS
+
+      Prefer these activities whenever they fit the user's preferences.
+
+      You do not need to use all of them.
+      You may generate other activities when appropriate.
+
+      When using one of these curated activities:
+      - preserve its exact name
+      - preserve its exact address
+      - use its provided category
+      - do not invent a different address
+
+      #{activities}
+    PROMPT
+  end
+
+  def paris_trip?(trip)
+    trip.destination.to_s.downcase.include?("paris")
+  end
 
   def save_generated_itinerary(trip, content)
     data = JSON.parse(content)
@@ -52,6 +87,11 @@ class GenerateItineraryJob < ApplicationJob
 
         category = "sightseeing" unless Activity::CATEGORIES.include?(category)
 
+        curated_activity = find_curated_activity(
+          trip,
+          activity_data.fetch("name")
+        )
+
         trip_day.activities.create!(
           name: activity_data.fetch("name"),
           category: category,
@@ -59,9 +99,18 @@ class GenerateItineraryJob < ApplicationJob
           description: activity_data.fetch("description"),
           notes: activity_data.fetch("notes"),
           start_date: start_date,
-          end_date: start_date + activity_data.fetch("duration_minutes").minutes
+          end_date: start_date + activity_data.fetch("duration_minutes").minutes,
+          image_url: curated_activity&.fetch(:image_url, nil)
         )
       end
+    end
+  end
+
+  def find_curated_activity(trip, name)
+    return unless paris_trip?(trip)
+
+    CuratedActivities::PARIS.find do |activity|
+      activity[:name] == name
     end
   end
 
