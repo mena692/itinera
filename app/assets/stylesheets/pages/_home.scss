@@ -36,40 +36,81 @@
 // Landing slide
 
 .landing-slide {
-  min-height: 100vh;
+  position: relative;
+  height: 100dvh;
+  overflow: hidden;
   background-color: $color-background;
 
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 
-  padding: 24px 20px 32px;
+  padding: calc(20px + env(safe-area-inset-top, 0px)) 20px calc(32px + env(safe-area-inset-bottom, 0px));
+}
+
+
+// Full-bleed photo behind the header and content, faded into the
+// background color at the bottom so the text stays readable.
+
+.landing-slide__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.landing-slide__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.landing-slide__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba($color-background, 0.25) 0%,
+    rgba($color-background, 0.05) 25%,
+    rgba($color-background, 0.65) 60%,
+    $color-background 100%
+  );
 }
 
 
 // Header
 
 .landing-header {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .landing-logo {
   width: 95px;
 }
 
-
-// Carousel
-
-.landing-carousel {
-  flex: 1;
+.landing-skip {
+  padding: 8px;
+  border: none;
+  background: none;
+  color: $color-link;
+  font-family: $body-font;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 
 // Content
 
 .landing-content {
+  position: relative;
+  z-index: 1;
   width: 100%;
-  margin-top: auto;
 }
 
 .landing-step {

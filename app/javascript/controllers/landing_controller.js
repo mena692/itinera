@@ -59,6 +59,11 @@ export default class extends Controller {
     this.showSlide()
   }
 
+  skip() {
+    this.currentSlide = this.slideTargets.length - 1
+    this.showSlide()
+  }
+
   showSlide() {
     this.slideTargets.forEach((slide, index) => {
       slide.classList.toggle("d-none", index !== this.currentSlide)
