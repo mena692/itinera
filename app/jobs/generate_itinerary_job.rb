@@ -109,8 +109,13 @@ class GenerateItineraryJob < ApplicationJob
   def find_curated_activity(trip, name)
     return unless paris_trip?(trip)
 
+    normalized_name = name.to_s.downcase
+
     CuratedActivities::PARIS.find do |activity|
-      activity[:name] == name
+      curated_name = activity[:name].downcase
+
+      normalized_name.include?(curated_name) ||
+        curated_name.include?(normalized_name)
     end
   end
 
