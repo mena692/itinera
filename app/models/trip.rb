@@ -8,6 +8,10 @@ class Trip < ApplicationRecord
 
   attr_accessor :start_date, :end_date
 
+  DEFAULT_IMAGE_URL = "activity-placeholder.svg"
+
+  before_validation :assign_default_image_url
+
   def first_day
     trip_days.minimum(:date)
   end
@@ -37,4 +41,9 @@ class Trip < ApplicationRecord
     trip_days.sum { |trip_day| trip_day.activities.size }
   end
 
+  private
+
+  def assign_default_image_url
+    self.image_url = DEFAULT_IMAGE_URL if image_url.blank?
+  end
 end

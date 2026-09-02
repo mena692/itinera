@@ -53,7 +53,10 @@
          data-controller="activity-card"
          data-activity-card-url-value="<%= trip_trip_day_activity_path(@trip, @trip_day, a) %>"
          data-action="click->activity-card#visit click@window->activity-card#closeMenu">
-      <img class="activity-card__thumb" src="<%= a.image_url %>" alt="<%= a.name %>" />
+      <%= image_tag a.image_url.presence || Activity::DEFAULT_IMAGE_URL,
+                    class: "activity-card__thumb",
+                    alt: a.name,
+                    onerror: "this.onerror=null;this.src='#{image_path(Activity::DEFAULT_IMAGE_URL)}'" %>
 
       <div class="activity-card__content">
         <div class="activity-card__header">
