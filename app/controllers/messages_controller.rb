@@ -2,31 +2,23 @@ class MessagesController < ApplicationController
   QUESTIONS = [
     {
       key: :group_size,
-      instruction: "Ask how many people are traveling. Give simple examples like 1, 2, 3, or 4+."
-    },
-    {
-      key: :vibe,
-      instruction: "Ask what vibe they want. Give options like relaxed, adventurous, lively, or a mix."
+      instruction: "Ask how many people are traveling."
     },
     {
       key: :budget,
-      instruction: "Ask for their approximate budget per day. They can give an amount or say budget, moderate, or luxury."
+      instruction: "Ask for their approximate daily budget."
     },
     {
-      key: :pace,
-      instruction: "Ask what pace they prefer. Give options like chill, balanced, or packed."
+      key: :travel_style,
+      instruction: "Ask about their travel style. They can choose more than one, such as relaxed, social, adventurous, spontaneous, or packed."
     },
     {
-      key: :interests,
-      instruction: "Ask about their main interests. Give options like nature, food, culture, nightlife, adventure, or a mix."
-    },
-    {
-      key: :must_see,
-      instruction: "Ask if there is anything they definitely want to see or do. Make it clear that 'nothing specific' is completely fine."
+      key: :focus,
+      instruction: "Ask what they want to focus on during the trip. They can choose more than one, such as culture, food, nature, nightlife, adventure, or shopping."
     },
     {
       key: :transportation,
-      instruction: "Ask how they prefer to get around. Give options like walking, public transport, car rental, rideshare, or a mix."
+      instruction: "Ask how they prefer to get around. They can choose more than one, such as walking, public transport, or car."
     }
   ].freeze
 
@@ -96,6 +88,25 @@ class MessagesController < ApplicationController
     params.require(:message).permit(:content)
   end
 
+  def questionnaire_answers
+    @chat.messages
+        .where(role: "user")
+        .order(:created_at)
+        .limit(QUESTIONS.length)
+  end
+
+  def save_trip_preferences
+    answer_number = questionnaire_answers.count
+
+    case answer_number
+    when 1
+      group_size = @message.content.to_s[/\d+/]&.to_i
+      @trip.update!(group_size: group_size) if group_size.present? && group_size.positive?
+    when 3
+      @trip.update!(vibe: @message.content.strip)
+    end
+  end
+
   def continue_conversation
     if full_itinerary_request?
       generate_itinerary
@@ -106,6 +117,8 @@ class MessagesController < ApplicationController
       handle_modification_request
       return
     end
+
+    save_trip_preferences
 
     if questionnaire_complete?
       generate_summary
@@ -136,13 +149,6 @@ class MessagesController < ApplicationController
                .ask(@message.content)
 
     set_assistant_message(response.content)
-  end
-
-  def questionnaire_answers
-    @chat.messages
-         .where(role: "user")
-         .order(:created_at)
-         .limit(QUESTIONS.length)
   end
 
   def questionnaire_context
