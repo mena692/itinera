@@ -3,6 +3,9 @@ class Chat < ApplicationRecord
   belongs_to :trip
   has_many :messages, dependent: :destroy
   DEFAULT_TITLE = "Drafting Itinerary"
+
+  enum :kind, { onboarding: "onboarding", modification: "modification" }, validate: true
+
   validates :title, presence: true
 
   TITLE_PROMPT = PromptTemplate.read("chats/title")

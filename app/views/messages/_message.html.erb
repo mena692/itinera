@@ -68,29 +68,20 @@
 
       </div>
 
-    <% elsif message.content == "GENERATING_ITINERARY" %>
+    <% elsif message.content == "GENERATING_ITINERARY" || message.content == "THINKING" %>
 
-      <div class="message-bubble message-bubble-assistant message-content"
-           data-controller="generating-message">
-        <span data-generating-message-target="text"></span>
-      </div>
+      <div class="message-bubble message-bubble-assistant message-content" data-controller="generating-message"><span data-generating-message-target="text"></span></div>
 
     <% else %>
 
-      <div class="message-bubble message-bubble-assistant message-content">
-        <% if message.content.present? %>
-          <%= message.content %>
-        <% else %>
-          ...
-        <% end %>
-      </div>
+      <div class="message-bubble message-bubble-assistant message-content"><%= message.content.presence || "..." %></div>
 
       <% question_index = message.chat.messages
                                   .where(role: "user")
                                   .where("created_at < ?", message.created_at)
                                   .count %>
 
-      <% if message.content.present? && question_index < 5 %>
+      <% if message.chat.onboarding? && message.content.present? && question_index < 5 %>
         <div class="chat-options" data-controller="chat-options">
           <% if question_index == 0 %>
 

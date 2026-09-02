@@ -5,15 +5,13 @@ class ChatsController < ApplicationController
 
     @chat = @trip.chats.find(params[:id])
     @message = Message.new
-
-    @question_index = @chat.messages.where(role: "user").count
   end
 
   def create
     @trip = current_user.trips.find(params[:trip_id])
     authorize @trip
 
-    @chat = @trip.chats.create!(user: current_user, title: Chat::DEFAULT_TITLE)
+    @chat = @trip.chats.create!(user: current_user, title: Chat::DEFAULT_TITLE, kind: :modification)
     @chat.messages.create!(role: "assistant", content: trip_summary_message)
 
     redirect_to trip_chat_path(@trip, @chat)

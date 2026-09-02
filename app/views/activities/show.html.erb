@@ -3,7 +3,7 @@
               class: "activity-show__image",
               onerror: "this.onerror=null;this.src='#{image_path(Activity::DEFAULT_IMAGE_URL)}'" %>
 
-<span class="activity-card__chip"><%= @activity.category %></span>
+<span class="activity-card__chip activity-card__chip--<%= @activity.category %>"><%= @activity.category %></span>
 <h1><%= @activity.name %></h1>
 
 
@@ -39,8 +39,7 @@
   </div>
 </div>
 
-<h2>notes</h2>
-<hr width="100%" size="2">
+<h2 class="section-heading">notes</h2>
 <p><%= @activity.notes %></p>
 
 <div class="trip-actions">

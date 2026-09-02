@@ -38,6 +38,7 @@
 }
 
 .activity-card {
+  @extend %tap-feedback;
   display: flex;
   align-items: flex-start;
   gap: 11px;
@@ -78,13 +79,19 @@
 }
 
 .activity-card__menu {
+  @extend %tap-feedback;
   display: flex;
   flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
   gap: 3px;
+  min-width: 44px;
+  min-height: 44px;
   padding: 4px;
   background: none;
   border: none;
+  border-radius: 50%;
   cursor: pointer;
 
   span {
@@ -111,7 +118,47 @@
   background-color: $color-surface-highlight;
   color: $color-text-secondary;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
+
+  &--accommodation {
+    background-color: rgba($category-accommodation, 0.16);
+    color: $category-accommodation;
+  }
+
+  &--cultural {
+    background-color: rgba($category-cultural, 0.16);
+    color: $category-cultural;
+  }
+
+  &--entertainment {
+    background-color: rgba($category-entertainment, 0.16);
+    color: $category-entertainment;
+  }
+
+  &--food {
+    background-color: rgba($category-food, 0.16);
+    color: $category-food;
+  }
+
+  &--hiking {
+    background-color: rgba($category-hiking, 0.16);
+    color: $category-hiking;
+  }
+
+  &--leisure {
+    background-color: rgba($category-leisure, 0.16);
+    color: $category-leisure;
+  }
+
+  &--sightseeing {
+    background-color: rgba($category-sightseeing, 0.16);
+    color: $category-sightseeing;
+  }
+
+  &--transportation {
+    background-color: rgba($category-transportation, 0.16);
+    color: $category-transportation;
+  }
 }
 
 // Edit/delete actions revealed by the "..." menu
@@ -132,12 +179,14 @@
 }
 
 .activity-card__action {
+  @extend %tap-feedback;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 4px;
   width: 72px;
+  min-height: 44px;
   padding: 10px 6px;
   border: none;
   border-radius: 14px;
