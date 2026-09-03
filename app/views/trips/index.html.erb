@@ -20,7 +20,7 @@
     <% if @upcoming_trip %>
       <%= link_to trip_path(@upcoming_trip), class: "trip-hero" do %>
         <div class="trip-hero__image-wrap">
-          <%= image_tag @upcoming_trip.image_url.presence || Trip::DEFAULT_IMAGE_URL,
+          <%= image_tag @upcoming_trip.first_activity&.image_url.presence || @upcoming_trip.image_url.presence || Trip::DEFAULT_IMAGE_URL,
                         alt: @upcoming_trip.destination,
                         class: "trip-hero__image",
                         onerror: "this.onerror=null;this.src='#{image_path(Trip::DEFAULT_IMAGE_URL)}'" %>

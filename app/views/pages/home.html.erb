@@ -17,12 +17,13 @@
     <!-- Slide 1 -->
     <section class="landing-slide" data-landing-target="slide">
 
-      <div class="landing-header">
-        <%= image_tag "itinera-logo.svg", class: "landing-logo", alt: "Itinera" %>
+      <div class="landing-slide__media">
+        <%= image_tag "photo1.jpg", class: "landing-slide__image", alt: "A quiet tiled street in Lisbon" %>
       </div>
 
-      <div class="landing-carousel">
-        <!-- Lisbon carousel content goes here -->
+      <div class="landing-header">
+        <%= image_tag "itinera-logo.svg", class: "landing-logo", alt: "Itinera" %>
+        <button type="button" class="landing-skip" data-action="landing#skip">skip</button>
       </div>
 
       <div class="landing-content">
@@ -70,12 +71,13 @@
     <!-- Slide 2 -->
     <section class="landing-slide d-none" data-landing-target="slide">
 
-      <div class="landing-header">
-        <%= image_tag "itinera-logo.svg", class: "landing-logo", alt: "Itinera" %>
+      <div class="landing-slide__media">
+        <%= image_tag "photo2.jpeg", class: "landing-slide__image", alt: "Traveler checking departures at a train station" %>
       </div>
 
-      <div class="landing-carousel">
-        <!-- Route and timing carousel content goes here -->
+      <div class="landing-header">
+        <%= image_tag "itinera-logo.svg", class: "landing-logo", alt: "Itinera" %>
+        <button type="button" class="landing-skip" data-action="landing#skip">skip</button>
       </div>
 
       <div class="landing-content">
@@ -110,13 +112,12 @@
         </div>
 
         <div class="landing-actions">
-          <button class="btn-itinera-primary landing-button">
-            create an account →
-          </button>
-
-          <button class="btn-itinera-secondary landing-button">
-            log in
-          </button>
+          <%= link_to "create an account →",
+                      new_user_registration_path,
+                      class: "btn-itinera-primary landing-button" %>
+          <%= link_to "log in",
+                      new_user_session_path,
+                      class: "btn-itinera-secondary landing-button" %>
         </div>
 
       </div>
@@ -126,12 +127,13 @@
     <!-- Slide 3 -->
     <section class="landing-slide d-none" data-landing-target="slide">
 
-      <div class="landing-header">
-        <%= image_tag "itinera-logo.svg", class: "landing-logo", alt: "Itinera" %>
+      <div class="landing-slide__media">
+        <%= image_tag "photo3.jpg", class: "landing-slide__image", alt: "Waking up to a sunrise view over the Bosphorus in Istanbul" %>
       </div>
 
-      <div class="landing-carousel">
-        <!-- Trip editing carousel content goes here -->
+      <div class="landing-header">
+        <%= image_tag "itinera-logo.svg", class: "landing-logo", alt: "Itinera" %>
+        <button type="button" class="landing-skip" data-action="landing#skip">skip</button>
       </div>
 
       <div class="landing-content">
@@ -166,13 +168,12 @@
         </div>
 
         <div class="landing-actions">
-          <button class="btn-itinera-primary landing-button">
-            create an account →
-          </button>
-
-          <button class="btn-itinera-secondary landing-button">
-            log in
-          </button>
+          <%= link_to "create an account →",
+                      new_user_registration_path,
+                      class: "btn-itinera-primary landing-button" %>
+          <%= link_to "log in",
+                      new_user_session_path,
+                      class: "btn-itinera-secondary landing-button" %>
         </div>
 
       </div>

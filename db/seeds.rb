@@ -549,56 +549,56 @@ def create_japan_trip(user)
     destination: "Japan",
     group_size: 1,
     vibe: "cultural",
-    image_url: "https://loremflickr.com/800/450/japan,tokyo?lock=2",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Minato%20City%2C%20Tokyo%2C%20Japan%20(Night).jpg?width=800",
     user: user
   )
 
   japan_day_one = TripDay.create!(
     name: "Arrival Tokyo",
     description: "First day in Tokyo",
-    date: Date.new(2026, 9, 20),
+    date: Date.new(2026, 9, 4),
     trip: japan
   )
 
   japan_day_two = TripDay.create!(
     name: "Tokyo highlights",
     description: "Shibuya, Harajuku, and Meiji Shrine",
-    date: Date.new(2026, 9, 21),
+    date: Date.new(2026, 9, 5),
     trip: japan
   )
 
   japan_day_three = TripDay.create!(
     name: "Asakusa & Akihabara",
     description: "Old Tokyo temples and modern pop culture",
-    date: Date.new(2026, 9, 22),
+    date: Date.new(2026, 9, 6),
     trip: japan
   )
 
   japan_day_four = TripDay.create!(
     name: "Tokyo to Kyoto",
     description: "Check out from Tokyo hotel, travel to Kyoto by shinkansen",
-    date: Date.new(2026, 9, 23),
+    date: Date.new(2026, 9, 7),
     trip: japan
   )
 
   japan_day_five = TripDay.create!(
     name: "Kyoto temples tour",
     description: "Fushimi Inari and Kinkaku-ji",
-    date: Date.new(2026, 9, 24),
+    date: Date.new(2026, 9, 8),
     trip: japan
   )
 
   japan_day_six = TripDay.create!(
     name: "Arashiyama free day",
     description: "Bamboo grove and riverside Kyoto",
-    date: Date.new(2026, 9, 25),
+    date: Date.new(2026, 9, 9),
     trip: japan
   )
 
   japan_day_seven = TripDay.create!(
     name: "Departure",
     description: "Leave Kyoto and fly home from Kansai",
-    date: Date.new(2026, 9, 26),
+    date: Date.new(2026, 9, 10),
     trip: japan
   )
 
@@ -607,11 +607,11 @@ def create_japan_trip(user)
   Activity.create!(
     name: "Check-in at hotel in Shinjuku",
     description: "Check in at Hotel Gracery Shinjuku",
-    start_date: DateTime.new(2026, 9, 20, 15, 0, 0),
-    end_date: DateTime.new(2026, 9, 20, 15, 30, 0),
+    start_date: DateTime.new(2026, 9, 4, 15, 0, 0),
+    end_date: DateTime.new(2026, 9, 4, 15, 30, 0),
     notes: "Reservation under Marvin.",
     category: "accommodation",
-    image_url: "https://loremflickr.com/640/480/hotel,shinjuku,accommodation",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Hotel%20Gracery%20in%20Shinjuku%2C%20Tokyo%2C%202019%20-%20015.jpg?width=800",
     latitude: 35.695200,
     longitude: 139.702800,
     address: "1-19-1 Kabukicho, Shinjuku, Tokyo 160-8466",
@@ -621,28 +621,28 @@ def create_japan_trip(user)
   Activity.create!(
     name: "Explore Kabukicho & Omoide Yokocho",
     description: "Wander Shinjuku's neon streets and tiny alleyway bars",
-    start_date: DateTime.new(2026, 9, 20, 18, 0, 0),
-    end_date: DateTime.new(2026, 9, 20, 20, 0, 0),
+    start_date: DateTime.new(2026, 9, 4, 18, 0, 0),
+    end_date: DateTime.new(2026, 9, 4, 20, 0, 0),
     notes: "Great for photos once the neon signs light up.",
     category: "sightseeing",
-    image_url: "https://loremflickr.com/640/480/explore,kabukicho,omoide,yokocho",
-    latitude: 35.694400,
-    longitude: 139.700500,
-    address: "Omoide Yokocho, Shinjuku, Tokyo 160-0021",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Entrance%20to%20Omoide%20Yokocho.jpg?width=800",
+    latitude: 35.693134,
+    longitude: 139.697020,
+    address: "Omoide Yokocho, Nishi-Shinjuku, Shinjuku-ku, Tokyo, Japan",
     trip_day: japan_day_one
   )
 
   Activity.create!(
     name: "Dinner at an Omoide Yokocho izakaya",
     description: "Yakitori and drinks at a tiny standing-bar izakaya",
-    start_date: DateTime.new(2026, 9, 20, 20, 30, 0),
-    end_date: DateTime.new(2026, 9, 20, 22, 0, 0),
+    start_date: DateTime.new(2026, 9, 4, 20, 30, 0),
+    end_date: DateTime.new(2026, 9, 4, 22, 0, 0),
     notes: "Cash only at most stalls here.",
     category: "food",
-    image_url: "https://loremflickr.com/640/480/dinner,omoide,yokocho,izakaya",
-    latitude: 35.694300,
-    longitude: 139.700300,
-    address: "Omoide Yokocho, Shinjuku, Tokyo 160-0021",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Entrance%20to%20Omoide%20Yokocho.jpg?width=800",
+    latitude: 35.693134,
+    longitude: 139.697020,
+    address: "Omoide Yokocho, Nishi-Shinjuku, Shinjuku-ku, Tokyo, Japan",
     trip_day: japan_day_one
   )
 
@@ -651,25 +651,25 @@ def create_japan_trip(user)
   Activity.create!(
     name: "Visit Meiji Shrine",
     description: "Peaceful forested shrine dedicated to Emperor Meiji",
-    start_date: DateTime.new(2026, 9, 21, 9, 0, 0),
-    end_date: DateTime.new(2026, 9, 21, 10, 30, 0),
+    start_date: DateTime.new(2026, 9, 5, 9, 0, 0),
+    end_date: DateTime.new(2026, 9, 5, 10, 30, 0),
     notes: "Enter through the main torii gate off Omotesando.",
     category: "sightseeing",
-    image_url: "https://loremflickr.com/640/480/visit,meiji,shrine,sightseeing",
-    latitude: 35.676400,
-    longitude: 139.699300,
-    address: "1-1 Yoyogikamizonocho, Shibuya, Tokyo 151-8557",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Torii%20of%20Meiji%20Shrine%202018.jpg?width=800",
+    latitude: 35.674416,
+    longitude: 139.691650,
+    address: "Meiji Jingu, 1-1 Yoyogikamizonocho, Shibuya, Tokyo, Japan",
     trip_day: japan_day_two
   )
 
   Activity.create!(
     name: "Explore Harajuku & Takeshita Street",
     description: "Quirky fashion shops and crepe stands",
-    start_date: DateTime.new(2026, 9, 21, 11, 0, 0),
-    end_date: DateTime.new(2026, 9, 21, 12, 30, 0),
+    start_date: DateTime.new(2026, 9, 5, 11, 0, 0),
+    end_date: DateTime.new(2026, 9, 5, 12, 30, 0),
     notes: "Very crowded on weekends.",
     category: "sightseeing",
-    image_url: "https://loremflickr.com/640/480/explore,harajuku,takeshita,street",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Takeshita%20Street.jpg?width=800",
     latitude: 35.670200,
     longitude: 139.702600,
     address: "Takeshita St, Jingumae, Shibuya, Tokyo 150-0001",
@@ -679,11 +679,11 @@ def create_japan_trip(user)
   Activity.create!(
     name: "Lunch in Harajuku",
     description: "Casual lunch among Harajuku's side-street cafes",
-    start_date: DateTime.new(2026, 9, 21, 12, 30, 0),
-    end_date: DateTime.new(2026, 9, 21, 13, 30, 0),
+    start_date: DateTime.new(2026, 9, 5, 12, 30, 0),
+    end_date: DateTime.new(2026, 9, 5, 13, 30, 0),
     notes: nil,
     category: "food",
-    image_url: "https://loremflickr.com/640/480/lunch,harajuku,food",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Takeshita%20Street.jpg?width=800",
     latitude: 35.670500,
     longitude: 139.702200,
     address: "Jingumae, Shibuya, Tokyo 150-0001",
@@ -693,11 +693,11 @@ def create_japan_trip(user)
   Activity.create!(
     name: "Shibuya Crossing & Shibuya Sky",
     description: "The world's busiest pedestrian crossing, then views from Shibuya Sky",
-    start_date: DateTime.new(2026, 9, 21, 15, 0, 0),
-    end_date: DateTime.new(2026, 9, 21, 17, 30, 0),
+    start_date: DateTime.new(2026, 9, 5, 15, 0, 0),
+    end_date: DateTime.new(2026, 9, 5, 17, 30, 0),
     notes: "Book Shibuya Sky tickets online in advance for a sunset slot.",
     category: "sightseeing",
-    image_url: "https://loremflickr.com/640/480/shibuya,crossing,sky,sightseeing",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo%20Shibuya%20Scramble%20Crossing%202018-10-09.jpg?width=800",
     latitude: 35.659500,
     longitude: 139.700400,
     address: "2-24-12 Shibuya, Tokyo 150-0002",
@@ -709,11 +709,11 @@ def create_japan_trip(user)
   Activity.create!(
     name: "Visit Senso-ji Temple",
     description: "Tokyo's oldest temple, with the iconic Kaminarimon gate",
-    start_date: DateTime.new(2026, 9, 22, 9, 0, 0),
-    end_date: DateTime.new(2026, 9, 22, 11, 0, 0),
+    start_date: DateTime.new(2026, 9, 6, 9, 0, 0),
+    end_date: DateTime.new(2026, 9, 6, 11, 0, 0),
     notes: "Nakamise shopping street leads right up to the temple.",
     category: "sightseeing",
-    image_url: "https://loremflickr.com/640/480/visit,sensoji,temple,sightseeing",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Senso-ji%20Kaminarimon%202.jpg?width=800",
     latitude: 35.714800,
     longitude: 139.796700,
     address: "2-3-1 Asakusa, Taito, Tokyo 111-0032",
@@ -723,11 +723,11 @@ def create_japan_trip(user)
   Activity.create!(
     name: "Tokyo Skytree observation deck",
     description: "Panoramic views over Tokyo from one of the tallest towers in the world",
-    start_date: DateTime.new(2026, 9, 22, 11, 30, 0),
-    end_date: DateTime.new(2026, 9, 22, 13, 0, 0),
+    start_date: DateTime.new(2026, 9, 6, 11, 30, 0),
+    end_date: DateTime.new(2026, 9, 6, 13, 0, 0),
     notes: "A short walk from Senso-ji across the river.",
     category: "sightseeing",
-    image_url: "https://loremflickr.com/640/480/tokyo,skytree,observation,deck",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/20181123%20Tokyo%20Skytree-2.jpg?width=800",
     latitude: 35.710100,
     longitude: 139.810700,
     address: "1-1-2 Oshiage, Sumida, Tokyo 131-0045",
@@ -737,11 +737,11 @@ def create_japan_trip(user)
   Activity.create!(
     name: "Lunch near Skytree",
     description: "Ramen lunch in the Solamachi complex at the base of the tower",
-    start_date: DateTime.new(2026, 9, 22, 13, 0, 0),
-    end_date: DateTime.new(2026, 9, 22, 14, 0, 0),
+    start_date: DateTime.new(2026, 9, 6, 13, 0, 0),
+    end_date: DateTime.new(2026, 9, 6, 14, 0, 0),
     notes: nil,
     category: "food",
-    image_url: "https://loremflickr.com/640/480/lunch,skytree,food",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/20181123%20Tokyo%20Skytree-2.jpg?width=800",
     latitude: 35.709900,
     longitude: 139.810900,
     address: "1-1-2 Oshiage, Sumida, Tokyo 131-0045",
@@ -751,11 +751,11 @@ def create_japan_trip(user)
   Activity.create!(
     name: "Explore Akihabara",
     description: "Electronics, anime, and retro game shops in Tokyo's otaku district",
-    start_date: DateTime.new(2026, 9, 22, 15, 0, 0),
-    end_date: DateTime.new(2026, 9, 22, 18, 0, 0),
+    start_date: DateTime.new(2026, 9, 6, 15, 0, 0),
+    end_date: DateTime.new(2026, 9, 6, 18, 0, 0),
     notes: "Worth checking a maid cafe or arcade if curious.",
     category: "entertainment",
-    image_url: "https://loremflickr.com/640/480/explore,akihabara,entertainment",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Akihabara%20Electric%20Town%2C%20Tokyo%2C%2020240823%201617%205580.jpg?width=800",
     latitude: 35.702200,
     longitude: 139.774200,
     address: "Akihabara, Chiyoda, Tokyo 101-0021",
@@ -767,11 +767,11 @@ def create_japan_trip(user)
   Activity.create!(
     name: "Check-out from Shinjuku hotel",
     description: "Check out of Hotel Gracery Shinjuku",
-    start_date: DateTime.new(2026, 9, 23, 10, 0, 0),
-    end_date: DateTime.new(2026, 9, 23, 10, 30, 0),
+    start_date: DateTime.new(2026, 9, 7, 10, 0, 0),
+    end_date: DateTime.new(2026, 9, 7, 10, 30, 0),
     notes: "Reservation under Marvin.",
     category: "accommodation",
-    image_url: "https://loremflickr.com/640/480/shinjuku,hotel,accommodation",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Hotel%20Gracery%20in%20Shinjuku%2C%20Tokyo%2C%202019%20-%20015.jpg?width=800",
     latitude: 35.695200,
     longitude: 139.702800,
     address: "1-19-1 Kabukicho, Shinjuku, Tokyo 160-8466",
@@ -781,11 +781,11 @@ def create_japan_trip(user)
   Activity.create!(
     name: "Shinkansen to Kyoto",
     description: "Bullet train from Tokyo Station to Kyoto Station",
-    start_date: DateTime.new(2026, 9, 23, 11, 0, 0),
-    end_date: DateTime.new(2026, 9, 23, 13, 20, 0),
+    start_date: DateTime.new(2026, 9, 7, 11, 0, 0),
+    end_date: DateTime.new(2026, 9, 7, 13, 20, 0),
     notes: "Reserved seats on the Tokaido Shinkansen, about 2h20m.",
     category: "transportation",
-    image_url: "https://loremflickr.com/640/480/shinkansen,kyoto,transportation",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Series-N700a-Mt.Fuji.jpg?width=800",
     latitude: 35.681200,
     longitude: 139.767100,
     address: "1 Chiyoda, Tokyo 100-0005",
@@ -795,25 +795,25 @@ def create_japan_trip(user)
   Activity.create!(
     name: "Check-in at hotel in Kyoto",
     description: "Check in near Kyoto Station",
-    start_date: DateTime.new(2026, 9, 23, 14, 0, 0),
-    end_date: DateTime.new(2026, 9, 23, 14, 30, 0),
+    start_date: DateTime.new(2026, 9, 7, 14, 0, 0),
+    end_date: DateTime.new(2026, 9, 7, 14, 30, 0),
     notes: "Reservation under Marvin.",
     category: "accommodation",
-    image_url: "https://loremflickr.com/640/480/hotel,kyoto,accommodation",
-    latitude: 34.985800,
-    longitude: 135.758800,
-    address: "Karasuma-dori, Shimogyo, Kyoto 600-8216",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Kyoto%20Station%20November%202016%20-03.jpg?width=800",
+    latitude: 34.993000,
+    longitude: 135.759500,
+    address: "Karasuma-dori Shiokoji-sagaru, Shimogyo-ku, Kyoto, Japan",
     trip_day: japan_day_four
   )
 
   Activity.create!(
     name: "Evening in Gion district",
     description: "Stroll Kyoto's famous geisha district at dusk",
-    start_date: DateTime.new(2026, 9, 23, 18, 0, 0),
-    end_date: DateTime.new(2026, 9, 23, 20, 0, 0),
+    start_date: DateTime.new(2026, 9, 7, 18, 0, 0),
+    end_date: DateTime.new(2026, 9, 7, 20, 0, 0),
     notes: "Be respectful and avoid photographing geiko/maiko without permission.",
     category: "sightseeing",
-    image_url: "https://loremflickr.com/640/480/evening,gion,district,sightseeing",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Wooden%20and%20bamboo%20facades%20of%20dwellings%20with%20sudare%20in%20a%20cobbled%20street%20of%20Gion%2C%20perspective%20effect%20with%20vanishing%20point%2C%20Kyoto%2C%20Japan.jpg?width=800",
     latitude: 35.003700,
     longitude: 135.775200,
     address: "Gion, Higashiyama, Kyoto 605-0074",
@@ -825,11 +825,11 @@ def create_japan_trip(user)
   Activity.create!(
     name: "Visit Fushimi Inari Shrine",
     description: "Thousands of vermillion torii gates winding up the mountain",
-    start_date: DateTime.new(2026, 9, 24, 8, 30, 0),
-    end_date: DateTime.new(2026, 9, 24, 10, 30, 0),
+    start_date: DateTime.new(2026, 9, 8, 8, 30, 0),
+    end_date: DateTime.new(2026, 9, 8, 10, 30, 0),
     notes: "Go early to avoid the biggest crowds.",
     category: "sightseeing",
-    image_url: "https://loremflickr.com/640/480/visit,fushimi,inari,shrine",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Double%20torii%20path%20at%20Fushimi%20Inari%20Taisha%20Shrine%2C%20Kyoto%2C%20Japan.jpg?width=800",
     latitude: 34.967100,
     longitude: 135.772700,
     address: "68 Fukakusa Yabunouchicho, Fushimi, Kyoto 612-0882",
@@ -839,11 +839,11 @@ def create_japan_trip(user)
   Activity.create!(
     name: "Visit Kinkaku-ji (Golden Pavilion)",
     description: "Zen temple covered in gold leaf, reflected in its pond",
-    start_date: DateTime.new(2026, 9, 24, 11, 30, 0),
-    end_date: DateTime.new(2026, 9, 24, 13, 0, 0),
+    start_date: DateTime.new(2026, 9, 8, 11, 30, 0),
+    end_date: DateTime.new(2026, 9, 8, 13, 0, 0),
     notes: nil,
     category: "sightseeing",
-    image_url: "https://loremflickr.com/640/480/visit,kinkakuji,golden,pavilion",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Kinkaku-ji%20in%20November%202016%20-02.jpg?width=800",
     latitude: 35.039400,
     longitude: 135.729200,
     address: "1 Kinkakujicho, Kita, Kyoto 603-8361",
@@ -853,11 +853,11 @@ def create_japan_trip(user)
   Activity.create!(
     name: "Lunch near Kinkaku-ji",
     description: "Soba noodle lunch close to the temple grounds",
-    start_date: DateTime.new(2026, 9, 24, 13, 0, 0),
-    end_date: DateTime.new(2026, 9, 24, 14, 0, 0),
+    start_date: DateTime.new(2026, 9, 8, 13, 0, 0),
+    end_date: DateTime.new(2026, 9, 8, 14, 0, 0),
     notes: nil,
     category: "food",
-    image_url: "https://loremflickr.com/640/480/lunch,kinkakuji,food",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Kinkaku-ji%20in%20November%202016%20-02.jpg?width=800",
     latitude: 35.038500,
     longitude: 135.730000,
     address: "Kinkakuji-cho, Kita, Kyoto 603-8361",
@@ -867,14 +867,14 @@ def create_japan_trip(user)
   Activity.create!(
     name: "Nishiki Market food crawl",
     description: "Kyoto's 'kitchen', a narrow covered market full of food stalls",
-    start_date: DateTime.new(2026, 9, 24, 17, 0, 0),
-    end_date: DateTime.new(2026, 9, 24, 19, 0, 0),
+    start_date: DateTime.new(2026, 9, 8, 17, 0, 0),
+    end_date: DateTime.new(2026, 9, 8, 19, 0, 0),
     notes: "Try the tamagoyaki and matcha sweets stalls.",
     category: "food",
-    image_url: "https://loremflickr.com/640/480/nishiki,market,food,crawl",
-    latitude: 35.005100,
-    longitude: 135.763800,
-    address: "Nishikikoji-dori, Nakagyo, Kyoto 604-8054",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Nishiki%20ichiba%20kyoto.jpg?width=800",
+    latitude: 35.004383,
+    longitude: 135.764940,
+    address: "132 Nishidaimonjicho, Nakagyo-ku, Kyoto 604-8054, Japan",
     trip_day: japan_day_five
   )
 
@@ -883,11 +883,11 @@ def create_japan_trip(user)
   Activity.create!(
     name: "Arashiyama Bamboo Grove walk",
     description: "Walk through the famous towering bamboo path",
-    start_date: DateTime.new(2026, 9, 25, 9, 0, 0),
-    end_date: DateTime.new(2026, 9, 25, 10, 30, 0),
+    start_date: DateTime.new(2026, 9, 9, 9, 0, 0),
+    end_date: DateTime.new(2026, 9, 9, 10, 30, 0),
     notes: "Best light in the early morning.",
     category: "sightseeing",
-    image_url: "https://loremflickr.com/640/480/arashiyama,bamboo,grove,walk",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Bamboo%20Forest%2C%20Arashiyama%2C%20Kyoto%2C%20Japan.jpg?width=800",
     latitude: 35.009400,
     longitude: 135.668300,
     address: "Sagaogurayama Tabuchiyamacho, Ukyo, Kyoto 616-8394",
@@ -897,25 +897,25 @@ def create_japan_trip(user)
   Activity.create!(
     name: "Visit Tenryu-ji Temple",
     description: "UNESCO-listed Zen temple with a landscape garden",
-    start_date: DateTime.new(2026, 9, 25, 10, 30, 0),
-    end_date: DateTime.new(2026, 9, 25, 11, 30, 0),
+    start_date: DateTime.new(2026, 9, 9, 10, 30, 0),
+    end_date: DateTime.new(2026, 9, 9, 11, 30, 0),
     notes: nil,
     category: "sightseeing",
-    image_url: "https://loremflickr.com/640/480/visit,tenryuji,temple,sightseeing",
-    latitude: 35.015600,
-    longitude: 135.674100,
-    address: "68 Susukinotocho, Ukyo, Kyoto 616-8385",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Tenry%C5%AB-ji%20Garten.jpg?width=800",
+    latitude: 35.014668,
+    longitude: 135.677510,
+    address: "68 Susukinobabacho, Saga Tenryuji, Ukyo, Kyoto 616-8385",
     trip_day: japan_day_six
   )
 
   Activity.create!(
     name: "Lunch in Arashiyama",
     description: "Riverside lunch overlooking the Katsura River",
-    start_date: DateTime.new(2026, 9, 25, 12, 0, 0),
-    end_date: DateTime.new(2026, 9, 25, 13, 0, 0),
+    start_date: DateTime.new(2026, 9, 9, 12, 0, 0),
+    end_date: DateTime.new(2026, 9, 9, 13, 0, 0),
     notes: nil,
     category: "food",
-    image_url: "https://loremflickr.com/640/480/lunch,arashiyama,food",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Togetsu-kyo%20bridge%20at%20dusk%2C%20Kyoto%2C%20Japan.jpg?width=800",
     latitude: 35.011500,
     longitude: 135.677600,
     address: "Saga Tenryuji, Ukyo, Kyoto 616-8385",
@@ -925,11 +925,11 @@ def create_japan_trip(user)
   Activity.create!(
     name: "Iwatayama Monkey Park",
     description: "Hike up to a park with wild Japanese macaques and city views",
-    start_date: DateTime.new(2026, 9, 25, 14, 0, 0),
-    end_date: DateTime.new(2026, 9, 25, 15, 30, 0),
+    start_date: DateTime.new(2026, 9, 9, 14, 0, 0),
+    end_date: DateTime.new(2026, 9, 9, 15, 30, 0),
     notes: "Steep-ish walk up, wear comfortable shoes.",
     category: "sightseeing",
-    image_url: "https://loremflickr.com/640/480/iwatayama,monkey,park,sightseeing",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Iwatayama%20Monkey%20Park.jpg?width=800",
     latitude: 35.008600,
     longitude: 135.676700,
     address: "8 Arashiyama Genrokuzancho, Nishikyo, Kyoto 616-0004",
@@ -941,39 +941,39 @@ def create_japan_trip(user)
   Activity.create!(
     name: "Check-out from Kyoto hotel",
     description: "Check out near Kyoto Station",
-    start_date: DateTime.new(2026, 9, 26, 9, 0, 0),
-    end_date: DateTime.new(2026, 9, 26, 9, 30, 0),
+    start_date: DateTime.new(2026, 9, 10, 9, 0, 0),
+    end_date: DateTime.new(2026, 9, 10, 9, 30, 0),
     notes: "Reservation under Marvin.",
     category: "accommodation",
-    image_url: "https://loremflickr.com/640/480/kyoto,hotel,accommodation",
-    latitude: 34.985800,
-    longitude: 135.758800,
-    address: "Karasuma-dori, Shimogyo, Kyoto 600-8216",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Kyoto%20Station%20November%202016%20-03.jpg?width=800",
+    latitude: 34.993000,
+    longitude: 135.759500,
+    address: "Karasuma-dori Shiokoji-sagaru, Shimogyo-ku, Kyoto, Japan",
     trip_day: japan_day_seven
   )
 
   Activity.create!(
     name: "Train to Kansai Airport",
     description: "Haruka express train from Kyoto Station to Kansai International Airport",
-    start_date: DateTime.new(2026, 9, 26, 10, 0, 0),
-    end_date: DateTime.new(2026, 9, 26, 11, 30, 0),
+    start_date: DateTime.new(2026, 9, 10, 10, 0, 0),
+    end_date: DateTime.new(2026, 9, 10, 11, 30, 0),
     notes: "Journey takes about 75 minutes.",
     category: "transportation",
-    image_url: "https://loremflickr.com/640/480/train,kansai,airport,transportation",
-    latitude: 34.434700,
-    longitude: 135.244100,
-    address: "Kansai International Airport, Osaka 549-0011",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Kyoto%20Station%20November%202016%20-03.jpg?width=800",
+    latitude: 34.993000,
+    longitude: 135.759500,
+    address: "Kyoto Station, Karasuma-dori, Shimogyo-ku, Kyoto, Japan",
     trip_day: japan_day_seven
   )
 
   Activity.create!(
     name: "Flight departure from Kansai International Airport",
     description: "Check in and depart for the flight home",
-    start_date: DateTime.new(2026, 9, 26, 13, 0, 0),
-    end_date: DateTime.new(2026, 9, 26, 14, 0, 0),
+    start_date: DateTime.new(2026, 9, 10, 13, 0, 0),
+    end_date: DateTime.new(2026, 9, 10, 14, 0, 0),
     notes: "Arrive at least 3 hours before an international flight.",
     category: "transportation",
-    image_url: "https://loremflickr.com/640/480/flight,departure,kansai,international",
+    image_url: "https://commons.wikimedia.org/wiki/Special:FilePath/Kansai%20International%20Airport%20Terminal%201%20Interior1%202014.jpg?width=800",
     latitude: 34.434700,
     longitude: 135.244100,
     address: "Kansai International Airport, Osaka 549-0011",
