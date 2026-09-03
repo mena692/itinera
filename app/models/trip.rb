@@ -41,6 +41,10 @@ class Trip < ApplicationRecord
     trip_days.sum { |trip_day| trip_day.activities.size }
   end
 
+  def first_activity
+    trip_days.flat_map(&:activities).min_by(&:start_date)
+  end
+
   private
 
   def assign_default_image_url
